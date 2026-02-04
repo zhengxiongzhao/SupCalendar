@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.database import engine
 from app.models.base import Base
-from app.api import records, support
+from app.api import records, support, dashboard
 
 settings = get_settings()
 
@@ -25,6 +25,7 @@ app.add_middleware(
 
 app.include_router(records.router)
 app.include_router(support.router)
+app.include_router(dashboard.router)
 
 
 @app.get("/")
