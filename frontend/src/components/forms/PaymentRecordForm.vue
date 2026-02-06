@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useRecordsStore } from '@/stores/records'
 import { api } from '@/services/api'
-import type { PaymentRecordCreate, Category, PaymentMethod, Direction } from '@/types'
+import type { PaymentRecordCreate, Category, PaymentMethod } from '@/types'
 
 const emit = defineEmits<{
   submit: [data: PaymentRecordCreate]
