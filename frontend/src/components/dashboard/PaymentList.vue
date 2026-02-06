@@ -1,0 +1,84 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import type { PaymentRecord } from '@/types'
+
+interface Props {
+  records: PaymentRecord[]
+}
+
+const props = defineProps<Props>()
+const router = useRouter()
+
+function formatDate(dateStr: string) {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })
+}
+
+function navigateToCreate() {
+  router.push('/create')
+}
+</script>
+
+<template>
+  <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+    <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+      <div>
+        <h2 class="font-bold text-gray-900">收付款 TOP 10</h2>
+        <p class="text-sm text-gray-500 mt-0.5">按金额排序</p>
+      </div>
+      <button 
+        @click="navigateToCreate"
+        class="text-sm text-blue-600 font-medium hover:text-blue-700"
+      >
+        添加
+      </button>
+    </div>
+    
+    <div v-if="records.length === 0" class="p-8 text-center">
+      <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 3.666V14m-6.118 4.25l.677 1.444a1 1 0 001.802 0l.678-1.444M12 21a9 9 0 110-18 9 9 0 010 18z" />
+        </svg>
+      </div>
+      <p class="text-gray-500">暂无收付款记录</p>
+      <button 
+        @click="navigateToCreate"
+        class="mt-3 text-blue-600 font-medium hover:text-blue-700"
+      >
+        添加第一条
+      </button>
+    </div>
+    
+    <div v-else class="divide-y divide-gray-100">
+      <div
+        v-for="record in records"
+        :key="record.id"
+        class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+      >
+        <div 
+          class="w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0"
+          :class="record.direction === 'income' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'"
+        >
+          {{ record.direction === 'income' ? '↗' : '↘' }}
+        </div>
+        
+        <div class="flex-1 min-w-0">
+          <p class="font-medium text-gray-900 truncate">{{ record.name }}</p>
+          <p class="text-sm text-gray-500">{{ record.category }}</p>
+        </div>
+        
+        <div class="text-right">
+          <p 
+            class="font-bold"
+            :class="record.direction === 'income' ? 'text-green-600' : 'text-red-600'"
+          >
+            {{ record.direction === 'income' ? '+' : '-' }}¥{{ record.amount.toLocaleString() }}
+          </p>
+          <p class="text-xs text-gray-400">
+            {{ record.next_occurrence ? formatDate(record.next_occurrence) : '无' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

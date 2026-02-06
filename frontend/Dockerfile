@@ -7,7 +7,7 @@ RUN npm install --silent --legacy-peer-deps
 
 COPY src/ src/
 COPY public/ public/
-COPY index.html vite.config.ts tailwind.config.js tsconfig*.json ./
+COPY index.html vite.config.ts tsconfig*.json ./
 RUN npm run build --silent
 
 FROM node:20-alpine

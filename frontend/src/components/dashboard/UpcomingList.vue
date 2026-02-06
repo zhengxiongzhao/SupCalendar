@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import type { SimpleRecord } from '@/types'
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const router = useRouter()
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr)
@@ -31,9 +33,13 @@ function getPeriodLabel(period: string) {
 }
 
 function getUrgencyClass(days: number) {
-  if (days <= 3) return 'text-red-600 bg-red-50 border-red-200'
-  if (days <= 7) return 'text-amber-600 bg-amber-50 border-amber-200'
-  return 'text-gray-500 bg-gray-50 border-gray-200'
+  if (days <= 3) return 'bg-red-100 text-red-700'
+  if (days <= 7) return 'bg-amber-100 text-amber-700'
+  return 'bg-gray-100 text-gray-600'
+}
+
+function navigateToCreate() {
+  router.push('/create')
 }
 </script>
 
@@ -42,9 +48,12 @@ function getUrgencyClass(days: number) {
     <div class="p-5 border-b border-gray-100 flex items-center justify-between">
       <div>
         <h2 class="font-bold text-gray-900">即将到来</h2>
-        <p class="text-gray-500 text-sm mt-0.5">近期到期的提醒事项</p>
+        <p class="text-sm text-gray-500 mt-0.5">近期提醒事项</p>
       </div>
-      <button class="text-sm text-blue-600 font-medium hover:text-blue-700">
+      <button 
+        @click="navigateToCreate"
+        class="text-sm text-blue-600 font-medium hover:text-blue-700"
+      >
         添加
       </button>
     </div>
@@ -56,7 +65,10 @@ function getUrgencyClass(days: number) {
         </svg>
       </div>
       <p class="text-gray-500">暂无即将到来的记录</p>
-      <button class="mt-3 text-blue-600 font-medium hover:text-blue-700">
+      <button 
+        @click="navigateToCreate"
+        class="mt-3 text-blue-600 font-medium hover:text-blue-700"
+      >
         添加提醒
       </button>
     </div>
@@ -72,7 +84,7 @@ function getUrgencyClass(days: number) {
         </div>
         
         <div class="flex-1 min-w-0">
-          <h3 class="font-medium text-gray-900">{{ record.name }}</h3>
+          <p class="font-medium text-gray-900 truncate">{{ record.name }}</p>
           <p class="text-sm text-gray-500">{{ getPeriodLabel(record.period) }}</p>
         </div>
         
@@ -81,7 +93,7 @@ function getUrgencyClass(days: number) {
             {{ formatDate(record.time) }}
           </p>
           <span 
-            class="inline-block px-2 py-0.5 rounded-full text-xs font-medium border"
+            class="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
             :class="getUrgencyClass(daysUntil(record.time))"
           >
             {{ daysUntil(record.time) }} 天后
