@@ -28,11 +28,8 @@
 ### 使用 Docker Compose（推荐）
 
 ```bash
-# 复制环境变量文件
-cp .env.example .env
-
 # 启动服务
-docker-compose up -d
+docker-compose up -d --build
 
 # 前端: http://localhost:3000
 # 后端 API: http://localhost:8000
@@ -77,6 +74,19 @@ supcalandar/
 ## 设计文档
 
 完整的设计文档位于 `docs/plans/2026-02-04-supcalandar-design.md`
+
+## 开发状态
+
+| 功能模块 | 状态 |
+|---------|------|
+| 项目初始化 | ✅ |
+| 数据模型与 CRUD | ✅ |
+| Dashboard | ✅ |
+| 日历功能 | ✅ |
+| 添加记录表单 | ✅ |
+| iCal 订阅 | ✅ |
+| CalDAV 双向同步 | ⏳（基础架构已实现） |
+| WebSocket 实时更新 | ⏳（基础架构已实现） |
 
 ## 许可证
 
