@@ -11,61 +11,49 @@ router = APIRouter(prefix="/calendar", tags=["calendar"])
 
 
 def get_record_date(record: BaseRecord) -> datetime:
-    if record.type == "simple":
-        return (record as SimpleRecord).time
-    elif record.type == "payment":
-        return (record as PaymentRecord).start_time
+    if isinstance(record, SimpleRecord):
+        return datetime.fromisoformat(record.time)
+    elif isinstance(record, PaymentRecord):
+        return datetime.fromisoformat(record.start_time)
     else:
-        return record.created_at
+        return datetime.fromisoformat(record.created_at)
 
 
 @router.get("/records")
 def get_calendar_records(
-    start_date: datetime,
-    end_date: datetime,
-    db: Session = Depends(get_db)
+    start_date: datetime, end_date: datetime, db: Session = Depends(get_db)
 ):
-    records = db.query(BaseRecord).filter(
-        BaseRecord.created_at >= start_date,
-        BaseRecord.created_at <= end_date
-    ).all()
+    records = (
+        db.query(BaseRecord)
+        .filter(BaseRecord.created_at >= start_date, BaseRecord.created_at <= end_date)
+        .all()
+    )
 
     result = []
     for record in records:
-        event = {
-            "id": record.id,
-            "date": get_record_date(record),
-            "record": record
-        }
+        event = {"id": record.id, "date": get_record_date(record), "record": record}
         result.append(event)
 
     return result
 
 
 @router.get("/month/{year}/{month}")
-def get_month_records(
-    year: int,
-    month: int,
-    db: Session = Depends(get_db)
-):
+def get_month_records(year: int, month: int, db: Session = Depends(get_db)):
     start_date = datetime(year, month, 1)
     if month == 12:
         end_date = datetime(year + 1, 1, 1) - timedelta(days=1)
     else:
         end_date = datetime(year, month + 1, 1) - timedelta(days=1)
 
-    records = db.query(BaseRecord).filter(
-        BaseRecord.created_at >= start_date,
-        BaseRecord.created_at <= end_date
-    ).all()
+    records = (
+        db.query(BaseRecord)
+        .filter(BaseRecord.created_at >= start_date, BaseRecord.created_at <= end_date)
+        .all()
+    )
 
     result = []
     for record in records:
-        event = {
-            "id": record.id,
-            "date": get_record_date(record),
-            "record": record
-        }
+        event = {"id": record.id, "date": get_record_date(record), "record": record}
         result.append(event)
 
     return result
@@ -92,6 +80,6 @@ def get_ical_feed(token: str, db: Session = Depends(get_db)):
         media_type="text/calendar",
         headers={
             "Content-Disposition": 'attachment; filename="supcal.ics"',
-            "Cache-Control": "no-cache, no-store, must-revalidate"
-        }
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
     )
