@@ -19,4 +19,4 @@ RUN npm install --silent --production serve
 
 EXPOSE 3000
 
-CMD ["npm", "run", "serve", "-s", ".", "-l", "3000"]
+CMD ["npx", "serve", "-s", "dist", "-l", "3000"]

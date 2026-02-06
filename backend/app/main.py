@@ -23,10 +23,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(records.router)
-app.include_router(support.router)
-app.include_router(dashboard.router)
-app.include_router(calendar.router)
+# Create an API router with version prefix
+from fastapi import APIRouter
+
+api_router = APIRouter(prefix="/api/v1")
+
+api_router.include_router(records.router)
+api_router.include_router(support.router)
+api_router.include_router(dashboard.router)
+api_router.include_router(calendar.router)
+
+app.include_router(api_router)
 
 
 @app.get("/")
