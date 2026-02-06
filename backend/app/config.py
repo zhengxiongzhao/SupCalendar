@@ -1,22 +1,28 @@
-from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
 from functools import lru_cache
 from typing import List
+import os
+
+load_dotenv()
 
 
-class Settings(BaseSettings):
-    database_type: str = "sqlite"
-    database_url: str = "sqlite:///./sqlite_data/supcal.db"
-    secret_key: str = "change-me-in-production"
-    allowed_origins: List[str] = ["http://localhost:3000"]
+class Settings:
+    database_type: str = os.getenv("DATABASE_TYPE", "sqlite")
+    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./sqlite_data/supcal.db")
+    secret_key: str = os.getenv("SECRET_KEY", "change-me-in-production")
+    allowed_origins: List[str] = os.getenv(
+        "ALLOWED_ORIGINS", "http://localhost:3000"
+    ).split(",")
 
-    google_client_id: str = ""
-    google_client_secret: str = ""
-    google_redirect_uri: str = "http://localhost:8000/api/v1/calendar/callback/google"
+    google_client_id: str = os.getenv("GOOGLE_CLIENT_ID", "")
+    google_client_secret: str = os.getenv("GOOGLE_CLIENT_SECRET", "")
+    google_redirect_uri: str = os.getenv(
+        "GOOGLE_REDIRECT_URI", "http://localhost:8000/api/v1/calendar/callback/google"
+    )
 
-    subscription_token_expiry_hours: int = 24 * 30  # 30 days
-
-    class Config:
-        env_file = ".env"
+    subscription_token_expiry_hours: int = int(
+        os.getenv("SUBSCRIPTION_TOKEN_EXPIRY_HOURS", "720")
+    )
 
 
 @lru_cache()
