@@ -15,9 +15,8 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY --from=builder /app/dist ./dist
-COPY package*.json ./
-RUN npm install --silent --production
+RUN npm install --silent --production serve
 
 EXPOSE 3000
 
-CMD ["npm", "run", "preview"]
+CMD ["npm", "run", "serve", "-s", ".", "-l", "3000"]
