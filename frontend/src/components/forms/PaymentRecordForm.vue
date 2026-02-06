@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, onMounted, computed, watch } from 'vue'
 import { useRecordsStore } from '@/stores/records'
 import { api } from '@/services/api'
 import ComboInput from '@/components/common/ComboInput.vue'
@@ -40,6 +40,59 @@ const periods: { value: PeriodType; label: string }[] = [
 const categoryOptions = computed(() => categories.value.map(c => c.name))
 const paymentMethodOptions = computed(() => paymentMethods.value.map(m => m.name))
 
+const isEndTimeManuallySet = ref(false)
+
+function calculateEndTime(startTime: string, period: PeriodType): string {
+  if (!startTime) return ''
+  
+  // 解析日期部分，忽略时间
+  const startDate = new Date(startTime)
+  const year = startDate.getFullYear()
+  const month = startDate.getMonth()
+  const date = startDate.getDate()
+  
+  // 创建新的日期对象，只保留日期部分（时间设为 00:00）
+  const end = new Date(year, month, date)
+  
+  switch (period) {
+    case 'natural-month':
+      end.setMonth(end.getMonth() + 1)
+      break
+    case 'membership-month':
+      end.setMonth(end.getMonth() + 1)
+      break
+    case 'quarter':
+      end.setMonth(end.getMonth() + 3)
+      break
+    case 'year':
+      end.setFullYear(end.getFullYear() + 1)
+      break
+  }
+  
+  // 转换为本地时间的 ISO 字符串格式
+  const endYear = end.getFullYear()
+  const endMonth = String(end.getMonth() + 1).padStart(2, '0')
+  const endDate = String(end.getDate()).padStart(2, '0')
+  
+  return `${endYear}-${endMonth}-${endDate}T00:00`
+}
+
+watch(() => form.period, (newPeriod) => {
+  if (form.start_time && !isEndTimeManuallySet.value) {
+    form.end_time = calculateEndTime(form.start_time, newPeriod)
+  }
+})
+
+watch(() => form.start_time, (newStartTime) => {
+  if (newStartTime && !isEndTimeManuallySet.value) {
+    form.end_time = calculateEndTime(newStartTime, form.period)
+  }
+})
+
+function onEndTimeInput() {
+  isEndTimeManuallySet.value = true
+}
+
 onMounted(async () => {
   try {
     const [cats, methods] = await Promise.all([
@@ -52,6 +105,11 @@ onMounted(async () => {
     console.error('Failed to load data:', e)
   } finally {
     isLoadingData.value = false
+  }
+  
+  // 初始化时自动计算结束时间
+  if (form.start_time && !form.end_time) {
+    form.end_time = calculateEndTime(form.start_time, form.period)
   }
 })
 
@@ -103,6 +161,10 @@ function resetForm() {
   form.start_time = new Date().toISOString().slice(0, 16)
   form.end_time = ''
   form.notes = ''
+  isEndTimeManuallySet.value = false
+  
+  // 重置后自动计算结束时间
+  form.end_time = calculateEndTime(form.start_time, form.period)
 }
 </script>
 
@@ -213,12 +275,16 @@ function resetForm() {
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">
-          结束时间（可选）
+          结束时间
+          <span v-if="!isEndTimeManuallySet && form.end_time" class="text-xs text-green-600 ml-2">(自动计算)</span>
+          <span v-else class="text-xs text-gray-400 ml-2">(可手动修改)</span>
         </label>
         <input
           v-model="form.end_time"
+          @input="onEndTimeInput"
           type="datetime-local"
           class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
+          :class="{ 'bg-green-50 border-green-200': !isEndTimeManuallySet && form.end_time }"
         />
       </div>
     </div>

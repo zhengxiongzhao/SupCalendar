@@ -67,3 +67,7 @@ export interface PaymentRecordCreate {
   end_time?: string
   notes?: string
 }
+
+export type SimpleRecordUpdate = Partial<SimpleRecordCreate>
+
+export type PaymentRecordUpdate = Partial<PaymentRecordCreate>

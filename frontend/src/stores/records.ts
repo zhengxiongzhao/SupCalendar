@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { api } from '@/services/api'
-import type { Record, SimpleRecord, PaymentRecord, SimpleRecordCreate, PaymentRecordCreate } from '@/types'
+import type { Record, SimpleRecord, PaymentRecord, SimpleRecordCreate, PaymentRecordCreate, SimpleRecordUpdate, PaymentRecordUpdate } from '@/types'
 
 export const useRecordsStore = defineStore('records', () => {
   const records = ref<Record[]>([])
@@ -46,6 +46,28 @@ export const useRecordsStore = defineStore('records', () => {
     records.value = records.value.filter(r => r.id !== id)
   }
 
+  async function updateSimpleRecord(id: string, data: SimpleRecordUpdate) {
+    const record = await api.put<SimpleRecord>(`/api/v1/records/simple/${id}`, data)
+    const index = records.value.findIndex(r => r.id === id)
+    if (index !== -1) {
+      records.value[index] = record
+    }
+    return record
+  }
+
+  async function updatePaymentRecord(id: string, data: PaymentRecordUpdate) {
+    const record = await api.put<PaymentRecord>(`/api/v1/records/payment/${id}`, data)
+    const index = records.value.findIndex(r => r.id === id)
+    if (index !== -1) {
+      records.value[index] = record
+    }
+    return record
+  }
+
+  function getRecordById(id: string): Record | undefined {
+    return records.value.find(r => r.id === id)
+  }
+
   return {
     records,
     loading,
@@ -56,5 +78,8 @@ export const useRecordsStore = defineStore('records', () => {
     createSimpleRecord,
     createPaymentRecord,
     deleteRecord,
+    updateSimpleRecord,
+    updatePaymentRecord,
+    getRecordById,
   }
 })
