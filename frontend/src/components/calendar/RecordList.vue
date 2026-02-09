@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { Record, PaymentRecord, SimpleRecord } from '@/types'
+import type { CalendarRecord, PaymentRecord, SimpleRecord } from '@/types'
 
 interface Props {
   date: Date
-  records: Record[]
+  records: CalendarRecord[]
 }
 
 const props = defineProps<Props>()
 
 function formatDate(date: Date) {
-  return date.toLocaleDateString('zh-CN', { 
-    year: 'numeric', 
-    month: 'long', 
+  return date.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
     day: 'numeric',
     weekday: 'short'
   })
@@ -22,7 +22,7 @@ function formatTime(dateStr: string) {
   return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
 }
 
-function getIcon(record: Record) {
+function getIcon(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
     return r.direction === 'income' ? '↗' : '↘'
@@ -30,17 +30,17 @@ function getIcon(record: Record) {
   return '📌'
 }
 
-function getIconBgClass(record: Record) {
+function getIconBgClass(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
-    return r.direction === 'income' 
-      ? 'bg-green-100 text-green-600' 
+    return r.direction === 'income'
+      ? 'bg-green-100 text-green-600'
       : 'bg-red-100 text-red-600'
   }
   return 'bg-blue-100 text-blue-600'
 }
 
-function getAmountClass(record: Record) {
+function getAmountClass(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
     return r.direction === 'income' ? 'text-green-600' : 'text-red-600'
@@ -48,7 +48,7 @@ function getAmountClass(record: Record) {
   return 'text-amber-600'
 }
 
-function getAmount(record: Record) {
+function getAmount(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
     return (r.direction === 'income' ? '+' : '-') + '¥' + r.amount.toLocaleString()

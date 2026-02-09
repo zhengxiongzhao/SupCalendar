@@ -1,20 +1,35 @@
 <script setup lang="ts">
-import { onMounted, computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useRecordsStore } from '@/stores/records'
-import type { SimpleRecord, PaymentRecord } from '@/types'
+import type { SimpleRecord, PaymentRecord, CalendarRecord } from '@/types'
 
+const route = useRoute()
 const router = useRouter()
 const recordsStore = useRecordsStore()
 const filter = ref<'all' | 'payment' | 'simple'>('all')
 
 onMounted(async () => {
+  // 从 URL query 参数读取筛选条件
+  const filterParam = route.query.filter as string
+  if (filterParam && ['payment', 'simple'].includes(filterParam)) {
+    filter.value = filterParam as 'payment' | 'simple'
+  }
   await recordsStore.fetchRecords()
+})
+
+// 监听筛选变化，更新 URL
+watch(filter, (newFilter) => {
+  if (newFilter === 'all') {
+    router.replace({ query: {} })
+  } else {
+    router.replace({ query: { filter: newFilter } })
+  }
 })
 
 const filteredRecords = computed(() => {
   if (filter.value === 'all') return recordsStore.records
-  return recordsStore.records.filter(r => r.type === filter.value)
+  return recordsStore.records.filter((r): r is CalendarRecord => r.type === filter.value)
 })
 
 function formatDate(dateStr: string) {
@@ -140,7 +155,8 @@ function navigateToEdit(id: string) {
       <div
         v-for="record in filteredRecords"
         :key="record.id"
-        class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors group"
+        @click="navigateToEdit(record.id)"
+        class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors group cursor-pointer"
       >
         <div 
           class="w-12 h-12 rounded-full flex items-center justify-center text-xl flex-shrink-0"
@@ -168,7 +184,7 @@ function navigateToEdit(id: string) {
         
         <div class="flex items-center gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
           <button
-            @click="navigateToEdit(record.id)"
+            @click.stop="navigateToEdit(record.id)"
             class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,7 +192,7 @@ function navigateToEdit(id: string) {
             </svg>
           </button>
           <button
-            @click="deleteRecord(record.id)"
+            @click.stop="deleteRecord(record.id)"
             class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

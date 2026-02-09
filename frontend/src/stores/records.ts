@@ -1,14 +1,14 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { api } from '@/services/api'
-import type { Record, SimpleRecord, PaymentRecord, SimpleRecordCreate, PaymentRecordCreate, SimpleRecordUpdate, PaymentRecordUpdate } from '@/types'
+import type { CalendarRecord, SimpleRecord, PaymentRecord, SimpleRecordCreate, PaymentRecordCreate, SimpleRecordUpdate, PaymentRecordUpdate } from '@/types'
 
 export const useRecordsStore = defineStore('records', () => {
-  const records = ref<Record[]>([])
+  const records = ref<CalendarRecord[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  const payments = computed(() => 
+  const payments = computed(() =>
     records.value.filter((r): r is PaymentRecord => r.type === 'payment')
   )
 
@@ -20,7 +20,7 @@ export const useRecordsStore = defineStore('records', () => {
     loading.value = true
     error.value = null
     try {
-      records.value = await api.get<Record[]>('/api/v1/records')
+      records.value = await api.get<CalendarRecord[]>('/api/v1/records')
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to fetch records'
       throw e
@@ -64,7 +64,7 @@ export const useRecordsStore = defineStore('records', () => {
     return record
   }
 
-  function getRecordById(id: string): Record | undefined {
+  function getRecordById(id: string): CalendarRecord | undefined {
     return records.value.find(r => r.id === id)
   }
 

@@ -17,6 +17,7 @@ export interface SimpleRecord extends BaseRecord {
   time: string
   period: PeriodType
   description?: string
+  next_occurrence?: string
 }
 
 export interface PaymentRecord extends BaseRecord {
@@ -34,7 +35,7 @@ export interface PaymentRecord extends BaseRecord {
   next_occurrence?: string
 }
 
-export type Record = SimpleRecord | PaymentRecord
+export type CalendarRecord = SimpleRecord | PaymentRecord
 
 export interface Category {
   id: string

@@ -17,6 +17,14 @@ function formatDate(dateStr: string) {
 function navigateToCreate() {
   router.push('/create')
 }
+
+function navigateToEdit(id: string) {
+  router.push(`/edit/${id}`)
+}
+
+function navigateToRecords() {
+  router.push('/records?filter=payment')
+}
 </script>
 
 <template>
@@ -26,11 +34,11 @@ function navigateToCreate() {
         <h2 class="font-bold text-gray-900">收付款 TOP 10</h2>
         <p class="text-sm text-gray-500 mt-0.5">按金额排序</p>
       </div>
-      <button 
-        @click="navigateToCreate"
+      <button
+        @click="navigateToRecords"
         class="text-sm text-blue-600 font-medium hover:text-blue-700"
       >
-        添加
+        查看全部
       </button>
     </div>
     
@@ -41,11 +49,11 @@ function navigateToCreate() {
         </svg>
       </div>
       <p class="text-gray-500">暂无收付款记录</p>
-      <button 
+      <button
         @click="navigateToCreate"
         class="mt-3 text-blue-600 font-medium hover:text-blue-700"
       >
-        添加第一条
+        添加一条
       </button>
     </div>
     
@@ -53,7 +61,8 @@ function navigateToCreate() {
       <div
         v-for="record in records"
         :key="record.id"
-        class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+        @click="navigateToEdit(record.id)"
+        class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors cursor-pointer"
       >
         <div 
           class="w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0"

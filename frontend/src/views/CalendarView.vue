@@ -18,9 +18,9 @@ onMounted(async () => {
 })
 
 const calendarEvents = computed(() => {
-  return recordsStore.records.map(record => {
-    const dateStr = record.type === 'simple' 
-      ? (record as SimpleRecord).time 
+  return recordsStore.records.map((record): { date: Date } => {
+    const dateStr = record.type === 'simple'
+      ? (record as SimpleRecord).time
       : (record as PaymentRecord).start_time
     return { date: new Date(dateStr) }
   })
@@ -28,7 +28,7 @@ const calendarEvents = computed(() => {
 
 const selectedDateRecords = computed(() => {
   const dateStr = selectedDate.value.toDateString()
-  return recordsStore.records.filter(record => {
+  return recordsStore.records.filter((record): boolean => {
     const recordDateStr = record.type === 'simple'
       ? new Date((record as SimpleRecord).time).toDateString()
       : new Date((record as PaymentRecord).start_time).toDateString()

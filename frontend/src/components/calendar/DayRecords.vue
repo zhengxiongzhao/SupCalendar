@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Record, SimpleRecord, PaymentRecord } from '@/types'
+import type { CalendarRecord, SimpleRecord, PaymentRecord } from '@/types'
 
 interface Props {
   date: Date
-  records: Record[]
+  records: CalendarRecord[]
 }
 
 const props = defineProps<Props>()
@@ -24,7 +24,7 @@ function formatTime(dateStr: string) {
   return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
 }
 
-function getRecordIcon(record: Record) {
+function getRecordIcon(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
     return r.direction === 'income' ? '↗' : '↘'
@@ -32,17 +32,17 @@ function getRecordIcon(record: Record) {
   return '📅'
 }
 
-function getRecordColor(record: Record) {
+function getRecordColor(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
-    return r.direction === 'income' 
-      ? 'bg-green-100 text-green-700' 
+    return r.direction === 'income'
+      ? 'bg-green-100 text-green-700'
       : 'bg-red-100 text-red-700'
   }
-  return 'bg-blue-100 text-blue-700'
+  return 'bg-blue-100 text-blue-600'
 }
 
-function getRecordAmount(record: Record) {
+function getRecordAmount(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
     return (r.direction === 'income' ? '+' : '-') + '¥' + r.amount.toLocaleString()

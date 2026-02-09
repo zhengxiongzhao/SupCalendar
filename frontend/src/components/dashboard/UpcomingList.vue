@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import type { SimpleRecord } from '@/types'
+import type { CalendarRecord, SimpleRecord, PaymentRecord } from '@/types'
 
 interface Props {
-  records: SimpleRecord[]
+  records: CalendarRecord[]
 }
 
 const props = defineProps<Props>()
@@ -38,8 +38,49 @@ function getUrgencyClass(days: number) {
   return 'bg-gray-100 text-gray-600'
 }
 
+function getRecordIcon(record: CalendarRecord) {
+  if (record.type === 'payment') {
+    return (record as PaymentRecord).direction === 'income' ? '↗' : '↘'
+  }
+  return '📅'
+}
+
+function getRecordColor(record: CalendarRecord) {
+  if (record.type === 'payment') {
+    const r = record as PaymentRecord
+    return r.direction === 'income'
+      ? 'bg-green-100 text-green-700'
+      : 'bg-red-100 text-red-700'
+  }
+  return 'bg-blue-100 text-blue-600'
+}
+
+function getRecordSubtitle(record: CalendarRecord) {
+  if (record.type === 'payment') {
+    return (record as PaymentRecord).category
+  }
+  return getPeriodLabel((record as SimpleRecord).period)
+}
+
+function getDisplayTime(record: CalendarRecord): string {
+  if (record.next_occurrence) {
+    return record.next_occurrence
+  }
+  return record.type === 'payment'
+    ? (record as PaymentRecord).next_occurrence || (record as PaymentRecord).start_time
+    : (record as SimpleRecord).time
+}
+
 function navigateToCreate() {
   router.push('/create')
+}
+
+function navigateToEdit(id: string) {
+  router.push(`/edit/${id}`)
+}
+
+function navigateToRecords() {
+  router.push('/records')
 }
 </script>
 
@@ -50,14 +91,14 @@ function navigateToCreate() {
         <h2 class="font-bold text-gray-900">即将到来</h2>
         <p class="text-sm text-gray-500 mt-0.5">近期提醒事项</p>
       </div>
-      <button 
-        @click="navigateToCreate"
+      <button
+        @click="navigateToRecords"
         class="text-sm text-blue-600 font-medium hover:text-blue-700"
       >
-        添加
+        查看全部
       </button>
     </div>
-    
+
     <div v-if="records.length === 0" class="p-8 text-center">
       <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
         <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,38 +106,42 @@ function navigateToCreate() {
         </svg>
       </div>
       <p class="text-gray-500">暂无即将到来的记录</p>
-      <button 
+      <button
         @click="navigateToCreate"
         class="mt-3 text-blue-600 font-medium hover:text-blue-700"
       >
         添加提醒
       </button>
     </div>
-    
+
     <div v-else class="divide-y divide-gray-100">
       <div
         v-for="record in records"
         :key="record.id"
-        class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+        @click="navigateToEdit(record.id)"
+        class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors cursor-pointer"
       >
-        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-lg flex-shrink-0">
-          📅
+        <div
+          class="w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0"
+          :class="getRecordColor(record)"
+        >
+          {{ getRecordIcon(record) }}
         </div>
-        
+
         <div class="flex-1 min-w-0">
           <p class="font-medium text-gray-900 truncate">{{ record.name }}</p>
-          <p class="text-sm text-gray-500">{{ getPeriodLabel(record.period) }}</p>
+          <p class="text-sm text-gray-500">{{ getRecordSubtitle(record) }}</p>
         </div>
-        
+
         <div class="text-right">
           <p class="font-medium text-gray-900">
-            {{ formatDate(record.time) }}
+            {{ formatDate(getDisplayTime(record)) }}
           </p>
-          <span 
+          <span
             class="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
-            :class="getUrgencyClass(daysUntil(record.time))"
+            :class="getUrgencyClass(daysUntil(getDisplayTime(record)))"
           >
-            {{ daysUntil(record.time) }} 天后
+            {{ daysUntil(getDisplayTime(record)) }} 天后
           </span>
         </div>
       </div>

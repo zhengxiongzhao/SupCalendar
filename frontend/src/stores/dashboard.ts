@@ -1,11 +1,11 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { api } from '@/services/api'
-import type { SimpleRecord, PaymentRecord } from '@/types'
+import type { PaymentRecord, CalendarRecord } from '@/types'
 
 export const useDashboardStore = defineStore('dashboard', () => {
   const topPayments = ref<PaymentRecord[]>([])
-  const upcomingSimples = ref<SimpleRecord[]>([])
+  const upcomingSimples = ref<CalendarRecord[]>([])
   const summary = ref<{ income: number; expense: number; balance: number } | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -29,7 +29,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
     loading.value = true
     error.value = null
     try {
-      upcomingSimples.value = await api.get<SimpleRecord[]>('/api/v1/dashboard/upcoming-simples')
+      upcomingSimples.value = await api.get<CalendarRecord[]>('/api/v1/dashboard/upcoming-simples')
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to fetch upcoming records'
       throw e
