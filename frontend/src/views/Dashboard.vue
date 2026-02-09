@@ -78,7 +78,7 @@ function navigateToCalendar() {
     </div>
 
     <template v-else>
-      <div v-if="dashboard.summary" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div v-if="dashboard.summary" class="grid grid-cols-2 gap-4">
         <SummaryCard
           title="本月收入"
           :amount="dashboard.summary.income"
@@ -90,12 +90,6 @@ function navigateToCalendar() {
           :amount="dashboard.summary.expense"
           type="expense"
           icon="↘"
-        />
-        <SummaryCard
-          title="当前结余"
-          :amount="dashboard.summary.balance"
-          type="balance"
-          icon="💰"
         />
       </div>
 

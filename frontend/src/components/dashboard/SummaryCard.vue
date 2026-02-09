@@ -22,15 +22,15 @@ const iconBgColors = {
 </script>
 
 <template>
-  <div class="p-5 rounded-2xl border transition-all duration-200 hover:shadow-md" :class="colors[type]">
-    <div class="flex items-center justify-between">
-      <div>
-        <p class="text-sm font-medium opacity-80">{{ title }}</p>
-        <p class="text-2xl font-bold mt-1">
+  <div class="p-3 rounded-xl border transition-all duration-200 hover:shadow-md" :class="colors[type]">
+    <div class="flex items-center justify-between gap-2">
+      <div class="min-w-0">
+        <p class="text-xs font-medium opacity-70">{{ title }}</p>
+        <p class="text-lg font-bold mt-0.5 truncate">
           ¥{{ amount.toLocaleString() }}
         </p>
       </div>
-      <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" :class="iconBgColors[type]">
+      <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0" :class="iconBgColors[type]">
         {{ icon }}
       </div>
     </div>
