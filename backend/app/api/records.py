@@ -39,6 +39,7 @@ def create_payment_record(data: PaymentRecordCreate, db: Session = Depends(get_d
         start_time=data.start_time,
         end_time=data.end_time,
         notes=data.notes,
+        currency=data.currency,
     )
     db.add(db_record)
     db.commit()
@@ -106,6 +107,7 @@ def update_payment_record(
     record.start_time = data.start_time
     record.end_time = data.end_time
     record.notes = data.notes
+    record.currency = data.currency
 
     db.commit()
     db.refresh(record)

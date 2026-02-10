@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CalendarRecord, PaymentRecord, SimpleRecord } from '@/types'
+import { CURRENCY_SYMBOLS } from '@/types'
 
 interface Props {
   date: Date
@@ -48,10 +49,16 @@ function getAmountClass(record: CalendarRecord) {
   return 'text-amber-600'
 }
 
+function formatAmount(amount: number, currency: string) {
+  const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS] || '¥'
+  const formattedAmount = amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
+  return `${symbol}${formattedAmount}`
+}
+
 function getAmount(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
-    return (r.direction === 'income' ? '+' : '-') + '¥' + r.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
+    return (r.direction === 'income' ? '+' : '-') + formatAmount(r.amount, r.currency || 'CNY')
   }
   return '提醒'
 }

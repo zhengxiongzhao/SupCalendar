@@ -115,6 +115,110 @@
 
 ---
 
+## 2026-02-10 金额可以为 0 + 货币类型支持
+
+### 1. 金额可以为 0
+
+**需求描述：**
+- 收付款记录的金额允许设置为 0
+- 当前验证逻辑阻止了金额为 0（`amount <= 0`）
+- 需要修改验证条件为 `amount < 0`
+
+**实现状态：** ✅ 已完成
+
+**修改文件：**
+- `frontend/src/components/forms/PaymentRecordForm.vue`
+- `frontend/src/views/EditRecord.vue`
+
+**修改内容：**
+```typescript
+// 修改前
+if (form.amount <= 0) {
+  error.value = '请输入有效金额'
+  return
+}
+
+// 修改后
+if (form.amount < 0) {
+  error.value = '请输入有效金额'
+  return
+}
+```
+
+---
+
+### 2. 支持货币类型（CNY / USD）
+
+**需求描述：**
+- 允许用户选择货币类型：CNY（人民币）或 USD（美元）
+- 货币符号动态显示（¥ 或 $）
+- 每个记录可以独立设置货币类型
+
+**实现状态：** ✅ 已完成
+
+**修改文件：**
+
+**后端：**
+- `backend/app/models/record.py` - PaymentRecord 模型添加 `currency` 字段
+- `backend/app/schemas/record.py` - PaymentRecordCreate/Update/Response 添加 `currency` 字段
+- `backend/app/api/records.py` - 创建和更新函数处理 `currency` 字段
+
+**前端：**
+- `frontend/src/types/index.ts` - 添加 Currency 类型、CURRENCY_SYMBOLS、CURRENCY_OPTIONS
+- `frontend/src/components/forms/PaymentRecordForm.vue` - 添加货币选择器
+- `frontend/src/views/EditRecord.vue` - 添加货币选择器和加载逻辑
+- `frontend/src/components/dashboard/TopPayments.vue` - 支持动态货币符号
+- `frontend/src/components/dashboard/PaymentList.vue` - 支持动态货币符号
+- `frontend/src/views/RecordsList.vue` - 支持动态货币符号
+- `frontend/src/components/calendar/DayRecords.vue` - 支持动态货币符号
+- `frontend/src/components/calendar/RecordList.vue` - 支持动态货币符号
+
+**实现内容：**
+
+1. **数据库模型：**
+```python
+# PaymentRecord 添加字段
+currency = Column(String(3), default='CNY')
+```
+
+2. **类型定义：**
+```typescript
+export type Currency = 'CNY' | 'USD'
+
+export const CURRENCY_SYMBOLS: Record<Currency, string> = {
+  'CNY': '¥',
+  'USD': '$',
+}
+
+export const CURRENCY_OPTIONS: { value: Currency; label: string; symbol: string }[] = [
+  { value: 'CNY', label: '人民币', symbol: '¥' },
+  { value: 'USD', label: '美元', symbol: '$' },
+]
+```
+
+3. **表单添加货币选择器：**
+- 两个按钮：CNY 和 USD
+- 默认选中 CNY
+- 可视化样式：选中时蓝色边框
+
+4. **金额显示格式化：**
+```typescript
+function formatAmount(amount: number, currency: string) {
+  const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS] || '¥'
+  const formattedAmount = amount.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 6
+  })
+  return `${symbol}${formattedAmount}`
+}
+```
+
+**注意：**
+- SummaryCard.vue 未修改，因为它用于 Dashboard 统计卡片，暂时只显示单一货币的统计
+- 后端重启后自动应用数据库模型更改
+
+---
+
 ## 后续改进建议
 
 1. **记录列表页**:

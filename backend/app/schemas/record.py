@@ -21,6 +21,7 @@ class PaymentRecordCreate(BaseModel):
     start_time: datetime
     end_time: datetime | None = None
     notes: str | None = None
+    currency: str = "CNY"
 
 
 class SimpleRecordUpdate(BaseModel):
@@ -41,6 +42,7 @@ class PaymentRecordUpdate(BaseModel):
     start_time: datetime
     end_time: datetime | None = None
     notes: str | None = None
+    currency: str = "CNY"
 
 
 class CustomRecordCreate(BaseModel):
@@ -78,3 +80,4 @@ class PaymentRecordResponse(RecordResponse):
     start_time: datetime
     end_time: datetime | None
     notes: str | None
+    currency: str

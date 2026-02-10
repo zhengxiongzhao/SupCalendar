@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PaymentRecord } from '@/types'
+import { CURRENCY_SYMBOLS } from '@/types'
 
 interface Props {
   records: PaymentRecord[]
@@ -14,6 +15,12 @@ function formatDate(dateStr: string) {
 
 function getIcon(direction: 'income' | 'expense') {
   return direction === 'income' ? '↗' : '↘'
+}
+
+function formatAmount(amount: number, currency: string) {
+  const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS] || '¥'
+  const formattedAmount = amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
+  return `${symbol}${formattedAmount}`
 }
 </script>
 
@@ -57,7 +64,7 @@ function getIcon(direction: 'income' | 'expense') {
               </span>
             </td>
             <td class="py-3 px-4 text-right font-mono font-bold" :class="record.direction === 'income' ? 'text-green-600' : 'text-red-600'">
-              {{ record.direction === 'income' ? '+' : '-' }}¥{{ record.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }}
+              {{ record.direction === 'income' ? '+' : '-' }}{{ formatAmount(record.amount, record.currency) }}
             </td>
             <td class="py-3 px-4 text-sm text-gray-500">
               <div class="flex items-center gap-2">

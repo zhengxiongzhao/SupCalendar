@@ -12,6 +12,7 @@ import type {
   SimpleRecord,
   PaymentRecord
 } from '@/types'
+import { CURRENCY_OPTIONS } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -30,11 +31,12 @@ const form = reactive({
   category: '',
   amount: 0,
   payment_method: '',
-  period: 'natural-month' as PeriodType,
+  period: 'month' as PeriodType,
   time: new Date().toISOString().slice(0, 16),
   start_time: new Date().toISOString().slice(0, 16),
   end_time: '',
   notes: '',
+  currency: 'CNY',
 })
 
 const categories = ref<Category[]>([])
@@ -42,9 +44,10 @@ const paymentMethods = ref<PaymentMethod[]>([])
 const isEndTimeManuallySet = ref(false)
 
 const periods: { value: PeriodType; label: string }[] = [
-  { value: 'natural-month', label: '自然月' },
-  { value: 'membership-month', label: '会员月' },
+  { value: 'week', label: '周' },
+  { value: 'month', label: '月' },
   { value: 'quarter', label: '季度' },
+  { value: 'half-year', label: '半年' },
   { value: 'year', label: '年' },
 ]
 
@@ -53,7 +56,6 @@ const paymentMethodOptions = computed(() => paymentMethods.value.map(m => m.name
 
 onMounted(async () => {
   try {
-    // Load categories and payment methods
     const [cats, methods] = await Promise.all([
       api.get<Category[]>('/api/v1/support/categories'),
       api.get<PaymentMethod[]>('/api/v1/support/payment-methods'),
@@ -61,7 +63,6 @@ onMounted(async () => {
     categories.value = cats
     paymentMethods.value = methods
 
-    // Load record data
     await recordsStore.fetchRecords()
     const record = recordsStore.getRecordById(recordId.value)
     
@@ -91,6 +92,7 @@ onMounted(async () => {
       form.start_time = paymentRecord.start_time.slice(0, 16)
       form.end_time = paymentRecord.end_time ? paymentRecord.end_time.slice(0, 16) : ''
       form.notes = paymentRecord.notes || ''
+      form.currency = paymentRecord.currency || 'CNY'
     }
   } catch (e) {
     console.error('Failed to load data:', e)
@@ -102,33 +104,36 @@ onMounted(async () => {
 
 function calculateEndTime(startTime: string, period: PeriodType): string {
   if (!startTime) return ''
-  
+
   const startDate = new Date(startTime)
   const year = startDate.getFullYear()
   const month = startDate.getMonth()
   const date = startDate.getDate()
-  
+
   const end = new Date(year, month, date)
-  
+
   switch (period) {
-    case 'natural-month':
-      end.setMonth(end.getMonth() + 1)
+    case 'week':
+      end.setDate(end.getDate() + 7)
       break
-    case 'membership-month':
+    case 'month':
       end.setMonth(end.getMonth() + 1)
       break
     case 'quarter':
       end.setMonth(end.getMonth() + 3)
       break
+    case 'half-year':
+      end.setMonth(end.getMonth() + 6)
+      break
     case 'year':
       end.setFullYear(end.getFullYear() + 1)
       break
   }
-  
+
   const endYear = end.getFullYear()
   const endMonth = String(end.getMonth() + 1).padStart(2, '0')
   const endDate = String(end.getDate()).padStart(2, '0')
-  
+
   return `${endYear}-${endMonth}-${endDate}T00:00`
 }
 
@@ -153,7 +158,7 @@ async function handleSubmit() {
     error.value = '请输入名称'
     return
   }
-  if (recordType.value === 'payment' && form.amount <= 0) {
+  if (recordType.value === 'payment' && form.amount < 0) {
     error.value = '请输入有效金额'
     return
   }
@@ -181,6 +186,7 @@ async function handleSubmit() {
         start_time: form.start_time,
         end_time: form.end_time || undefined,
         notes: form.notes || undefined,
+        currency: form.currency,
       })
     }
     router.push('/records')
@@ -249,7 +255,6 @@ function goBack() {
             />
           </div>
 
-          <!-- Payment specific fields -->
           <template v-if="recordType === 'payment'">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -351,6 +356,26 @@ function goBack() {
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
+                货币类型
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <button
+                  v-for="currency in CURRENCY_OPTIONS"
+                  :key="currency.value"
+                  type="button"
+                  @click="form.currency = currency.value"
+                  class="px-4 py-3 rounded-xl border-2 text-center font-medium transition-all"
+                  :class="form.currency === currency.value 
+                    ? 'border-blue-600 bg-blue-50 text-blue-600' 
+                    : 'border-gray-200 hover:border-gray-300 text-gray-700'"
+                >
+                  {{ currency.symbol }} {{ currency.label }}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
                 备注（可选）
               </label>
               <textarea
@@ -362,7 +387,6 @@ function goBack() {
             </div>
           </template>
 
-          <!-- Simple record fields -->
           <template v-else>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -388,7 +412,6 @@ function goBack() {
             </div>
           </template>
 
-          <!-- Common fields -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
               重复周期

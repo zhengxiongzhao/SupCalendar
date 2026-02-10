@@ -12,7 +12,7 @@ const records = useRecordsStore()
 const form = reactive<SimpleRecordCreate>({
   name: '',
   time: new Date().toISOString().slice(0, 16),
-  period: 'natural-month',
+  period: 'month',
   description: '',
 })
 
@@ -20,9 +20,10 @@ const isSubmitting = ref(false)
 const error = ref('')
 
 const periods: { value: PeriodType; label: string }[] = [
-  { value: 'natural-month', label: '自然月' },
-  { value: 'membership-month', label: '会员月' },
+  { value: 'week', label: '周' },
+  { value: 'month', label: '月' },
   { value: 'quarter', label: '季度' },
+  { value: 'half-year', label: '半年' },
   { value: 'year', label: '年' },
 ]
 
@@ -52,7 +53,7 @@ async function handleSubmit() {
 function resetForm() {
   form.name = ''
   form.time = new Date().toISOString().slice(0, 16)
-  form.period = 'natural-month'
+  form.period = 'month'
   form.description = ''
 }
 </script>

@@ -22,9 +22,10 @@ class RecordType(str, Enum):
 
 
 class PeriodType(str, Enum):
-    NATURAL_MONTH = "natural-month"
-    MEMBERSHIP_MONTH = "membership-month"
+    WEEK = "week"
+    MONTH = "month"
     QUARTER = "quarter"
+    HALF_YEAR = "half-year"
     YEAR = "year"
 
 

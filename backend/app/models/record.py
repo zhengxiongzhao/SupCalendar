@@ -40,6 +40,7 @@ class PaymentRecord(BaseRecord):
     start_time = Column(DateTime, nullable=False)
     end_time = Column(DateTime)
     notes = Column(String)
+    currency = Column(String(3), default="CNY")
 
     __mapper_args__ = {"polymorphic_identity": RecordType.PAYMENT}
 

@@ -3,6 +3,7 @@ import { onMounted, computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useRecordsStore } from '@/stores/records'
 import type { SimpleRecord, PaymentRecord, CalendarRecord } from '@/types'
+import { CURRENCY_SYMBOLS } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -34,9 +35,9 @@ const filteredRecords = computed(() => {
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr)
-  return date.toLocaleDateString('zh-CN', { 
+  return date.toLocaleDateString('zh-CN', {
     year: 'numeric',
-    month: 'short', 
+    month: 'short',
     day: 'numeric'
   })
 }
@@ -51,17 +52,23 @@ function getRecordIcon(record: SimpleRecord | PaymentRecord) {
 function getRecordColor(record: SimpleRecord | PaymentRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
-    return r.direction === 'income' 
-      ? 'bg-green-100 text-green-700' 
+    return r.direction === 'income'
+      ? 'bg-green-100 text-green-700'
       : 'bg-red-100 text-red-700'
   }
   return 'bg-blue-100 text-blue-700'
 }
 
+function formatAmount(amount: number, currency: string) {
+  const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS] || '¥'
+  const formattedAmount = amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
+  return `${symbol}${formattedAmount}`
+}
+
 function getRecordAmount(record: SimpleRecord | PaymentRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
-    return (r.direction === 'income' ? '+' : '-') + '¥' + r.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
+    return (r.direction === 'income' ? '+' : '-') + formatAmount(r.amount, r.currency || 'CNY')
   }
   return '提醒'
 }

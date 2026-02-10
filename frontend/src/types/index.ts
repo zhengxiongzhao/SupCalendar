@@ -1,8 +1,20 @@
 export type RecordType = 'simple' | 'payment' | 'custom'
 
-export type PeriodType = 'natural-month' | 'membership-month' | 'quarter' | 'year'
+export type PeriodType = 'week' | 'month' | 'quarter' | 'half-year' | 'year'
 
 export type Direction = 'income' | 'expense'
+
+export type Currency = 'CNY' | 'USD'
+
+export const CURRENCY_SYMBOLS: Record<Currency, string> = {
+  'CNY': '¥',
+  'USD': '$',
+}
+
+export const CURRENCY_OPTIONS: { value: Currency; label: string; symbol: string }[] = [
+  { value: 'CNY', label: '人民币', symbol: '¥' },
+  { value: 'USD', label: '美元', symbol: '$' },
+]
 
 export interface BaseRecord {
   id: string
@@ -32,6 +44,7 @@ export interface PaymentRecord extends BaseRecord {
   start_time: string
   end_time?: string
   notes?: string
+  currency: string
   next_occurrence?: string
 }
 
@@ -67,6 +80,7 @@ export interface PaymentRecordCreate {
   start_time: string
   end_time?: string
   notes?: string
+  currency?: string
 }
 
 export type SimpleRecordUpdate = Partial<SimpleRecordCreate>

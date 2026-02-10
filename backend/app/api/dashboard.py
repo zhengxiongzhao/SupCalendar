@@ -84,55 +84,10 @@ def calculate_next_occurrence(
 
 def calculate_next_occurrence_v2(
     now: datetime, period: str, start_time: datetime
-) -> datetime | None:
+) -> datetime:
     """计算下一次发生时间，正确处理周期性事件"""
     from app.models.base import PeriodType
-    from dateutil.relativedelta import relativedelta
+    from app.services.period_calculator import calculate_next_occurrence as calc
 
     period_type = PeriodType(period)
-
-    # 如果 start_time 在未来，直接返回
-    if start_time >= now:
-        return start_time
-
-    # 计算从 start_time 到 now 经过了多少个周期
-    delta = now - start_time
-
-    if period_type == PeriodType.NATURAL_MONTH:
-        # 自然月：每月的固定日期
-        current = start_time
-        while current < now:
-            # 找到下一个月的同一天
-            if current.month == 12:
-                current = datetime(current.year + 1, 1, start_time.day)
-            else:
-                try:
-                    current = datetime(current.year, current.month + 1, start_time.day)
-                except ValueError:
-                    # 处理 2 月没有 30/31 号的情况，取月末
-                    if current.month + 1 == 3:
-                        current = datetime(current.year, 3, 1)
-        return current
-
-    elif period_type == PeriodType.MEMBERSHIP_MONTH:
-        # 会员月：每30天
-        current = start_time
-        while current < now:
-            current = current + relativedelta(months=1)
-        return current
-
-    elif period_type == PeriodType.QUARTER:
-        # 季度：每3个月
-        current = start_time
-        while current < now:
-            current = current + relativedelta(months=3)
-        return current
-
-    elif period_type == PeriodType.YEAR:
-        # 年度：每年
-        current = start_time
-        while current < now:
-            current = datetime(current.year + 1, start_time.month, start_time.day)
-        return current
-
-    return None
+    return calc(now, period_type, start_time)

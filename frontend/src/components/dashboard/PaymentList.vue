@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import type { PaymentRecord } from '@/types'
+import { CURRENCY_SYMBOLS } from '@/types'
 
 interface Props {
   records: PaymentRecord[]
@@ -12,6 +13,12 @@ const router = useRouter()
 function formatDate(dateStr: string) {
   const date = new Date(dateStr)
   return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })
+}
+
+function formatAmount(amount: number, currency: string) {
+  const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS] || '¥'
+  const formattedAmount = amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
+  return `${symbol}${formattedAmount}`
 }
 
 function navigateToCreate() {
@@ -81,7 +88,7 @@ function navigateToRecords() {
             class="font-bold"
             :class="record.direction === 'income' ? 'text-green-600' : 'text-red-600'"
           >
-            {{ record.direction === 'income' ? '+' : '-' }}¥{{ record.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }}
+            {{ record.direction === 'income' ? '+' : '-' }}{{ formatAmount(record.amount, record.currency) }}
           </p>
           <p class="text-xs text-gray-400">
             {{ record.next_occurrence ? formatDate(record.next_occurrence) : '无' }}

@@ -4,6 +4,7 @@ import { useRecordsStore } from '@/stores/records'
 import { api } from '@/services/api'
 import ComboInput from '@/components/common/ComboInput.vue'
 import type { PaymentRecordCreate, Category, PaymentMethod, PeriodType } from '@/types'
+import { CURRENCY_OPTIONS } from '@/types'
 
 const emit = defineEmits<{
   submit: []
@@ -18,10 +19,11 @@ const form = reactive<PaymentRecordCreate>({
   category: '',
   amount: 0,
   payment_method: '',
-  period: 'natural-month',
+  period: 'month',
   start_time: new Date().toISOString().slice(0, 16),
   end_time: '',
   notes: '',
+  currency: 'CNY',
 })
 
 const categories = ref<Category[]>([])
@@ -31,9 +33,10 @@ const error = ref('')
 const isLoadingData = ref(true)
 
 const periods: { value: PeriodType; label: string }[] = [
-  { value: 'natural-month', label: '自然月' },
-  { value: 'membership-month', label: '会员月' },
+  { value: 'week', label: '周' },
+  { value: 'month', label: '月' },
   { value: 'quarter', label: '季度' },
+  { value: 'half-year', label: '半年' },
   { value: 'year', label: '年' },
 ]
 
@@ -44,36 +47,36 @@ const isEndTimeManuallySet = ref(false)
 
 function calculateEndTime(startTime: string, period: PeriodType): string {
   if (!startTime) return ''
-  
-  // 解析日期部分，忽略时间
+
   const startDate = new Date(startTime)
   const year = startDate.getFullYear()
   const month = startDate.getMonth()
   const date = startDate.getDate()
-  
-  // 创建新的日期对象，只保留日期部分（时间设为 00:00）
+
   const end = new Date(year, month, date)
-  
+
   switch (period) {
-    case 'natural-month':
-      end.setMonth(end.getMonth() + 1)
+    case 'week':
+      end.setDate(end.getDate() + 7)
       break
-    case 'membership-month':
+    case 'month':
       end.setMonth(end.getMonth() + 1)
       break
     case 'quarter':
       end.setMonth(end.getMonth() + 3)
       break
+    case 'half-year':
+      end.setMonth(end.getMonth() + 6)
+      break
     case 'year':
       end.setFullYear(end.getFullYear() + 1)
       break
   }
-  
-  // 转换为本地时间的 ISO 字符串格式
+
   const endYear = end.getFullYear()
   const endMonth = String(end.getMonth() + 1).padStart(2, '0')
   const endDate = String(end.getDate()).padStart(2, '0')
-  
+
   return `${endYear}-${endMonth}-${endDate}T00:00`
 }
 
@@ -118,7 +121,7 @@ async function handleSubmit() {
     error.value = '请输入名称'
     return
   }
-  if (form.amount <= 0) {
+  if (form.amount < 0) {
     error.value = '请输入有效金额'
     return
   }
@@ -157,12 +160,13 @@ function resetForm() {
   form.category = ''
   form.amount = 0
   form.payment_method = ''
-  form.period = 'natural-month'
+  form.period = 'month'
   form.start_time = new Date().toISOString().slice(0, 16)
   form.end_time = ''
   form.notes = ''
+  form.currency = 'CNY'
   isEndTimeManuallySet.value = false
-  
+
   // 重置后自动计算结束时间
   form.end_time = calculateEndTime(form.start_time, form.period)
 }
@@ -235,6 +239,26 @@ function resetForm() {
           placeholder="0.00"
           class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
         />
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">
+        货币类型
+      </label>
+      <div class="grid grid-cols-2 gap-3">
+        <button
+          v-for="currency in CURRENCY_OPTIONS"
+          :key="currency.value"
+          type="button"
+          @click="form.currency = currency.value"
+          class="px-4 py-3 rounded-xl border-2 text-center font-medium transition-all"
+          :class="form.currency === currency.value
+            ? 'border-blue-600 bg-blue-50 text-blue-600'
+            : 'border-gray-200 hover:border-gray-300 text-gray-700'"
+        >
+          {{ currency.symbol }} {{ currency.label }}
+        </button>
       </div>
     </div>
 
