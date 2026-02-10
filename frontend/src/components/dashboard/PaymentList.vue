@@ -77,11 +77,11 @@ function navigateToRecords() {
         </div>
         
         <div class="text-right">
-          <p 
+          <p
             class="font-bold"
             :class="record.direction === 'income' ? 'text-green-600' : 'text-red-600'"
           >
-            {{ record.direction === 'income' ? '+' : '-' }}¥{{ record.amount.toLocaleString() }}
+            {{ record.direction === 'income' ? '+' : '-' }}¥{{ record.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }}
           </p>
           <p class="text-xs text-gray-400">
             {{ record.next_occurrence ? formatDate(record.next_occurrence) : '无' }}

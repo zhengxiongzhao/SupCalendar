@@ -23,6 +23,26 @@ class PaymentRecordCreate(BaseModel):
     notes: str | None = None
 
 
+class SimpleRecordUpdate(BaseModel):
+    name: str
+    time: datetime
+    period: PeriodType
+    description: str | None = None
+
+
+class PaymentRecordUpdate(BaseModel):
+    name: str
+    description: str | None = None
+    direction: Direction
+    category: str
+    amount: float
+    payment_method: str
+    period: PeriodType
+    start_time: datetime
+    end_time: datetime | None = None
+    notes: str | None = None
+
+
 class CustomRecordCreate(BaseModel):
     template_id: str
     custom_fields: dict

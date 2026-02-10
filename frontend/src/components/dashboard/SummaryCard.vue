@@ -27,7 +27,7 @@ const iconBgColors = {
       <div class="min-w-0">
         <p class="text-xs font-medium opacity-70">{{ title }}</p>
         <p class="text-lg font-bold mt-0.5 truncate">
-          ¥{{ amount.toLocaleString() }}
+          ¥{{ amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }}
         </p>
       </div>
       <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0" :class="iconBgColors[type]">

@@ -45,7 +45,7 @@ function getRecordColor(record: CalendarRecord) {
 function getRecordAmount(record: CalendarRecord) {
   if (record.type === 'payment') {
     const r = record as PaymentRecord
-    return (r.direction === 'income' ? '+' : '-') + '¥' + r.amount.toLocaleString()
+    return (r.direction === 'income' ? '+' : '-') + '¥' + r.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
   }
   return '提醒'
 }

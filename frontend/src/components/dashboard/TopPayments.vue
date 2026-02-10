@@ -57,7 +57,7 @@ function getIcon(direction: 'income' | 'expense') {
               </span>
             </td>
             <td class="py-3 px-4 text-right font-mono font-bold" :class="record.direction === 'income' ? 'text-green-600' : 'text-red-600'">
-              {{ record.direction === 'income' ? '+' : '-' }}¥{{ record.amount.toLocaleString() }}
+              {{ record.direction === 'income' ? '+' : '-' }}¥{{ record.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }}
             </td>
             <td class="py-3 px-4 text-sm text-gray-500">
               <div class="flex items-center gap-2">
