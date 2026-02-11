@@ -14,9 +14,9 @@ class PaymentRecordCreate(BaseModel):
     name: str
     description: str | None = None
     direction: Direction
-    category: str
+    category: str | None = None
     amount: float
-    payment_method: str
+    payment_method: str | None = None
     period: PeriodType
     start_time: datetime
     end_time: datetime | None = None
@@ -35,9 +35,9 @@ class PaymentRecordUpdate(BaseModel):
     name: str
     description: str | None = None
     direction: Direction
-    category: str
+    category: str | None = None
     amount: float
-    payment_method: str
+    payment_method: str | None = None
     period: PeriodType
     start_time: datetime
     end_time: datetime | None = None
@@ -73,9 +73,9 @@ class PaymentRecordResponse(RecordResponse):
     name: str
     description: str | None
     direction: Direction
-    category: str
+    category: str | None = None
     amount: float
-    payment_method: str
+    payment_method: str | None = None
     period: PeriodType
     start_time: datetime
     end_time: datetime | None
