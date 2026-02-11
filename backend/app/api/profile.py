@@ -10,6 +10,7 @@ from ..database import get_db
 
 router = APIRouter(prefix="/profile", tags=["个人中心"])
 
+
 @router.get("/export")
 async def export_records():
     """
@@ -19,51 +20,71 @@ async def export_records():
         db = next(get_db())
 
         # 获取所有简单提醒
-        simple_records = db.execute(
-            select(SimpleRecord).order_by(SimpleRecord.date.desc())
-        ).scalars().all()
+        simple_records = (
+            db.execute(select(SimpleRecord).order_by(SimpleRecord.time.desc()))
+            .scalars()
+            .all()
+        )
 
         # 获取所有收付款记录
-        payment_records = db.execute(
-            select(PaymentRecord).order_by(PaymentRecord.date.desc())
-        ).scalars().all()
+        payment_records = (
+            db.execute(select(PaymentRecord).order_by(PaymentRecord.start_time.desc()))
+            .scalars()
+            .all()
+        )
 
         # 转换为可序列化的字典格式
         export_data = {
             "version": "1.0.0",
             "export_date": datetime.utcnow().isoformat() + "Z",
-            "records": []
+            "records": [],
         }
 
         # 添加简单提醒
         for record in simple_records:
-            export_data["records"].append({
-                "type": "simple",
-                "id": record.id,
-                "title": record.title,
-                "date": record.date.isoformat() if record.date else None,
-                "category": record.category,
-                "repeat_type": record.repeat_type,
-                "days_before": record.days_before,
-                "created_at": record.created_at.isoformat() if record.created_at else None,
-                "updated_at": record.updated_at.isoformat() if record.updated_at else None,
-            })
+            export_data["records"].append(
+                {
+                    "type": "simple",
+                    "id": record.id,
+                    "title": record.name,
+                    "date": record.time.isoformat() if record.time else None,
+                    "category": record.description or "",
+                    "repeat_type": record.period.value if record.period else "none",
+                    "days_before": 0,
+                    "created_at": record.created_at.isoformat()
+                    if record.created_at
+                    else None,
+                    "updated_at": record.updated_at.isoformat()
+                    if record.updated_at
+                    else None,
+                }
+            )
 
         # 添加收付款记录
         for record in payment_records:
-            export_data["records"].append({
-                "type": "payment",
-                "id": record.id,
-                "title": record.title,
-                "amount": float(record.amount) if record.amount else 0,
-                "currency": record.currency or "CNY",
-                "date": record.date.isoformat() if record.date else None,
-                "category": record.category,
-                "payment_type": record.payment_type,
-                "repeat_type": record.repeat_type,
-                "created_at": record.created_at.isoformat() if record.created_at else None,
-                "updated_at": record.updated_at.isoformat() if record.updated_at else None,
-            })
+            export_data["records"].append(
+                {
+                    "type": "payment",
+                    "id": record.id,
+                    "title": record.name,
+                    "amount": float(record.amount) if record.amount else 0,
+                    "currency": record.currency or "CNY",
+                    "date": record.start_time.isoformat()
+                    if record.start_time
+                    else None,
+                    "category": record.description or "",
+                    "payment_type": record.direction.value
+                    if record.direction
+                    else "incoming",
+                    "repeat_type": record.period.value if record.period else "none",
+                    "created_at": record.created_at.isoformat()
+                    if record.created_at
+                    else None,
+                    "updated_at": record.updated_at.isoformat()
+                    if record.updated_at
+                    else None,
+                }
+            )
 
         db.close()
 
@@ -73,8 +94,7 @@ async def export_records():
         print(f"导出记录失败: {str(e)}")
         print(traceback.format_exc())
         return JSONResponse(
-            status_code=500,
-            content={"error": f"导出记录失败: {str(e)}"}
+            status_code=500, content={"error": f"导出记录失败: {str(e)}"}
         )
 
 
@@ -91,8 +111,7 @@ async def import_records(file: UploadFile = File(...)):
         # 验证格式
         if "records" not in data:
             return JSONResponse(
-                status_code=400,
-                content={"error": "无效的文件格式：缺少 records 字段"}
+                status_code=400, content={"error": "无效的文件格式：缺少 records 字段"}
             )
 
         records = data["records"]
@@ -105,7 +124,7 @@ async def import_records(file: UploadFile = File(...)):
             "imported": 0,
             "simple_records": 0,
             "payment_records": 0,
-            "errors": []
+            "errors": [],
         }
 
         # 导入每条记录
@@ -117,7 +136,9 @@ async def import_records(file: UploadFile = File(...)):
                     # 创建简单提醒
                     simple_record = SimpleRecord(
                         title=record.get("title", ""),
-                        date=datetime.fromisoformat(record["date"]).date() if record.get("date") else None,
+                        time=datetime.fromisoformat(record["date"])
+                        if record.get("date")
+                        else datetime.utcnow(),
                         category=record.get("category", ""),
                         repeat_type=record.get("repeat_type", "none"),
                         days_before=record.get("days_before", 0),
@@ -133,9 +154,11 @@ async def import_records(file: UploadFile = File(...)):
                         title=record.get("title", ""),
                         amount=record.get("amount", 0),
                         currency=record.get("currency", "CNY"),
-                        date=datetime.fromisoformat(record["date"]).date() if record.get("date") else None,
+                        start_time=datetime.fromisoformat(record["date"])
+                        if record.get("date")
+                        else datetime.utcnow(),
                         category=record.get("category", ""),
-                        payment_type=record.get("payment_type", "incoming"),
+                        direction=record.get("payment_type", "incoming"),
                         repeat_type=record.get("repeat_type", "none"),
                     )
                     db.add(payment_record)
@@ -144,16 +167,12 @@ async def import_records(file: UploadFile = File(...)):
                     result["payment_records"] += 1
 
                 else:
-                    result["errors"].append({
-                        "index": idx,
-                        "reason": f"未知记录类型: {record_type}"
-                    })
+                    result["errors"].append(
+                        {"index": idx, "reason": f"未知记录类型: {record_type}"}
+                    )
 
             except Exception as e:
-                result["errors"].append({
-                    "index": idx,
-                    "reason": f"导入失败: {str(e)}"
-                })
+                result["errors"].append({"index": idx, "reason": f"导入失败: {str(e)}"})
 
         # 提交所有更改
         db.commit()
@@ -163,15 +182,13 @@ async def import_records(file: UploadFile = File(...)):
 
     except json.JSONDecodeError as e:
         return JSONResponse(
-            status_code=400,
-            content={"error": f"无效的 JSON 格式: {str(e)}"}
+            status_code=400, content={"error": f"无效的 JSON 格式: {str(e)}"}
         )
     except Exception as e:
         print(f"导入记录失败: {str(e)}")
         print(traceback.format_exc())
         return JSONResponse(
-            status_code=500,
-            content={"error": f"导入记录失败: {str(e)}"}
+            status_code=500, content={"error": f"导入记录失败: {str(e)}"}
         )
 
 
@@ -184,43 +201,42 @@ async def get_profile_stats():
         db = next(get_db())
 
         # 统计简单提醒数
-        simple_count = db.execute(
-            select(SimpleRecord)
-        ).scalars().count()
+        simple_records = db.execute(select(SimpleRecord)).scalars().all()
+        simple_count = len(simple_records)
 
         # 统计收付款记录和金额
-        payment_records = db.execute(
-            select(PaymentRecord)
-        ).scalars().all()
+        payment_records = db.execute(select(PaymentRecord)).scalars().all()
 
         payment_count = len(payment_records)
         total_income = 0.0
         total_expense = 0.0
 
         for record in payment_records:
-            if record.payment_type == "incoming":
+            if record.direction == "income":
                 total_income += float(record.amount or 0)
-            elif record.payment_type == "outgoing":
+            elif record.direction == "expense":
                 total_expense += float(record.amount or 0)
 
         # 统计本月记录数
         from datetime import datetime
+
         current_month = datetime.utcnow().strftime("%Y-%m")
 
         this_month_count = 0
         for record in payment_records:
-            if record.date:
-                record_month = record.date.strftime("%Y-%m")
+            if record.start_time:
+                record_month = record.start_time.strftime("%Y-%m")
                 if record_month == current_month:
                     this_month_count += 1
 
-        simple_records_month = db.execute(
-            select(SimpleRecord).where(
-                SimpleRecord.date.like(f"{current_month}%")
+        simple_records_month = (
+            db.execute(
+                select(SimpleRecord).where(SimpleRecord.time.like(f"{current_month}%"))
             )
-        ).scalars().count()
-
-        this_month_count += simple_records_month
+            .scalars()
+            .all()
+        )
+        this_month_count += len(simple_records_month)
 
         db.close()
 
@@ -229,13 +245,12 @@ async def get_profile_stats():
             "total_records": simple_count + payment_count,
             "total_income": round(total_income, 2),
             "total_expense": round(total_expense, 2),
-            "this_month_records": this_month_count
+            "this_month_records": this_month_count,
         }
 
     except Exception as e:
         print(f"获取统计数据失败: {str(e)}")
         print(traceback.format_exc())
         return JSONResponse(
-            status_code=500,
-            content={"error": f"获取统计数据失败: {str(e)}"}
+            status_code=500, content={"error": f"获取统计数据失败: {str(e)}"}
         )

@@ -1,10 +1,16 @@
+// Production (Docker): VITE_API_URL=http://localhost:8000 (browser accesses backend via host port mapping)
+// Local dev: VITE_API_URL undefined → use '/api' (proxied by vite dev server)
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
 
 export const api = {
   async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${API_BASE_URL}${endpoint}`
+    const isFormData = options.body instanceof FormData
+
     const response = await fetch(url, {
-      headers: {
+      headers: isFormData ? {
+        ...options.headers,
+      } : {
         'Content-Type': 'application/json',
         ...options.headers,
       },
@@ -54,18 +60,18 @@ export const api = {
 export const profileApi = {
   // 获取统计数据
   getStats() {
-    return api.get<{ total_records: number; total_income: number; total_expense: number; this_month_records: number }>('/v1/profile/stats')
+    return api.get<{ total_records: number; total_income: number; total_expense: number; this_month_records: number }>('/api/v1/profile/stats')
   },
 
   // 导出所有记录
   exportData() {
-    return api.get('/v1/profile/export')
+    return api.get('/api/v1/profile/export')
   },
 
   // 导入记录
   importData(file: File) {
     const formData = new FormData()
     formData.append('file', file)
-    return api.upload('/v1/profile/import', formData)
+    return api.upload('/api/v1/profile/import', formData)
   },
 }

@@ -12,7 +12,7 @@ interface Stats {
 const stats = ref<Stats | null>(null)
 const loading = ref(false)
 const error = ref('')
-const importFile = ref<File | null>(null)
+const importFile = ref<File | undefined>(undefined)
 
 // 加载统计数据
 async function loadStats() {

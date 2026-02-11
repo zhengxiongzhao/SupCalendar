@@ -2,6 +2,10 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# ARG allows passing VITE_API_URL at build time for Vite env variables
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL:-/api}
+
 COPY package*.json package-lock.json ./
 RUN npm install --silent --legacy-peer-deps
 
