@@ -80,18 +80,6 @@ function calculateEndTime(startTime: string, period: PeriodType): string {
   return `${endYear}-${endMonth}-${endDate}T00:00`
 }
 
-watch(() => form.period, (newPeriod) => {
-  if (form.start_time && !isEndTimeManuallySet.value) {
-    form.end_time = calculateEndTime(form.start_time, newPeriod)
-  }
-})
-
-watch(() => form.start_time, (newStartTime) => {
-  if (newStartTime && !isEndTimeManuallySet.value) {
-    form.end_time = calculateEndTime(newStartTime, form.period)
-  }
-})
-
 function onEndTimeInput() {
   isEndTimeManuallySet.value = true
 }
@@ -109,11 +97,6 @@ onMounted(async () => {
   } finally {
     isLoadingData.value = false
   }
-  
-  // 初始化时自动计算结束时间
-  if (form.start_time && !form.end_time) {
-    form.end_time = calculateEndTime(form.start_time, form.period)
-  }
 })
 
 async function handleSubmit() {
@@ -125,15 +108,7 @@ async function handleSubmit() {
     error.value = '请输入有效金额'
     return
   }
-  if (!form.category) {
-    error.value = '请选择或输入分类'
-    return
-  }
-  if (!form.payment_method) {
-    error.value = '请选择或输入付款方式'
-    return
-  }
-  
+
   error.value = ''
   isSubmitting.value = true
   
