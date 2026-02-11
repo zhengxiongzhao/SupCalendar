@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { CalendarRecord, PaymentRecord, SimpleRecord } from '@/types'
 import { CURRENCY_SYMBOLS } from '@/types'
+import { formatDateWithNext, daysUntil, getUrgencyClass } from '@/utils/formatDate'
 
 interface Props {
   date: Date
@@ -16,11 +17,6 @@ function formatDate(date: Date) {
     day: 'numeric',
     weekday: 'short'
   })
-}
-
-function formatTime(dateStr: string) {
-  const date = new Date(dateStr)
-  return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
 }
 
 function getIcon(record: CalendarRecord) {
@@ -65,8 +61,10 @@ function getAmount(record: CalendarRecord) {
 
 function sortedRecords() {
   return [...props.records].sort((a, b) => {
-    const dateA = new Date(a.type === 'simple' ? (a as SimpleRecord).time : (a as PaymentRecord).start_time)
-    const dateB = new Date(b.type === 'simple' ? (b as SimpleRecord).time : (b as PaymentRecord).start_time)
+    const dateA = new Date(a.next_occurrence ||
+      (a.type === 'simple' ? (a as SimpleRecord).time : (a as PaymentRecord).start_time))
+    const dateB = new Date(b.next_occurrence ||
+      (b.type === 'simple' ? (b as SimpleRecord).time : (b as PaymentRecord).start_time))
     return dateA.getTime() - dateB.getTime()
   })
 }
@@ -106,7 +104,16 @@ function sortedRecords() {
               {{ record.name }}
             </h3>
             <div class="flex items-center gap-2 mt-0.5 text-sm text-gray-500">
-              <span>{{ formatTime(record.type === 'simple' ? (record as SimpleRecord).time : (record as PaymentRecord).start_time) }}</span>
+              <span>{{ formatDateWithNext(record.next_occurrence ||
+                (record.type === 'simple' ? (record as SimpleRecord).time : (record as PaymentRecord).start_time)) }}</span>
+              <span
+                class="inline-block px-2 py-0.5 rounded-full text-xs font-medium border"
+                :class="getUrgencyClass(daysUntil(record.next_occurrence ||
+                  (record.type === 'simple' ? (record as SimpleRecord).time : (record as PaymentRecord).start_time))"
+              >
+                {{ daysUntil(record.next_occurrence ||
+                  (record.type === 'simple' ? (record as SimpleRecord).time : (record as PaymentRecord).start_time)) }} 天后
+              </span>
               <span v-if="record.type === 'payment' && (record as PaymentRecord).category" class="px-2 py-0.5 rounded-full bg-gray-100 text-xs">
                 {{ (record as PaymentRecord).category }}
               </span>

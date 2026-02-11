@@ -66,6 +66,7 @@ class SimpleRecordResponse(RecordResponse):
     time: datetime
     period: PeriodType
     description: str | None
+    next_occurrence: datetime | None
 
 
 class PaymentRecordResponse(RecordResponse):
@@ -73,11 +74,12 @@ class PaymentRecordResponse(RecordResponse):
     name: str
     description: str | None
     direction: Direction
-    category: str | None = None
+    category: str | None
     amount: float
-    payment_method: str | None = None
+    payment_method: str | None
     period: PeriodType
     start_time: datetime
     end_time: datetime | None
     notes: str | None
     currency: str
+    next_occurrence: datetime | None

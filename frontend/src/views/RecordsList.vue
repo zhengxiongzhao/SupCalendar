@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useRecordsStore } from '@/stores/records'
 import type { SimpleRecord, PaymentRecord, CalendarRecord } from '@/types'
 import { CURRENCY_SYMBOLS } from '@/types'
+import { formatDateWithNext, daysUntil, getUrgencyClass } from '@/utils/formatDate'
 
 const route = useRoute()
 const router = useRouter()
@@ -32,15 +33,6 @@ const filteredRecords = computed(() => {
   if (filter.value === 'all') return recordsStore.records
   return recordsStore.records.filter((r): r is CalendarRecord => r.type === filter.value)
 })
-
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  })
-}
 
 function getRecordIcon(record: SimpleRecord | PaymentRecord) {
   if (record.type === 'payment') {
@@ -178,15 +170,21 @@ function navigateToEdit(id: string) {
         </div>
         
         <div class="text-right">
-          <p 
+          <p
             class="font-bold"
             :class="record.type === 'payment' && (record as PaymentRecord).direction === 'income' ? 'text-green-600' : 'text-gray-900'"
           >
             {{ getRecordAmount(record) }}
           </p>
           <p class="text-xs text-gray-400">
-            {{ formatDate(record.created_at) }}
+            {{ formatDateWithNext(record.next_occurrence || record.created_at) }}
           </p>
+          <span
+            class="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
+            :class="getUrgencyClass(daysUntil(record.next_occurrence || record.created_at))"
+          >
+            {{ daysUntil(record.next_occurrence || record.created_at) }} 天后
+          </span>
         </div>
         
         <div class="flex items-center gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">

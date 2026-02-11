@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import type { SimpleRecord } from '@/types'
+import { formatDateWithNext } from '@/utils/formatDate'
 
 interface Props {
   records: SimpleRecord[]
 }
 
 const props = defineProps<Props>()
-
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })
-}
 
 function daysUntil(dateStr: string) {
   const date = new Date(dateStr)
@@ -78,13 +74,13 @@ function getUrgencyClass(days: number) {
         
         <div class="text-right">
           <p class="font-medium text-gray-900">
-            {{ formatDate(record.time) }}
+            {{ formatDateWithNext(record.next_occurrence || record.time) }}
           </p>
-          <span 
+          <span
             class="inline-block px-2 py-0.5 rounded-full text-xs font-medium border"
-            :class="getUrgencyClass(daysUntil(record.time))"
+            :class="getUrgencyClass(daysUntil(record.next_occurrence || record.time))"
           >
-            {{ daysUntil(record.time) }} 天后
+            {{ daysUntil(record.next_occurrence || record.time) }} 天后
           </span>
         </div>
       </div>

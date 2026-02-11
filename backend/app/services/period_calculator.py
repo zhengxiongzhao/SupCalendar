@@ -13,13 +13,13 @@ def calculate_next_occurrence(
         return base_date + relativedelta(months=1)
 
     elif period == PeriodType.QUARTER:
-        return start_date + relativedelta(months=3)
+        return base_date + relativedelta(months=3)
 
     elif period == PeriodType.HALF_YEAR:
-        return start_date + relativedelta(months=6)
+        return base_date + relativedelta(months=6)
 
     elif period == PeriodType.YEAR:
-        return start_date + relativedelta(years=1)
+        return base_date + relativedelta(years=1)
 
 
 def calculate_next_occurrences(
@@ -33,3 +33,29 @@ def calculate_next_occurrences(
         occurrences.append(current)
 
     return occurrences
+
+
+def calculate_next_occurrence_from_now(
+    now: datetime, period: PeriodType, start_date: datetime
+) -> datetime:
+    """
+    计算从当前时间开始的下一个周期时间
+
+    如果 start_date >= now，直接返回 start_date
+    否则，从 start_date 开始，按照周期递增，找到第一个 >= now 的日期
+
+    例如：
+    - start_date: 2024-11-01
+    - period: QUARTER
+    - now: 2026-02-11
+    - 返回: 2026-05-01
+    """
+    if start_date >= now:
+        return start_date
+
+    # 从 start_date 开始，按周期递增，找到第一个 >= now 的日期
+    current = start_date
+    while current < now:
+        current = calculate_next_occurrence(current, period, start_date)
+
+    return current

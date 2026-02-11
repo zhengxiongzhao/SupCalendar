@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 import type { PaymentRecord } from '@/types'
 import { CURRENCY_SYMBOLS } from '@/types'
+import { formatDateWithNext, daysUntil, getUrgencyClass } from '@/utils/formatDate'
 
 interface Props {
   records: PaymentRecord[]
@@ -9,11 +10,6 @@ interface Props {
 
 const props = defineProps<Props>()
 const router = useRouter()
-
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })
-}
 
 function formatAmount(amount: number, currency: string) {
   const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS] || '¥'
@@ -91,8 +87,15 @@ function navigateToRecords() {
             {{ record.direction === 'income' ? '+' : '-' }}{{ formatAmount(record.amount, record.currency) }}
           </p>
           <p class="text-xs text-gray-400">
-            {{ record.next_occurrence ? formatDate(record.next_occurrence) : '无' }}
+            {{ formatDateWithNext(record.next_occurrence || '无') }}
           </p>
+          <span
+            v-if="record.next_occurrence"
+            class="inline-block px-2 py-0.5 rounded-full text-xs font-medium border"
+            :class="getUrgencyClass(daysUntil(record.next_occurrence))"
+          >
+            {{ daysUntil(record.next_occurrence) }} 天后
+          </span>
         </div>
       </div>
     </div>

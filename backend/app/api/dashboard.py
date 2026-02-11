@@ -4,19 +4,22 @@ from datetime import datetime
 from app.database import get_db
 from app.models.record import BaseRecord, SimpleRecord, PaymentRecord
 from app.models.base import Direction
+from app.services.period_calculator import calculate_next_occurrence_from_now
 
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 
 
 @router.get("/top-payments")
 def get_top_payments(limit: int = 10, db: Session = Depends(get_db)):
+    now = datetime.utcnow()
     payment_records = (
         db.query(PaymentRecord).order_by(PaymentRecord.amount.desc()).limit(limit).all()
     )
 
     for record in payment_records:
-        record.next_occurrence = calculate_next_occurrence(
-            datetime.utcnow(), record.period, record.start_time
+        # 使用新的 calculate_next_occurrence_from_now 函数
+        record.next_occurrence = calculate_next_occurrence_from_now(
+            now, record.period, record.start_time
         )
 
     return payment_records
@@ -35,15 +38,17 @@ def get_upcoming_simples(limit: int = 10, db: Session = Depends(get_db)):
 
     # 处理简单提醒
     for record in simple_records:
-        next_occurrence = calculate_next_occurrence_v2(now, record.period, record.time)
+        next_occurrence = calculate_next_occurrence_from_now(
+            now, record.period, record.time
+        )
         if next_occurrence:
             record.next_occurrence = next_occurrence
             records_with_next.append(record)
 
     # 处理收付款记录
     for record in payment_records:
-        # 使用现有的 calculate_next_occurrence 函数
-        next_occurrence = calculate_next_occurrence(
+        # 使用新的 calculate_next_occurrence_from_now 函数
+        next_occurrence = calculate_next_occurrence_from_now(
             now, record.period, record.start_time
         )
         if next_occurrence:
