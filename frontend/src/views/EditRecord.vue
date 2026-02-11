@@ -137,18 +137,6 @@ function calculateEndTime(startTime: string, period: PeriodType): string {
   return `${endYear}-${endMonth}-${endDate}T00:00`
 }
 
-watch(() => form.period, (newPeriod) => {
-  if (form.start_time && !isEndTimeManuallySet.value) {
-    form.end_time = calculateEndTime(form.start_time, newPeriod)
-  }
-})
-
-watch(() => form.start_time, (newStartTime) => {
-  if (newStartTime && !isEndTimeManuallySet.value) {
-    form.end_time = calculateEndTime(newStartTime, form.period)
-  }
-})
-
 function onEndTimeInput() {
   isEndTimeManuallySet.value = true
 }
