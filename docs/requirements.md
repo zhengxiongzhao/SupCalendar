@@ -219,6 +219,89 @@ function formatAmount(amount: number, currency: string) {
 
 ---
 
+---
+
+## 2026-02-10 个人中心 + 导入导出功能
+
+### 需求描述：
+- 添加个人中心页面，用户可以管理个人数据
+- 支持导出所有记录为 JSON 格式
+- 支持导入 JSON 格式的记录文件
+
+### 后端 API
+
+**实现状态：** ✅ 已完成
+
+**新增文件：**
+- `backend/app/api/profile.py` - 个人中心相关 API
+
+**API 端点：**
+
+1. **GET /api/v1/export** - 导出所有记录
+   - 返回所有记录的 JSON 数据
+   - 包含 SimpleRecord 和 PaymentRecord
+
+2. **POST /api/v1/import** - 导入记录
+   - 接收 JSON 文件
+   - 验证并导入记录
+   - 返回导入结果统计
+
+**修改文件：**
+- `backend/app/api/__init__.py` - 注册 profile 路由
+
+### 前端功能
+
+**实现状态：** ✅ 已完成
+
+**新增文件：**
+- `frontend/src/views/Profile.vue` - 个人中心页面
+
+**修改文件：**
+- `frontend/src/main.ts` - 添加个人中心路由
+
+**页面功能：**
+- 导出按钮：点击后下载所有记录的 JSON 文件
+- 导入功能：
+  - 支持上传 JSON 文件
+  - 显示导入进度和结果
+  - 成功导入后跳转到记录列表
+- 数据统计：
+  - 显示总记录数
+  - 显示简单提醒数量
+  - 显示收付款记录数量
+
+### 导入导出格式
+
+**导出格式（JSON）：**
+```json
+{
+  "version": "1.0.0",
+  "export_date": "2026-02-10T12:00:00Z",
+  "records": [
+    {
+      "type": "simple",
+      "title": "生日提醒",
+      "date": "2026-03-15",
+      "category": "生日",
+      "repeat_type": "yearly",
+      "days_before": 3
+    },
+    {
+      "type": "payment",
+      "title": "房租",
+      "amount": 3000.00,
+      "currency": "CNY",
+      "date": "2026-02-01",
+      "category": "居住",
+      "payment_type": "outgoing",
+      "repeat_type": "monthly"
+    }
+  ]
+}
+```
+
+---
+
 ## 后续改进建议
 
 1. **记录列表页**:
@@ -235,3 +318,9 @@ function formatAmount(amount: number, currency: string) {
    - 添加拖拽修改日期
    - 添加快速创建记录（点击日期直接创建）
    - 添加更多视图选项（周视图、月视图、年视图）
+
+4. **个人中心**:
+   - 支持导出为 CSV 格式
+   - 支持从 CSV 格式导入
+   - 添加数据备份到云端功能
+   - 添加用户设置（主题、语言等）

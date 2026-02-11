@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.database import engine
 from app.models.base import Base
-from app.api import records, support, dashboard, calendar
+from app.api import records, support, dashboard, calendar, profile
 
 settings = get_settings()
 
@@ -32,6 +32,7 @@ api_router.include_router(records.router)
 api_router.include_router(support.router)
 api_router.include_router(dashboard.router)
 api_router.include_router(calendar.router)
+api_router.include_router(profile.router)
 
 app.include_router(api_router)
 
