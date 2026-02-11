@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed, watch } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { useRecordsStore } from '@/stores/records'
 import { api } from '@/services/api'
 import ComboInput from '@/components/common/ComboInput.vue'

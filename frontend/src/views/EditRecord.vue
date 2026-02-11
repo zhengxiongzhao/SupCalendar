@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed, watch } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useRecordsStore } from '@/stores/records'
 import { api } from '@/services/api'
@@ -101,41 +101,6 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
-
-function calculateEndTime(startTime: string, period: PeriodType): string {
-  if (!startTime) return ''
-
-  const startDate = new Date(startTime)
-  const year = startDate.getFullYear()
-  const month = startDate.getMonth()
-  const date = startDate.getDate()
-
-  const end = new Date(year, month, date)
-
-  switch (period) {
-    case 'week':
-      end.setDate(end.getDate() + 7)
-      break
-    case 'month':
-      end.setMonth(end.getMonth() + 1)
-      break
-    case 'quarter':
-      end.setMonth(end.getMonth() + 3)
-      break
-    case 'half-year':
-      end.setMonth(end.getMonth() + 6)
-      break
-    case 'year':
-      end.setFullYear(end.getFullYear() + 1)
-      break
-  }
-
-  const endYear = end.getFullYear()
-  const endMonth = String(end.getMonth() + 1).padStart(2, '0')
-  const endDate = String(end.getDate()).padStart(2, '0')
-
-  return `${endYear}-${endMonth}-${endDate}T00:00`
-}
 
 function onEndTimeInput() {
   isEndTimeManuallySet.value = true
