@@ -17,17 +17,26 @@ router = APIRouter(prefix="/records", tags=["records"])
 
 @router.post("/simple", response_model=SimpleRecordResponse)
 def create_simple_record(data: SimpleRecordCreate, db: Session = Depends(get_db)):
+    from datetime import datetime
+    from app.services.period_calculator import calculate_next_occurrence_from_now
+
     db_record = SimpleRecord(
         name=data.name, time=data.time, period=data.period, description=data.description
     )
     db.add(db_record)
     db.commit()
     db.refresh(db_record)
+    db_record.next_occurrence = calculate_next_occurrence_from_now(
+        datetime.utcnow(), db_record.period, db_record.time
+    )
     return db_record
 
 
 @router.post("/payment", response_model=PaymentRecordResponse)
 def create_payment_record(data: PaymentRecordCreate, db: Session = Depends(get_db)):
+    from datetime import datetime
+    from app.services.period_calculator import calculate_next_occurrence_from_now
+
     db_record = PaymentRecord(
         name=data.name,
         description=data.description,
@@ -44,6 +53,9 @@ def create_payment_record(data: PaymentRecordCreate, db: Session = Depends(get_d
     db.add(db_record)
     db.commit()
     db.refresh(db_record)
+    db_record.next_occurrence = calculate_next_occurrence_from_now(
+        datetime.utcnow(), db_record.period, db_record.start_time
+    )
     return db_record
 
 
@@ -69,11 +81,25 @@ def get_records(db: Session = Depends(get_db)):
     return records
 
 
-@router.get("/{record_id}")
+@router.get("/{record_id}", response_model=SimpleRecordResponse | PaymentRecordResponse)
 def get_record(record_id: str, db: Session = Depends(get_db)):
+    from datetime import datetime
+    from app.services.period_calculator import calculate_next_occurrence_from_now
+
     record = db.query(BaseRecord).filter(BaseRecord.id == record_id).first()
     if not record:
         raise HTTPException(status_code=404, detail="Record not found")
+
+    now = datetime.utcnow()
+    if isinstance(record, SimpleRecord):
+        record.next_occurrence = calculate_next_occurrence_from_now(
+            now, record.period, record.time
+        )
+    elif isinstance(record, PaymentRecord):
+        record.next_occurrence = calculate_next_occurrence_from_now(
+            now, record.period, record.start_time
+        )
+
     return record
 
 
@@ -91,6 +117,9 @@ def delete_record(record_id: str, db: Session = Depends(get_db)):
 def update_simple_record(
     record_id: str, data: SimpleRecordUpdate, db: Session = Depends(get_db)
 ):
+    from datetime import datetime
+    from app.services.period_calculator import calculate_next_occurrence_from_now
+
     record = db.query(SimpleRecord).filter(SimpleRecord.id == record_id).first()
     if not record:
         raise HTTPException(status_code=404, detail="Record not found")
@@ -102,6 +131,9 @@ def update_simple_record(
 
     db.commit()
     db.refresh(record)
+    record.next_occurrence = calculate_next_occurrence_from_now(
+        datetime.utcnow(), record.period, record.time
+    )
     return record
 
 
@@ -109,6 +141,9 @@ def update_simple_record(
 def update_payment_record(
     record_id: str, data: PaymentRecordUpdate, db: Session = Depends(get_db)
 ):
+    from datetime import datetime
+    from app.services.period_calculator import calculate_next_occurrence_from_now
+
     record = db.query(PaymentRecord).filter(PaymentRecord.id == record_id).first()
     if not record:
         raise HTTPException(status_code=404, detail="Record not found")
@@ -127,4 +162,7 @@ def update_payment_record(
 
     db.commit()
     db.refresh(record)
+    record.next_occurrence = calculate_next_occurrence_from_now(
+        datetime.utcnow(), record.period, record.start_time
+    )
     return record
