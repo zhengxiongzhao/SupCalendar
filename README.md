@@ -26,6 +26,26 @@
 - **日历订阅**: 生成 iCal 订阅链接，供 iCloud/Gmail 日历使用
 - **双向同步**: 连接 Apple/Google 账户，在 Mac 日历中对记录进行增删改查
 
+## 细节
+
+```
+skill
+
+  https://clawhub.ai/asleep123/caldav-calendar
+
+CalDAV and CardDAV Server
+
+  https://github.com/Kozea/Radicale
+
+Clients
+
+  https://radicale.org/master.html#supported-clients
+
+  Mobile: https://www.onecalendar.nl/download/store
+  Linux: https://apps.kde.org/de/merkuro/
+  Othen: https://github.com/algoo/open-calendar/
+```
+
 ## 技术栈
 
 ### 前端
