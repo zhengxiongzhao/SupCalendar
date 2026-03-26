@@ -1,0 +1,27 @@
+{
+  "dashboard": {
+    "title": "仪表盘",
+    "welcome": "欢迎使用 SupCalendar",
+    "income": "收入",
+    "expense": "支出",
+    "balance": "结余",
+    "topPayments": "金额 TOP",
+    "upcoming": "即将到来"
+  },
+  "nav": {
+    "dashboard": "仪表盘",
+    "calendar": "日历",
+    "records": "记录",
+    "create": "创建",
+    "profile": "个人资料"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "confirm": "确认"
+  }
+}

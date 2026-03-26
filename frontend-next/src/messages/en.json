@@ -1,0 +1,27 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to SupCalendar",
+    "income": "Income",
+    "expense": "Expense",
+    "balance": "Balance",
+    "topPayments": "Top Payments",
+    "upcoming": "Upcoming"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "records": "Records",
+    "create": "Create",
+    "profile": "Profile"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm"
+  }
+}
