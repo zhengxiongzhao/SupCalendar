@@ -11,7 +11,7 @@
 
 ### 记录管理
 - **添加记录**: 
-  - 收付款记录：名称、类型（收入/支出）、金额、分类、付款方式、时间范围、重复周期、备注
+  - 收付款记录：名称、类型（收入/支出）、金额、分类、付款方式，时间范围、重复周期、备注
   - 简单提醒：名称、提醒时间、重复周期、备注
   - 分类和付款方式支持输入或从现有选项选择
   - 结束时间根据重复周期自动计算（可手动修改）
@@ -26,34 +26,14 @@
 - **日历订阅**: 生成 iCal 订阅链接，供 iCloud/Gmail 日历使用
 - **双向同步**: 连接 Apple/Google 账户，在 Mac 日历中对记录进行增删改查
 
-## 细节
-
-```
-skill
-
-  https://clawhub.ai/asleep123/caldav-calendar
-
-CalDAV and CardDAV Server
-
-  https://github.com/Kozea/Radicale
-
-Clients
-
-  https://radicale.org/master.html#supported-clients
-
-  Mobile: https://www.onecalendar.nl/download/store
-  Linux: https://apps.kde.org/de/merkuro/
-  Othen: https://github.com/algoo/open-calendar/
-```
-
 ## 技术栈
 
 ### 前端
-- Vue 3 (Composition API) + TypeScript
-- Vue Router 4（单页应用路由）
-- Vite（构建工具）
-- Tailwind CSS v4（样式框架）
-- Pinia（状态管理）
+- Next.js 15 (App Router) + React 19 + TypeScript
+- Tailwind CSS v4 + shadcn/ui
+- Zustand（状态管理）
+- next-intl（国际化，支持 en、zh-CN）
+- Docker 多阶段构建部署
 
 ### 后端
 - FastAPI + Python
@@ -62,10 +42,9 @@ Clients
 
 ## 快速开始
 
-### 使用 Docker Compose（推荐）
+### 使用 Docker Compose
 
 ```bash
-# 启动服务
 docker-compose up -d --build
 
 # 前端: http://localhost:3000
@@ -77,7 +56,7 @@ docker-compose up -d --build
 
 **前端**:
 ```bash
-cd frontend
+cd frontend-next
 npm install
 npm run dev
 ```
@@ -102,22 +81,33 @@ uvicorn app.main:app --reload
 
 ```
 supcalandar/
-├── frontend/          # Vue 3 前端
+├── frontend-next/          # Next.js 15 + React 19 前端
 │   ├── src/
-│   │   ├── components/    # 组件
-│   │   │   ├── common/        # 通用组件（ComboInput 等）
-│   │   │   ├── dashboard/     # Dashboard 组件
-│   │   │   ├── calendar/      # 日历组件
-│   │   │   ├── forms/         # 表单组件
-│   │   │   └── layout/        # 布局组件
-│   │   ├── views/         # 页面视图
-│   │   ├── stores/        # Pinia 状态管理
-│   │   ├── services/      # API 服务
-│   │   └── types/         # TypeScript 类型定义
+│   │   ├── app/              # Next.js App Router 页面
+│   │   │   ├── calendar/      # 日历视图
+│   │   │   ├── records/       # 记录列表
+│   │   │   ├── create/        # 创建记录
+│   │   │   ├── edit/[id]/     # 编辑记录
+│   │   │   └── profile/       # 个人中心
+│   │   ├── components/        # React 组件
+│   │   │   ├── calendar/     # 日历组件
+│   │   │   ├── common/       # 通用组件
+│   │   │   ├── dashboard/   # Dashboard 组件
+│   │   │   ├── forms/       # 表单组件
+│   │   │   ├── layout/      # 布局组件
+│   │   │   └── ui/          # shadcn/ui 组件
+│   │   ├── stores/          # Zustand 状态管理
+│   │   ├── services/        # API 服务
+│   │   ├── i18n/           # next-intl 配置
+│   │   ├── messages/       # 翻译文件
+│   │   ├── types/          # TypeScript 类型
+│   │   └── utils/          # 工具函数
+│   ├── Dockerfile          # Docker 构建文件
 │   └── ...
-├── backend/           # FastAPI 后端
+├── frontend/               # Vue 3 前端
+├── backend/                # FastAPI 后端
 ├── docker-compose.yml
-└── docs/             # 设计文档
+└── docs/                   # 设计文档
 ```
 
 ## 响应式设计

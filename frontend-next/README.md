@@ -8,18 +8,29 @@ Next.js 15 + React 19 frontend for SupCalendar financial calendar app.
 - **UI**: React 19 + TypeScript
 - **Styling**: Tailwind CSS v4 + shadcn/ui components
 - **State**: Zustand
-- **i18n**: next-intl (en, zh-CN)
-- **Package Manager**: pnpm
+- **i18n**: next-intl (en, zh-CN) — localePrefix: 'never' (no URL prefix)
+- **Package Manager**: pnpm / npm
 
 ## Getting Started
 
+### Development
+
 ```bash
 cd frontend-next
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+Open [http://localhost:3000](http://localhost:3000)
+
+### Docker Deployment
+
+```bash
+docker-compose up --build
+```
+
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
 
 ## Project Structure
 
@@ -33,40 +44,55 @@ src/
 │   └── profile/            # Profile page
 ├── components/
 │   ├── calendar/           # Calendar components
-│   ├── common/             # Shared components
+│   ├── common/             # Shared components (ComboInput)
 │   ├── dashboard/          # Dashboard components
 │   ├── forms/              # Form components
-│   ├── layout/             # Layout components (nav)
+│   ├── layout/             # Layout components (DesktopNav, MobileNav)
 │   └── ui/                 # shadcn/ui components
 ├── i18n/                   # i18n configuration
+│   ├── routing.ts          # next-intl routing (localePrefix: 'never')
+│   └── request.ts          # Server-side request config
 ├── messages/               # Translation files
+│   ├── en.json
+│   └── zh-CN.json
 ├── services/               # API client
-├── stores/                 # Zustand stores
-├── types/                  # TypeScript types
+├── stores/                 # Zustand stores (records, dashboard)
+├── types/                   # TypeScript types
 └── utils/                  # Utility functions
 ```
 
 ## Environment Variables
 
 ```env
-NEXT_PUBLIC_API_URL=/api  # Backend API URL
+NEXT_PUBLIC_API_URL=/api  # Backend API URL (default: /api)
 ```
+
+## i18n Configuration
+
+Using next-intl with `localePrefix: 'never'` — translations work via Accept-Language header detection, no URL prefix required:
+
+- `/` → English (default)
+- `/calendar` → English
+- Backend detects locale from browser Accept-Language header
+
+Translation files: `src/messages/en.json`, `src/messages/zh-CN.json`
 
 ## Features
 
 - Dashboard with income/expense summary
 - Calendar view with event markers
-- Payment and simple record management
+- Payment and simple record management (CRUD)
 - i18n support (English, Chinese)
-- Responsive design (desktop + mobile)
+- Responsive design (desktop sidebar + mobile bottom nav)
+- Docker production deployment
 
 ## Migration Status
 
-This is a migration from Vue 3 to Next.js/React. All core features have been migrated:
+Complete migration from Vue 3 to Next.js/React:
 
 - [x] Framework scaffold (Next.js 15 + React 19)
 - [x] Tailwind CSS v4 + shadcn/ui
-- [x] next-intl i18n (en, zh-CN)
+- [x] next-intl i18n (localePrefix: 'never')
 - [x] Zustand state management
 - [x] Dashboard page
 - [x] Calendar view
@@ -74,4 +100,4 @@ This is a migration from Vue 3 to Next.js/React. All core features have been mig
 - [x] Create record (payment + simple)
 - [x] Edit record
 - [x] Profile page
-- [ ] Build verification (Node.js not available in current env)
+- [x] Docker deployment (Dockerfile + docker-compose.yml)
