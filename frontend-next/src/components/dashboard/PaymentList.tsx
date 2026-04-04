@@ -1,6 +1,11 @@
 'use client'
 
 import Link from 'next/link'
+import { DollarSign, ArrowUpRight, ArrowDownRight, ArrowRight } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 import type { PaymentRecord } from '@/types'
 import { formatAmount, formatDateWithNext, daysUntil, getUrgencyClass } from '@/utils/formatDate'
 
@@ -10,77 +15,84 @@ interface PaymentListProps {
 
 export function PaymentList({ records }: PaymentListProps) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-      <div className="p-5 border-b border-gray-100 flex items-center justify-between">
+    <Card>
+      <CardHeader className="pb-3 flex flex-row items-center justify-between">
         <div>
-          <h2 className="font-bold text-gray-900">收付款 TOP 10</h2>
-          <p className="text-sm text-gray-500 mt-0.5">按金额排序</p>
+          <CardTitle className="text-base">收付款 TOP 10</CardTitle>
+          <p className="text-sm text-muted-foreground">按金额排序</p>
         </div>
-        <Link href="/records?filter=payment" className="text-sm text-blue-600 font-medium hover:text-blue-700">
-          查看全部
+        <Link href="/records?filter=payment">
+          <Button variant="link" size="sm">
+            查看全部
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
         </Link>
-      </div>
+      </CardHeader>
 
       {records.length === 0 ? (
-        <div className="p-8 text-center">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 7h6m0 3.666V14m-6.118 4.25l.677 1.444a1 1 0 001.802 0l.678-1.444M12 21a9 9 0 110-18 9 9 0 010 18z"
-              />
-            </svg>
-          </div>
-          <p className="text-gray-500">暂无收付款记录</p>
-          <Link href="/create" className="mt-3 text-blue-600 font-medium hover:text-blue-700 block">
-            添加一条
-          </Link>
-        </div>
-      ) : (
-        <div className="divide-y divide-gray-100">
-          {records.map((record) => (
-            <Link
-              key={record.id}
-              href={`/edit/${record.id}`}
-              className="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors cursor-pointer block"
-            >
-              <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0 ${
-                  record.direction === 'income' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                }`}
-              >
-                {record.direction === 'income' ? '↗' : '↘'}
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <p className="font-medium text-gray-900 truncate">{record.name}</p>
-                <p className="text-sm text-gray-500">{record.category}</p>
-              </div>
-
-              <div className="text-right">
-                <p className={`font-bold ${record.direction === 'income' ? 'text-green-600' : 'text-red-600'}`}>
-                  {record.direction === 'income' ? '+' : '-'}
-                  {formatAmount(record.amount, record.currency)}
-                </p>
-                <p className="text-xs text-gray-400">
-                  {formatDateWithNext(record.next_occurrence || '无')}
-                </p>
-                {record.next_occurrence && (
-                  <span
-                    className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium border ${getUrgencyClass(
-                      daysUntil(record.next_occurrence)
-                    )}`}
-                  >
-                    {daysUntil(record.next_occurrence)} 天后
-                  </span>
-                )}
-              </div>
+        <CardContent className="pt-0">
+          <div className="p-8 text-center">
+            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-3">
+              <DollarSign className="w-8 h-8 text-muted-foreground" />
+            </div>
+            <p className="text-muted-foreground">暂无收付款记录</p>
+            <Link href="/create">
+              <Button variant="link" className="mt-3">
+                添加一条
+              </Button>
             </Link>
-          ))}
-        </div>
+          </div>
+        </CardContent>
+      ) : (
+        <CardContent className="pt-0">
+          <div className="divide-y divide-border -mx-6 px-6">
+            {records.map((record) => (
+              <Link
+                key={record.id}
+                href={`/edit/${record.id}`}
+                className="py-3 flex items-center gap-4 hover:bg-accent transition-colors cursor-pointer -mx-6 px-6 block"
+              >
+                <div
+                  className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0",
+                    record.direction === 'income' 
+                      ? 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400' 
+                      : 'bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400'
+                  )}
+                >
+                  {record.direction === 'income' ? <ArrowUpRight /> : <ArrowDownRight />}
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">{record.name}</p>
+                  <p className="text-sm text-muted-foreground">{record.category}</p>
+                </div>
+
+                <div className="text-right">
+                  <p className={cn(
+                    "font-bold",
+                    record.direction === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                  )}>
+                    {record.direction === 'income' ? '+' : '-'}
+                    {formatAmount(record.amount, record.currency)}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {formatDateWithNext(record.next_occurrence || '无')}
+                  </p>
+                  {record.next_occurrence && (
+                    <Badge
+                      variant="outline"
+                      className={cn("mt-1", getUrgencyClass(daysUntil(record.next_occurrence)))}
+                    >
+                      {daysUntil(record.next_occurrence)} 天后
+                    </Badge>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </CardContent>
       )}
-    </div>
+    </Card>
   )
 }

@@ -2,12 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { ArrowDownRight, ArrowUpRight, Loader2 } from 'lucide-react'
 import { useRecordsStore } from '@/stores/records'
 import { supportApi } from '@/services/api'
-import { ComboInput } from '@/components/common/ComboInput'
+import { Combobox } from '@/components/ui/combobox'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
 import { CURRENCY_OPTIONS } from '@/types'
 import type { PaymentRecordCreate, Category, PaymentMethod, PeriodType } from '@/types'
 import { calculateEndTime } from '@/utils/formatDate'
+import { cn } from '@/lib/utils'
 
 const periods: { value: PeriodType; label: string }[] = [
   { value: 'week', label: '周' },
@@ -128,109 +134,116 @@ export function PaymentRecordForm({ onSuccess }: { onSuccess: () => void }) {
     >
       {isLoadingData && (
         <div className="text-center py-4">
-          <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-gray-500 mt-2">加载数据中...</p>
+          <Loader2 className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm text-muted-foreground mt-2">加载数据中...</p>
         </div>
       )}
 
       {error && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">{error}</div>
+        <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-xl text-destructive text-sm">{error}</div>
       )}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">记录名称</label>
-        <input
+        <Label htmlFor="record-name">记录名称</Label>
+        <Input
+          id="record-name"
           type="text"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           placeholder="例如：房租、工资"
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">类型</label>
+        <Label>类型</Label>
         <div className="grid grid-cols-2 gap-3">
-          <button
+          <Button
             type="button"
+            variant={form.direction === 'income' ? 'default' : 'outline'}
             onClick={() => setForm({ ...form, direction: 'income' })}
-            className={`px-4 py-3 rounded-xl border-2 text-center font-medium transition-all flex items-center justify-center gap-2 ${
-              form.direction === 'income'
-                ? 'border-green-500 bg-green-50 text-green-600'
-                : 'border-gray-200 hover:border-gray-300 text-gray-700'
-            }`}
+            className={cn(
+              "px-4 py-3 rounded-xl border-2 text-center font-medium transition-all flex items-center justify-center gap-2",
+              form.direction === 'income' 
+                ? 'border-green-500 bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400'
+                : 'border-border hover:border-border/80'
+            )}
           >
-            <span className="text-xl">↗</span>
+            <ArrowUpRight className="text-xl" />
             收入
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant={form.direction === 'expense' ? 'destructive' : 'outline'}
             onClick={() => setForm({ ...form, direction: 'expense' })}
-            className={`px-4 py-3 rounded-xl border-2 text-center font-medium transition-all flex items-center justify-center gap-2 ${
+            className={cn(
+              "px-4 py-3 rounded-xl border-2 text-center font-medium transition-all flex items-center justify-center gap-2",
               form.direction === 'expense'
-                ? 'border-red-500 bg-red-50 text-red-600'
-                : 'border-gray-200 hover:border-gray-300 text-gray-700'
-            }`}
+                ? 'border-red-500 bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400'
+                : 'border-border hover:border-border/80'
+            )}
           >
-            <span className="text-xl">↘</span>
+            <ArrowDownRight className="text-xl" />
             支出
-          </button>
+          </Button>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">金额</label>
+        <Label htmlFor="amount">金额</Label>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">¥</span>
-          <input
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">¥</span>
+          <Input
+            id="amount"
             type="number"
             step="0.01"
             min="0"
             value={form.amount || ''}
             onChange={(e) => setForm({ ...form, amount: parseFloat(e.target.value) || 0 })}
             placeholder="0.00"
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
+            className="pl-7"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">货币类型</label>
+        <Label>货币类型</Label>
         <div className="grid grid-cols-2 gap-3">
           {CURRENCY_OPTIONS.map((currency) => (
-            <button
+            <Button
               key={currency.value}
               type="button"
+              variant={form.currency === currency.value ? 'default' : 'outline'}
               onClick={() => setForm({ ...form, currency: currency.value })}
-              className={`px-4 py-3 rounded-xl border-2 text-center font-medium transition-all ${
+              className={cn(
+                "px-4 py-3 rounded-xl border-2 text-center font-medium transition-all",
                 form.currency === currency.value
-                  ? 'border-blue-600 bg-blue-50 text-blue-600'
-                  : 'border-gray-200 hover:border-gray-300 text-gray-700'
-              }`}
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-border'
+              )}
             >
               {currency.symbol} {currency.label}
-            </button>
+            </Button>
           ))}
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">分类</label>
-          <ComboInput
+          <Label htmlFor="category">分类</Label>
+          <Combobox
             value={form.category}
-            onChange={(value) => setForm({ ...form, category: value })}
-            options={categories.map((c) => c.name)}
+            onValueChange={(value) => setForm({ ...form, category: value })}
+            items={categories.map((c) => c.name)}
             placeholder="输入或选择分类"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">付款方式</label>
-          <ComboInput
+          <Label htmlFor="payment-method">付款方式</Label>
+          <Combobox
             value={form.payment_method}
-            onChange={(value) => setForm({ ...form, payment_method: value })}
-            options={paymentMethods.map((m) => m.name)}
+            onValueChange={(value) => setForm({ ...form, payment_method: value })}
+            items={paymentMethods.map((m) => m.name)}
             placeholder="输入或选择付款方式"
           />
         </div>
@@ -238,88 +251,76 @@ export function PaymentRecordForm({ onSuccess }: { onSuccess: () => void }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">开始时间</label>
-          <input
+          <Label htmlFor="start-time">开始时间</Label>
+          <Input
+            id="start-time"
             type="datetime-local"
             value={form.start_time}
             onChange={(e) => setForm({ ...form, start_time: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <Label htmlFor="end-time">
             结束时间
             {!isEndTimeManuallySet && form.end_time && (
-              <span className="text-xs text-green-600 ml-2">(自动计算)</span>
+              <span className="text-xs text-green-600 dark:text-green-400 ml-2">(自动计算)</span>
             )}
-            {!form.end_time && <span className="text-xs text-gray-400 ml-2">(可手动修改)</span>}
-          </label>
-          <input
+            {!form.end_time && <span className="text-xs text-muted-foreground ml-2">(可手动修改)</span>}
+          </Label>
+          <Input
+            id="end-time"
             type="datetime-local"
             value={form.end_time}
             onChange={(e) => {
               setForm({ ...form, end_time: e.target.value })
               setIsEndTimeManuallySet(true)
             }}
-            className={`w-full px-4 py-3 rounded-xl border focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all ${
-              !isEndTimeManuallySet && form.end_time ? 'bg-green-50 border-green-200' : 'border-gray-200'
-            }`}
+            className={!isEndTimeManuallySet && form.end_time ? 'bg-green-50 dark:bg-green-950' : undefined}
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">重复周期</label>
+        <Label>重复周期</Label>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {periods.map((period) => (
-            <button
+            <Button
               key={period.value}
               type="button"
+              variant={form.period === period.value ? 'default' : 'outline'}
               onClick={() => setForm({ ...form, period: period.value })}
-              className={`px-4 py-3 rounded-xl border-2 text-center font-medium transition-all ${
+              className={cn(
+                "px-4 py-3 rounded-xl border-2 text-center font-medium transition-all",
                 form.period === period.value
-                  ? 'border-blue-600 bg-blue-50 text-blue-600'
-                  : 'border-gray-200 hover:border-gray-300 text-gray-700'
-              }`}
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-border'
+              )}
             >
               {period.label}
-            </button>
+            </Button>
           ))}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">备注（可选）</label>
-        <textarea
+        <Label htmlFor="notes">备注（可选）</Label>
+        <Textarea
+          id="notes"
           value={form.notes}
           onChange={(e) => setForm({ ...form, notes: e.target.value })}
           placeholder="添加备注信息..."
           rows={3}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all resize-none"
         />
       </div>
 
       <div className="flex gap-3 pt-2">
-        <button
-          type="button"
-          onClick={resetForm}
-          className="flex-1 px-4 py-3 border border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-        >
+        <Button type="button" variant="outline" onClick={resetForm}>
           重置
-        </button>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-        >
-          {isSubmitting && (
-            <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-            </svg>
-          )}
+        </Button>
+        <Button type="submit" disabled={isSubmitting} className="flex-1">
+          {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isSubmitting ? '创建中...' : '创建记录'}
-        </button>
+        </Button>
       </div>
     </form>
   )

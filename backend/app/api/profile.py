@@ -5,10 +5,31 @@ from datetime import datetime
 import json
 import traceback
 from ..models.record import SimpleRecord, PaymentRecord
-from ..schemas.record import SimpleRecordCreate, PaymentRecordCreate
+from ..models.base import PeriodType, Direction
 from ..database import get_db
 
 router = APIRouter(prefix="/profile", tags=["个人中心"])
+
+
+def _parse_period(value: str) -> PeriodType:
+    """将字符串转换为 PeriodType 枚举，无效值默认为 MONTH"""
+    if not value or value == "none":
+        return PeriodType.MONTH
+    try:
+        return PeriodType(value)
+    except ValueError:
+        return PeriodType.MONTH
+
+
+def _parse_direction(value: str) -> Direction:
+    """将字符串转换为 Direction 枚举，无效值默认为 EXPENSE"""
+    # 兼容旧导出格式 "incoming" / "outgoing"
+    mapping = {"incoming": "income", "outgoing": "expense"}
+    normalized = mapping.get(value, value)
+    try:
+        return Direction(normalized)
+    except ValueError:
+        return Direction.EXPENSE
 
 
 @router.get("/export")
@@ -50,7 +71,6 @@ async def export_records():
                     "date": record.time.isoformat() if record.time else None,
                     "category": record.description or "",
                     "repeat_type": record.period.value if record.period else "none",
-                    "days_before": 0,
                     "created_at": record.created_at.isoformat()
                     if record.created_at
                     else None,
@@ -75,7 +95,7 @@ async def export_records():
                     "category": record.description or "",
                     "payment_type": record.direction.value
                     if record.direction
-                    else "incoming",
+                    else "expense",
                     "repeat_type": record.period.value if record.period else "none",
                     "created_at": record.created_at.isoformat()
                     if record.created_at
@@ -133,15 +153,14 @@ async def import_records(file: UploadFile = File(...)):
                 record_type = record.get("type")
 
                 if record_type == "simple":
-                    # 创建简单提醒
+                    # 创建简单提醒 — 字段映射到模型字段名
                     simple_record = SimpleRecord(
-                        title=record.get("title", ""),
+                        name=record.get("title", ""),
                         time=datetime.fromisoformat(record["date"])
                         if record.get("date")
                         else datetime.utcnow(),
-                        category=record.get("category", ""),
-                        repeat_type=record.get("repeat_type", "none"),
-                        days_before=record.get("days_before", 0),
+                        description=record.get("category", ""),
+                        period=_parse_period(record.get("repeat_type", "month")),
                     )
                     db.add(simple_record)
                     db.flush()
@@ -149,17 +168,22 @@ async def import_records(file: UploadFile = File(...)):
                     result["simple_records"] += 1
 
                 elif record_type == "payment":
-                    # 创建收付款记录
+                    # 创建收付款记录 — 字段映射到模型字段名
                     payment_record = PaymentRecord(
-                        title=record.get("title", ""),
-                        amount=record.get("amount", 0),
+                        name=record.get("title", ""),
+                        amount=float(record.get("amount", 0)),
                         currency=record.get("currency", "CNY"),
                         start_time=datetime.fromisoformat(record["date"])
                         if record.get("date")
                         else datetime.utcnow(),
+                        direction=_parse_direction(
+                            record.get("payment_type", "expense")
+                        ),
+                        period=_parse_period(record.get("repeat_type", "month")),
                         category=record.get("category", ""),
-                        direction=record.get("payment_type", "incoming"),
-                        repeat_type=record.get("repeat_type", "none"),
+                        description=record.get("description", ""),
+                        payment_method=record.get("payment_method", None),
+                        notes=record.get("notes", None),
                     )
                     db.add(payment_record)
                     db.flush()
@@ -173,6 +197,10 @@ async def import_records(file: UploadFile = File(...)):
 
             except Exception as e:
                 result["errors"].append({"index": idx, "reason": f"导入失败: {str(e)}"})
+
+        # 如果全部失败，标记 success=False
+        if result["imported"] == 0 and len(result["errors"]) > 0:
+            result["success"] = False
 
         # 提交所有更改
         db.commit()
