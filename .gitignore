@@ -40,10 +40,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Vue/Vite
+# Build output
 dist/
-dist-ssr/
-*.local
+node_modules/
+
+.DS_Store
 
 # Editor
 .vscode/
