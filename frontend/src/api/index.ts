@@ -1,5 +1,0 @@
-export * from './records'
-export * from './dashboard'
-export * from './calendar'
-export * from './profile'
-export * from './support'

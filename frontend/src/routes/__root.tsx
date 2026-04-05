@@ -1,7 +1,11 @@
 import { type QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { Toaster } from '@/components/ui/sonner'
 import { NavigationProgress } from '@/components/navigation-progress'
+import { GeneralError } from '@/features/errors/general-error'
+import { NotFoundError } from '@/features/errors/not-found-error'
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -12,23 +16,15 @@ export const Route = createRootRouteWithContext<{
         <NavigationProgress />
         <Outlet />
         <Toaster duration={5000} />
+        {import.meta.env.MODE === 'development' && (
+          <>
+            <ReactQueryDevtools buttonPosition='bottom-left' />
+            <TanStackRouterDevtools position='bottom-right' />
+          </>
+        )}
       </>
     )
   },
-  notFoundComponent: () => (
-    <div className='flex h-svh items-center justify-center'>
-      <div className='text-center'>
-        <h1 className='text-4xl font-bold'>404</h1>
-        <p className='text-muted-foreground mt-2'>页面未找到</p>
-      </div>
-    </div>
-  ),
-  errorComponent: ({ error }) => (
-    <div className='flex h-svh items-center justify-center'>
-      <div className='text-center'>
-        <h1 className='text-4xl font-bold'>出错了</h1>
-        <p className='text-muted-foreground mt-2'>{error.message}</p>
-      </div>
-    </div>
-  ),
+  notFoundComponent: NotFoundError,
+  errorComponent: GeneralError,
 })

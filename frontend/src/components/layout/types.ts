@@ -1,27 +1,44 @@
-import type { LucideIcon } from 'lucide-react'
+import { type LinkProps } from '@tanstack/react-router'
 
-export type NavItem = {
-  title: string
-  url?: string
-  icon?: LucideIcon | React.ComponentType<{ className?: string }>
-  isActive?: boolean
-  items?: NavItem[]
-  badge?: string
-  disabled?: boolean
-}
-
-export type NavGroup = {
-  title: string
-  items: NavItem[]
-}
-
-export type UserInfo = {
+type User = {
   name: string
   email: string
   avatar: string
 }
 
-export type SidebarData = {
-  user: UserInfo
+type Team = {
+  name: string
+  logo: React.ElementType
+  plan: string
+}
+
+type BaseNavItem = {
+  title: string
+  badge?: string
+  icon?: React.ElementType
+}
+
+type NavLink = BaseNavItem & {
+  url: LinkProps['to'] | (string & {})
+  items?: never
+}
+
+type NavCollapsible = BaseNavItem & {
+  items: (BaseNavItem & { url: LinkProps['to'] | (string & {}) })[]
+  url?: never
+}
+
+type NavItem = NavCollapsible | NavLink
+
+type NavGroup = {
+  title: string
+  items: NavItem[]
+}
+
+type SidebarData = {
+  user: User
+  teams: Team[]
   navGroups: NavGroup[]
 }
+
+export type { SidebarData, NavGroup, NavItem, NavCollapsible, NavLink }
