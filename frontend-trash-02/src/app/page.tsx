@@ -22,11 +22,11 @@ export default function DashboardPage() {
   const currentMonth = new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long' })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold">{t('title')}</h1>
-          <p className="text-muted-foreground mt-1">{currentMonth}</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{t('title')}</h1>
+          <p className="text-muted-foreground mt-1.5 text-sm">{currentMonth} · 管理你的收付款和提醒记录</p>
         </div>
         <div className="flex gap-3">
           <Link href="/calendar">

@@ -111,7 +111,10 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">个人中心</h1>
+      <div className="mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight">个人中心</h1>
+        <p className="text-muted-foreground mt-1.5 text-sm">管理你的数据和个人设置</p>
+      </div>
 
       {error && (
         <div className="mb-6 p-4 bg-destructive/10 border border-destructive/30 rounded-xl text-destructive">

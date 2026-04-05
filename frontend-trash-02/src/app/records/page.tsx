@@ -80,9 +80,12 @@ export default function RecordsPage() {
   }
 
   return (
-    <div className="space-y-6 animate-in">
+    <div className="space-y-8 animate-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-2xl md:text-3xl font-bold">所有记录</h1>
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">所有记录</h1>
+          <p className="text-muted-foreground mt-1.5 text-sm">查看和管理所有收付款和提醒记录</p>
+        </div>
         <Link href="/create">
           <Button>
             <Plus className="w-5 h-5 mr-2" />

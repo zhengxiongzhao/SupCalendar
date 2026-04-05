@@ -19,7 +19,7 @@ export function DesktopNav() {
   const t = useTranslations('nav')
 
   return (
-    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-64 bg-card border-r border-border flex-col z-40">
+    <aside className="hidden md:flex fixed left-3 top-3 bottom-3 w-64 bg-card rounded-2xl shadow-lg ring-1 ring-border/50 flex-col z-40 overflow-hidden">
       <div className="p-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
@@ -55,7 +55,7 @@ export function DesktopNav() {
         })}
       </nav>
 
-      <div className="p-4 flex items-center justify-between border-t border-border">
+      <div className="p-4 flex items-center justify-between border-t border-border/50">
         <ThemeToggle />
         <Link
           href="/create"

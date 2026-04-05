@@ -39,9 +39,12 @@ export default function CalendarPage() {
   }, [records, selectedDate])
 
   return (
-    <div className="space-y-6 animate-in">
+    <div className="space-y-8 animate-in">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl md:text-3xl font-bold">日历视图</h1>
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">日历视图</h1>
+          <p className="text-muted-foreground mt-1.5 text-sm">查看和管理你的日历记录</p>
+        </div>
         <Link href="/create">
           <Button>
             <Plus className="w-5 h-5 mr-2" />
