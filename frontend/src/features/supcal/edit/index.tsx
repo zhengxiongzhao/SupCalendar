@@ -10,7 +10,6 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
   useRecord,
@@ -95,7 +94,7 @@ export function SupcalEdit() {
           </div>
         </Header>
         <Main>
-          <div className='max-w-2xl space-y-4'>
+          <div className='max-w-3xl space-y-4'>
             <Skeleton className='h-8 w-48' />
             <Skeleton className='h-96 w-full' />
           </div>
@@ -147,64 +146,69 @@ export function SupcalEdit() {
       </Header>
 
       <Main>
-        <div className='mb-6 flex items-center justify-between'>
-          <div>
-            <h1 className='text-2xl font-bold tracking-tight'>编辑记录</h1>
-            <p className='text-muted-foreground'>
-              修改「{record.name}」的信息
-            </p>
-          </div>
-          <Button
-            variant='destructive'
-            size='sm'
-            onClick={() => setDeleteOpen(true)}
-          >
-            <Trash2 className='mr-2 h-4 w-4' />
-            删除记录
-          </Button>
+        <div className='mb-6'>
+          <h1 className='text-2xl font-bold tracking-tight'>编辑记录</h1>
+          <p className='text-muted-foreground'>
+            修改「{record.name}」的信息
+          </p>
         </div>
 
-        <Card className='max-w-2xl'>
-          <CardHeader>
-            <CardTitle>
-              {isPayment ? '收付款记录' : '简单提醒'}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isPayment ? (
-              <PaymentForm
-                defaultValues={{
-                  name: (record as PaymentRecord).name,
-                  direction: (record as PaymentRecord).direction,
-                  amount: (record as PaymentRecord).amount,
-                  currency: (record as PaymentRecord).currency as 'CNY' | 'USD',
-                  category: (record as PaymentRecord).category || '',
-                  payment_method: (record as PaymentRecord).payment_method,
-                  period: (record as PaymentRecord).period,
-                  start_time: (record as PaymentRecord).start_time,
-                  end_time: (record as PaymentRecord).end_time || '',
-                  notes: (record as PaymentRecord).notes || '',
-                  description: (record as PaymentRecord).description || '',
-                }}
-                onSubmit={handlePaymentSubmit}
-                submitText='保存修改'
-                submitLoading={isSubmitting}
-              />
-            ) : (
-              <SimpleForm
-                defaultValues={{
-                  name: (record as SimpleRecord).name,
-                  time: (record as SimpleRecord).time,
-                  period: (record as SimpleRecord).period,
-                  description: (record as SimpleRecord).description || '',
-                }}
-                onSubmit={handleSimpleSubmit}
-                submitText='保存修改'
-                submitLoading={isSubmitting}
-              />
-            )}
-          </CardContent>
-        </Card>
+        <div className='max-w-3xl'>
+          {isPayment ? (
+            <PaymentForm
+              defaultValues={{
+                name: (record as PaymentRecord).name,
+                direction: (record as PaymentRecord).direction,
+                amount: (record as PaymentRecord).amount,
+                currency: (record as PaymentRecord).currency as 'CNY' | 'USD',
+                category: (record as PaymentRecord).category || '',
+                payment_method: (record as PaymentRecord).payment_method,
+                period: (record as PaymentRecord).period,
+                start_time: (record as PaymentRecord).start_time,
+                end_time: (record as PaymentRecord).end_time || '',
+                notes: (record as PaymentRecord).notes || '',
+                description: (record as PaymentRecord).description || '',
+              }}
+              onSubmit={handlePaymentSubmit}
+              submitText='保存修改'
+              submitLoading={isSubmitting}
+              extraActions={
+                <Button
+                  type='button'
+                  variant='outline'
+                  className='text-destructive hover:text-destructive'
+                  onClick={() => setDeleteOpen(true)}
+                >
+                  <Trash2 className='mr-2 h-4 w-4' />
+                  删除记录
+                </Button>
+              }
+            />
+          ) : (
+            <SimpleForm
+              defaultValues={{
+                name: (record as SimpleRecord).name,
+                time: (record as SimpleRecord).time,
+                period: (record as SimpleRecord).period,
+                description: (record as SimpleRecord).description || '',
+              }}
+              onSubmit={handleSimpleSubmit}
+              submitText='保存修改'
+              submitLoading={isSubmitting}
+              extraActions={
+                <Button
+                  type='button'
+                  variant='outline'
+                  className='text-destructive hover:text-destructive'
+                  onClick={() => setDeleteOpen(true)}
+                >
+                  <Trash2 className='mr-2 h-4 w-4' />
+                  删除记录
+                </Button>
+              }
+            />
+          )}
+        </div>
       </Main>
 
       <ConfirmDialog

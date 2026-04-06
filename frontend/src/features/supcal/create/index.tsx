@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -11,7 +10,7 @@ import { PaymentForm } from './components/payment-form'
 import { SimpleForm } from './components/simple-form'
 
 export function SupcalCreate() {
-  const [activeTab, setActiveTab] = useState('payment')
+  const [activeTab, setActiveTab] = useState<'payment' | 'simple'>('payment')
 
   return (
     <>
@@ -30,25 +29,38 @@ export function SupcalCreate() {
           <p className='text-muted-foreground'>创建新的收付款记录或提醒</p>
         </div>
 
-        <Card className='max-w-2xl'>
-          <CardHeader>
-            <CardTitle>记录类型</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className='mb-6'>
-                <TabsTrigger value='payment'>收付款</TabsTrigger>
-                <TabsTrigger value='simple'>简单提醒</TabsTrigger>
-              </TabsList>
-              <TabsContent value='payment'>
-                <PaymentForm />
-              </TabsContent>
-              <TabsContent value='simple'>
-                <SimpleForm />
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+        <div className='mb-6'>
+          <div className='inline-flex rounded-lg border bg-muted p-1'>
+            <button
+              type='button'
+              className={cn(
+                'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                activeTab === 'payment'
+                  ? 'bg-background shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+              onClick={() => setActiveTab('payment')}
+            >
+              收付款
+            </button>
+            <button
+              type='button'
+              className={cn(
+                'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                activeTab === 'simple'
+                  ? 'bg-background shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+              onClick={() => setActiveTab('simple')}
+            >
+              简单提醒
+            </button>
+          </div>
+        </div>
+
+        <div className='max-w-3xl'>
+          {activeTab === 'payment' ? <PaymentForm /> : <SimpleForm />}
+        </div>
       </Main>
     </>
   )
