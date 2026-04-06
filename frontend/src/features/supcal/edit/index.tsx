@@ -162,7 +162,7 @@ export function SupcalEdit() {
                 amount: (record as PaymentRecord).amount,
                 currency: (record as PaymentRecord).currency as 'CNY' | 'USD',
                 category: (record as PaymentRecord).category || '',
-                payment_method: (record as PaymentRecord).payment_method,
+                payment_method: (record as PaymentRecord).payment_method || '',
                 period: (record as PaymentRecord).period,
                 start_time: (record as PaymentRecord).start_time,
                 end_time: (record as PaymentRecord).end_time || '',

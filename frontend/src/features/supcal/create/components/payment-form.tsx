@@ -86,6 +86,7 @@ function ComboboxField({
   value,
   onChange,
   isLoading,
+  clearable = false,
 }: {
   label: string
   placeholder: string
@@ -95,12 +96,24 @@ function ComboboxField({
   value: string
   onChange: (value: string) => void
   isLoading: boolean
+  clearable?: boolean
 }) {
   const [open, setOpen] = useState(false)
 
   return (
     <FormItem className='space-y-2'>
-      <FormLabel>{label}</FormLabel>
+      <div className='flex items-center justify-between'>
+        <FormLabel>{label}</FormLabel>
+        {clearable && value && (
+          <button
+            type='button'
+            className='text-xs text-muted-foreground hover:text-foreground'
+            onClick={() => onChange('')}
+          >
+            清除
+          </button>
+        )}
+      </div>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <FormControl>
@@ -131,7 +144,7 @@ function ComboboxField({
                       key={option.value}
                       value={option.value}
                       onSelect={(currentValue) => {
-                        onChange(currentValue)
+                        onChange(currentValue === value ? '' : currentValue)
                         setOpen(false)
                       }}
                     >
@@ -369,6 +382,7 @@ export function PaymentForm({
                     value={field.value}
                     onChange={field.onChange}
                     isLoading={paymentMethodsQuery.isLoading}
+                    clearable
                   />
                 )}
               />
