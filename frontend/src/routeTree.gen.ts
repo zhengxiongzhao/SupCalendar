@@ -38,6 +38,11 @@ import { Route as ClerkauthSignInRouteImport } from './routes/clerk/(auth)/sign-
 import { Route as AuthenticatedSupcalRecordsRouteImport } from './routes/_authenticated/supcal/records'
 import { Route as AuthenticatedSupcalProfileRouteImport } from './routes/_authenticated/supcal/profile'
 import { Route as AuthenticatedSupcalCreateRouteImport } from './routes/_authenticated/supcal/create'
+import { Route as AuthenticatedSupcalCalendar5RouteImport } from './routes/_authenticated/supcal/calendar-5'
+import { Route as AuthenticatedSupcalCalendar4RouteImport } from './routes/_authenticated/supcal/calendar-4'
+import { Route as AuthenticatedSupcalCalendar3RouteImport } from './routes/_authenticated/supcal/calendar-3'
+import { Route as AuthenticatedSupcalCalendar2RouteImport } from './routes/_authenticated/supcal/calendar-2'
+import { Route as AuthenticatedSupcalCalendar1RouteImport } from './routes/_authenticated/supcal/calendar-1'
 import { Route as AuthenticatedSupcalCalendarRouteImport } from './routes/_authenticated/supcal/calendar'
 import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes/_authenticated/settings/notifications'
 import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_authenticated/settings/display'
@@ -196,6 +201,36 @@ const AuthenticatedSupcalCreateRoute =
     path: '/supcal/create',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar5Route =
+  AuthenticatedSupcalCalendar5RouteImport.update({
+    id: '/supcal/calendar-5',
+    path: '/supcal/calendar-5',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar4Route =
+  AuthenticatedSupcalCalendar4RouteImport.update({
+    id: '/supcal/calendar-4',
+    path: '/supcal/calendar-4',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar3Route =
+  AuthenticatedSupcalCalendar3RouteImport.update({
+    id: '/supcal/calendar-3',
+    path: '/supcal/calendar-3',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar2Route =
+  AuthenticatedSupcalCalendar2RouteImport.update({
+    id: '/supcal/calendar-2',
+    path: '/supcal/calendar-2',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar1Route =
+  AuthenticatedSupcalCalendar1RouteImport.update({
+    id: '/supcal/calendar-1',
+    path: '/supcal/calendar-1',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendarRoute =
   AuthenticatedSupcalCalendarRouteImport.update({
     id: '/supcal/calendar',
@@ -259,6 +294,11 @@ export interface FileRoutesByFullPath {
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/supcal/calendar': typeof AuthenticatedSupcalCalendarRoute
+  '/supcal/calendar-1': typeof AuthenticatedSupcalCalendar1Route
+  '/supcal/calendar-2': typeof AuthenticatedSupcalCalendar2Route
+  '/supcal/calendar-3': typeof AuthenticatedSupcalCalendar3Route
+  '/supcal/calendar-4': typeof AuthenticatedSupcalCalendar4Route
+  '/supcal/calendar-5': typeof AuthenticatedSupcalCalendar5Route
   '/supcal/create': typeof AuthenticatedSupcalCreateRoute
   '/supcal/profile': typeof AuthenticatedSupcalProfileRoute
   '/supcal/records': typeof AuthenticatedSupcalRecordsRoute
@@ -293,6 +333,11 @@ export interface FileRoutesByTo {
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/supcal/calendar': typeof AuthenticatedSupcalCalendarRoute
+  '/supcal/calendar-1': typeof AuthenticatedSupcalCalendar1Route
+  '/supcal/calendar-2': typeof AuthenticatedSupcalCalendar2Route
+  '/supcal/calendar-3': typeof AuthenticatedSupcalCalendar3Route
+  '/supcal/calendar-4': typeof AuthenticatedSupcalCalendar4Route
+  '/supcal/calendar-5': typeof AuthenticatedSupcalCalendar5Route
   '/supcal/create': typeof AuthenticatedSupcalCreateRoute
   '/supcal/profile': typeof AuthenticatedSupcalProfileRoute
   '/supcal/records': typeof AuthenticatedSupcalRecordsRoute
@@ -332,6 +377,11 @@ export interface FileRoutesById {
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/_authenticated/supcal/calendar': typeof AuthenticatedSupcalCalendarRoute
+  '/_authenticated/supcal/calendar-1': typeof AuthenticatedSupcalCalendar1Route
+  '/_authenticated/supcal/calendar-2': typeof AuthenticatedSupcalCalendar2Route
+  '/_authenticated/supcal/calendar-3': typeof AuthenticatedSupcalCalendar3Route
+  '/_authenticated/supcal/calendar-4': typeof AuthenticatedSupcalCalendar4Route
+  '/_authenticated/supcal/calendar-5': typeof AuthenticatedSupcalCalendar5Route
   '/_authenticated/supcal/create': typeof AuthenticatedSupcalCreateRoute
   '/_authenticated/supcal/profile': typeof AuthenticatedSupcalProfileRoute
   '/_authenticated/supcal/records': typeof AuthenticatedSupcalRecordsRoute
@@ -369,6 +419,11 @@ export interface FileRouteTypes {
     | '/settings/display'
     | '/settings/notifications'
     | '/supcal/calendar'
+    | '/supcal/calendar-1'
+    | '/supcal/calendar-2'
+    | '/supcal/calendar-3'
+    | '/supcal/calendar-4'
+    | '/supcal/calendar-5'
     | '/supcal/create'
     | '/supcal/profile'
     | '/supcal/records'
@@ -403,6 +458,11 @@ export interface FileRouteTypes {
     | '/settings/display'
     | '/settings/notifications'
     | '/supcal/calendar'
+    | '/supcal/calendar-1'
+    | '/supcal/calendar-2'
+    | '/supcal/calendar-3'
+    | '/supcal/calendar-4'
+    | '/supcal/calendar-5'
     | '/supcal/create'
     | '/supcal/profile'
     | '/supcal/records'
@@ -441,6 +501,11 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/display'
     | '/_authenticated/settings/notifications'
     | '/_authenticated/supcal/calendar'
+    | '/_authenticated/supcal/calendar-1'
+    | '/_authenticated/supcal/calendar-2'
+    | '/_authenticated/supcal/calendar-3'
+    | '/_authenticated/supcal/calendar-4'
+    | '/_authenticated/supcal/calendar-5'
     | '/_authenticated/supcal/create'
     | '/_authenticated/supcal/profile'
     | '/_authenticated/supcal/records'
@@ -677,6 +742,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCreateRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-5': {
+      id: '/_authenticated/supcal/calendar-5'
+      path: '/supcal/calendar-5'
+      fullPath: '/supcal/calendar-5'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar5RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-4': {
+      id: '/_authenticated/supcal/calendar-4'
+      path: '/supcal/calendar-4'
+      fullPath: '/supcal/calendar-4'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar4RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-3': {
+      id: '/_authenticated/supcal/calendar-3'
+      path: '/supcal/calendar-3'
+      fullPath: '/supcal/calendar-3'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar3RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-2': {
+      id: '/_authenticated/supcal/calendar-2'
+      path: '/supcal/calendar-2'
+      fullPath: '/supcal/calendar-2'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar2RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-1': {
+      id: '/_authenticated/supcal/calendar-1'
+      path: '/supcal/calendar-1'
+      fullPath: '/supcal/calendar-1'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar1RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar': {
       id: '/_authenticated/supcal/calendar'
       path: '/supcal/calendar'
@@ -757,6 +857,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedSupcalCalendarRoute: typeof AuthenticatedSupcalCalendarRoute
+  AuthenticatedSupcalCalendar1Route: typeof AuthenticatedSupcalCalendar1Route
+  AuthenticatedSupcalCalendar2Route: typeof AuthenticatedSupcalCalendar2Route
+  AuthenticatedSupcalCalendar3Route: typeof AuthenticatedSupcalCalendar3Route
+  AuthenticatedSupcalCalendar4Route: typeof AuthenticatedSupcalCalendar4Route
+  AuthenticatedSupcalCalendar5Route: typeof AuthenticatedSupcalCalendar5Route
   AuthenticatedSupcalCreateRoute: typeof AuthenticatedSupcalCreateRoute
   AuthenticatedSupcalProfileRoute: typeof AuthenticatedSupcalProfileRoute
   AuthenticatedSupcalRecordsRoute: typeof AuthenticatedSupcalRecordsRoute
@@ -774,6 +879,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedSupcalCalendarRoute: AuthenticatedSupcalCalendarRoute,
+  AuthenticatedSupcalCalendar1Route: AuthenticatedSupcalCalendar1Route,
+  AuthenticatedSupcalCalendar2Route: AuthenticatedSupcalCalendar2Route,
+  AuthenticatedSupcalCalendar3Route: AuthenticatedSupcalCalendar3Route,
+  AuthenticatedSupcalCalendar4Route: AuthenticatedSupcalCalendar4Route,
+  AuthenticatedSupcalCalendar5Route: AuthenticatedSupcalCalendar5Route,
   AuthenticatedSupcalCreateRoute: AuthenticatedSupcalCreateRoute,
   AuthenticatedSupcalProfileRoute: AuthenticatedSupcalProfileRoute,
   AuthenticatedSupcalRecordsRoute: AuthenticatedSupcalRecordsRoute,

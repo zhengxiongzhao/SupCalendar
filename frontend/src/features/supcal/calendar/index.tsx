@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
 import { addMonths, subMonths, format } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
@@ -54,37 +54,46 @@ export function SupcalCalendar() {
       </Header>
 
       <Main>
-        <div className='mb-6'>
-          <h1 className='text-2xl font-bold tracking-tight'>日历视图</h1>
-          <p className='text-muted-foreground'>
-            查看你的收付款和提醒安排
-          </p>
+        <div className='mb-6 flex items-center justify-between'>
+          <div>
+            <h1 className='text-2xl font-bold tracking-tight'>日历视图</h1>
+            <p className='mt-1 text-sm text-muted-foreground'>
+              查看你的收付款和提醒安排
+            </p>
+          </div>
         </div>
 
-        <div className='mb-4 flex items-center justify-between'>
-          <h2 className='text-lg font-semibold'>
-            {format(currentDate, 'yyyy年M月', { locale: zhCN })}
-          </h2>
-          <div className='flex items-center gap-2'>
+        <div className='mb-5 flex items-center justify-between rounded-xl border border-border/60 bg-card px-4 py-3 shadow-sm'>
+          <div className='flex items-center gap-3'>
+            <div className='flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10'>
+              <CalendarDays className='h-4 w-4 text-primary' />
+            </div>
+            <h2 className='text-lg font-semibold tracking-tight'>
+              {format(currentDate, 'yyyy年M月', { locale: zhCN })}
+            </h2>
+          </div>
+          <div className='flex items-center gap-1.5'>
             <Button
               variant='ghost'
               size='sm'
+              className='h-8 text-xs font-medium'
               onClick={() => setCurrentDate(new Date())}
             >
               今天
             </Button>
+            <div className='mx-1 h-4 w-px bg-border' />
             <Button
-              variant='outline'
+              variant='ghost'
               size='icon'
-              className='h-8 w-8'
+              className='h-8 w-8 rounded-lg'
               onClick={() => setCurrentDate((d) => subMonths(d, 1))}
             >
               <ChevronLeft className='h-4 w-4' />
             </Button>
             <Button
-              variant='outline'
+              variant='ghost'
               size='icon'
-              className='h-8 w-8'
+              className='h-8 w-8 rounded-lg'
               onClick={() => setCurrentDate((d) => addMonths(d, 1))}
             >
               <ChevronRight className='h-4 w-4' />
@@ -93,18 +102,30 @@ export function SupcalCalendar() {
         </div>
 
         {recordsQuery.isLoading ? (
-          <div className='grid grid-cols-7 gap-px rounded-lg border bg-border p-px overflow-hidden'>
-            {Array.from({ length: 7 }).map((_, i) => (
-              <div key={i} className='bg-muted px-1 py-2 text-center text-xs'>
-                -
-              </div>
-            ))}
-            {Array.from({ length: 35 }).map((_, i) => (
-              <div
-                key={`skel-${i}`}
-                className='bg-background h-[72px] animate-pulse'
-              />
-            ))}
+          <div className='overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm'>
+            <div className='grid grid-cols-7 border-b border-border/60 bg-muted/30'>
+              {Array.from({ length: 7 }).map((_, i) => (
+                <div
+                  key={i}
+                  className='px-1 py-2.5 text-center text-xs text-muted-foreground'
+                >
+                  {[ '日', '一', '二', '三', '四', '五', '六'][i]}
+                </div>
+              ))}
+            </div>
+            <div className='grid grid-cols-7'>
+              {Array.from({ length: 35 }).map((_, i) => (
+                <div
+                  key={`skel-${i}`}
+                  className='border-b border-r border-border/30 p-2'
+                >
+                  <div className='h-7 w-7 animate-pulse rounded-lg bg-muted' />
+                  <div className='mt-2 flex gap-1'>
+                    <div className='h-3 w-8 animate-pulse rounded-full bg-muted' />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <MonthGrid

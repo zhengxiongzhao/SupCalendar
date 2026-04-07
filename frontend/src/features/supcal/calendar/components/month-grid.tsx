@@ -7,6 +7,7 @@ import {
   format,
   getDay,
   isToday,
+  isWeekend,
 } from 'date-fns'
 import type {
   CalendarRecord,
@@ -93,7 +94,7 @@ export function getOccurrencesInMonth(
   return occurrences
 }
 
-function getRecordColor(record: CalendarRecord): string {
+function getRecordDotColor(record: CalendarRecord): string {
   if (record.type === 'payment') {
     return (record as PaymentRecord).direction === 'income'
       ? 'bg-emerald-500'
@@ -134,61 +135,122 @@ export function MonthGrid({ currentDate, records, onDayClick }: MonthGridProps) 
   }, [records, currentDate])
 
   return (
-    <div className='grid grid-cols-7 gap-px rounded-lg border bg-border p-px overflow-hidden'>
-      {weekDays.map((day) => (
-        <div
-          key={day}
-          className='bg-muted px-1 py-2 text-center text-xs font-medium text-muted-foreground'
-        >
-          {day}
-        </div>
-      ))}
-
-      {Array.from({ length: firstDayOffset }).map((_, i) => (
-        <div key={`empty-${i}`} className='bg-background p-1.5 min-h-[72px]' />
-      ))}
-
-      {days.map((day) => {
-        const dateKey = format(day, 'yyyy-MM-dd')
-        const dayRecords = recordsByDate.get(dateKey) || []
-        const isCurrentDay = isToday(day)
-
-        return (
-          <button
-            key={dateKey}
-            onClick={() => onDayClick(day)}
-            className='relative bg-background p-1.5 text-left transition-colors min-h-[72px] hover:bg-muted/50'
+    <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
+      <div className='grid grid-cols-7 gap-1.5 px-2 pt-3 pb-1'>
+        {weekDays.map((day, idx) => (
+          <div
+            key={day}
+            className={cn(
+              'py-2 text-center text-[11px] font-semibold tracking-[0.08em]',
+              idx === 0 || idx === 6
+                ? 'text-rose-500/60 dark:text-rose-400/50'
+                : 'text-muted-foreground/60'
+            )}
           >
-            <span
+            {day}
+          </div>
+        ))}
+      </div>
+
+      <div className='grid grid-cols-7 gap-1.5 p-2'>
+        {Array.from({ length: firstDayOffset }).map((_, i) => (
+          <div
+            key={`empty-${i}`}
+            className='rounded-xl bg-muted/5 min-h-[72px] sm:min-h-[94px]'
+          />
+        ))}
+
+        {days.map((day) => {
+          const dateKey = format(day, 'yyyy-MM-dd')
+          const dayRecords = recordsByDate.get(dateKey) || []
+          const isCurrentDay = isToday(day)
+          const isWeekendDay = isWeekend(day)
+          const incomeCount = dayRecords.filter(
+            (r) =>
+              r.type === 'payment' &&
+              (r as PaymentRecord).direction === 'income'
+          ).length
+          const expenseCount = dayRecords.filter(
+            (r) =>
+              r.type === 'payment' &&
+              (r as PaymentRecord).direction === 'expense'
+          ).length
+          const reminderCount = dayRecords.filter(
+            (r) => r.type === 'simple'
+          ).length
+
+          return (
+            <button
+              key={dateKey}
+              onClick={() => onDayClick(day)}
               className={cn(
-                'inline-flex h-6 w-6 items-center justify-center rounded-full text-sm',
+                'group relative rounded-xl p-1.5 sm:p-2.5 text-left transition-all duration-200 ease-out min-h-[72px] sm:min-h-[94px]',
+                'bg-background hover:bg-accent/60 hover:shadow-sm',
                 isCurrentDay &&
-                  'bg-primary text-primary-foreground font-semibold'
+                  'ring-[1.5px] ring-primary/30 bg-primary/5',
+                isWeekendDay &&
+                  !isCurrentDay &&
+                  'bg-muted/10',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1'
               )}
             >
-              {format(day, 'd')}
-            </span>
-            {dayRecords.length > 0 && (
-              <div className='mt-1 flex flex-wrap gap-0.5'>
-                {dayRecords.slice(0, 3).map((record, idx) => (
-                  <span
-                    key={`${record.id}-${idx}`}
-                    className={cn(
-                      'h-1.5 w-1.5 rounded-full',
-                      getRecordColor(record)
-                    )}
-                  />
-                ))}
-                {dayRecords.length > 3 && (
-                  <span className='text-[8px] text-muted-foreground'>
-                    +{dayRecords.length - 3}
+              <div className='flex items-start justify-between'>
+                <span
+                  className={cn(
+                    'inline-flex h-7 w-7 items-center justify-center rounded-full text-[13px] transition-all duration-200',
+                    isCurrentDay
+                      ? 'bg-primary text-primary-foreground font-bold shadow-sm shadow-primary/25'
+                      : isWeekendDay
+                        ? 'font-medium text-rose-600/75 dark:text-rose-400/65'
+                        : 'font-medium text-foreground/70 group-hover:text-foreground'
+                  )}
+                >
+                  {format(day, 'd')}
+                </span>
+                {dayRecords.length > 0 && (
+                  <span className='flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary/10 px-1 text-[9px] font-bold text-primary tabular-nums leading-none'>
+                    {dayRecords.length}
                   </span>
                 )}
               </div>
-            )}
-          </button>
-        )
-      })}
+
+              {dayRecords.length > 0 && (
+                <div className='mt-1 flex flex-wrap gap-[3px]'>
+                  {incomeCount > 0 && (
+                    <span className='inline-flex items-center rounded-full bg-emerald-500/15 px-1.5 py-[2px] text-[9px] font-semibold leading-none text-emerald-700 dark:text-emerald-400 ring-1 ring-emerald-500/20'>
+                      +{incomeCount}
+                    </span>
+                  )}
+                  {expenseCount > 0 && (
+                    <span className='inline-flex items-center rounded-full bg-rose-500/15 px-1.5 py-[2px] text-[9px] font-semibold leading-none text-rose-700 dark:text-rose-400 ring-1 ring-rose-500/20'>
+                      -{expenseCount}
+                    </span>
+                  )}
+                  {reminderCount > 0 && (
+                    <span className='inline-flex items-center rounded-full bg-blue-500/15 px-1.5 py-[2px] text-[9px] font-semibold leading-none text-blue-700 dark:text-blue-400 ring-1 ring-blue-500/20'>
+                      {reminderCount}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {dayRecords.length > 0 && (
+                <div className='absolute bottom-1.5 left-2.5 right-2.5 flex gap-[2px] sm:bottom-2'>
+                  {dayRecords.slice(0, 5).map((record, idx) => (
+                    <span
+                      key={`${record.id}-${idx}`}
+                      className={cn(
+                        'h-[3px] flex-1 rounded-full transition-all duration-200 group-hover:h-[4px]',
+                        getRecordDotColor(record)
+                      )}
+                    />
+                  ))}
+                </div>
+              )}
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }

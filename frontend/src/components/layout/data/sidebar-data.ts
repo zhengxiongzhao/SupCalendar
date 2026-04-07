@@ -111,8 +111,29 @@ export const sidebarData: SidebarData = {
         },
         {
           title: '日历视图',
-          url: '/supcal/calendar',
           icon: CalendarDays,
+          items: [
+            {
+              title: '日历视图 1 · 月历网格',
+              url: '/supcal/calendar-1',
+            },
+            {
+              title: '日历视图 2 · 时间轴',
+              url: '/supcal/calendar-2',
+            },
+            {
+              title: '日历视图 3 · 周计划',
+              url: '/supcal/calendar-3',
+            },
+            {
+              title: '日历视图 4 · 瀑布卡片',
+              url: '/supcal/calendar-4',
+            },
+            {
+              title: '日历视图 5 · 议程列表',
+              url: '/supcal/calendar-5',
+            },
+          ],
         },
         {
           title: '所有记录',
