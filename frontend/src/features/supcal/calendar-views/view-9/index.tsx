@@ -1,9 +1,8 @@
 import { useState, useMemo } from 'react'
-import { ChevronLeft, ChevronRight, CalendarDays, TrendingUp, TrendingDown, Columns3 } from 'lucide-react'
-import { addMonths, subMonths, format, isToday, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameMonth } from 'date-fns'
+import { ChevronLeft, ChevronRight, Wallet, TrendingUp, TrendingDown, CalendarDays, Activity, PieChart, Hash } from 'lucide-react'
+import { addMonths, subMonths, isToday, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -12,19 +11,12 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { useRecords } from '../../api/records'
-import { buildRecordsByDateMap, getFinancialSummary, getRecordColorClasses, format as fmt } from '../shared'
+import { buildRecordsByDateMap, getFinancialSummary, getRecordDotColor, format as fmt } from '../shared'
 import { DayDetailSheet } from '../../calendar/components/day-detail-sheet'
 import { formatAmount } from '../../lib/format'
 import type { CalendarRecord, PaymentRecord } from '../../types'
 
-interface WeekData {
-  weekStart: Date
-  weekEnd: Date
-  weekLabel: string
-  weekDays: Date[]
-  records: Array<{ record: CalendarRecord; date: Date }>
-  isCurrentWeek: boolean
-}
+const WEEK_DAYS = ['日', '一', '二', '三', '四', '五', '六']
 
 export function CalendarView9() {
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -40,58 +32,51 @@ export function CalendarView9() {
     [recordsQuery.data, year, month]
   )
 
-  const monthSummary = useMemo(() => {
-    const allRecords: CalendarRecord[] = []
-    recordsByDate.forEach((records) => allRecords.push(...records))
-    return getFinancialSummary(allRecords)
+  const allMonthRecords = useMemo(() => {
+    const all: CalendarRecord[] = []
+    recordsByDate.forEach((records) => all.push(...records))
+    return all
   }, [recordsByDate])
 
-  const weeks = useMemo(() => {
+  const summary = useMemo(() => getFinancialSummary(allMonthRecords), [allMonthRecords])
+
+  const { days, firstDayOffset } = useMemo(() => {
     const monthStart = startOfMonth(currentDate)
     const monthEnd = endOfMonth(currentDate)
-    const calStart = startOfWeek(monthStart, { weekStartsOn: 0 })
-    const calEnd = endOfWeek(monthEnd, { weekStartsOn: 0 })
+    const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd })
+    const offset = getDay(monthStart)
+    return { days: daysInMonth, firstDayOffset: offset }
+  }, [currentDate])
 
-    const allDays = eachDayOfInterval({ start: calStart, end: calEnd })
-    const weekGroups: WeekData[] = []
+  const stats = useMemo(() => {
+    let incomeCount = 0
+    let expenseCount = 0
+    let reminderCount = 0
+    let totalDaysWithRecords = 0
 
-    for (let i = 0; i < allDays.length; i += 7) {
-      const weekSlice = allDays.slice(i, i + 7)
-      if (weekSlice.length === 0) continue
-
-      const weekStart = weekSlice[0]
-      const weekEnd = weekSlice[weekSlice.length - 1]
-      const weekDays = weekSlice.filter((d) => isSameMonth(d, currentDate))
-
-      const weekRecords: Array<{ record: CalendarRecord; date: Date }> = []
-      for (const day of weekDays) {
-        const key = fmt(day, 'yyyy-MM-dd')
-        const dayRecs = recordsByDate.get(key) || []
-        for (const r of dayRecs) {
-          weekRecords.push({ record: r, date: day })
+    recordsByDate.forEach((records) => {
+      totalDaysWithRecords++
+      for (const r of records) {
+        if (r.type === 'payment') {
+          const p = r as PaymentRecord
+          if (p.direction === 'income') incomeCount++
+          else expenseCount++
+        } else {
+          reminderCount++
         }
       }
+    })
 
-      weekGroups.push({
-        weekStart,
-        weekEnd,
-        weekLabel: `${format(weekDays[0] || weekStart, 'M/d')}-${format(weekDays[weekDays.length - 1] || weekEnd, 'M/d')}`,
-        weekDays,
-        records: weekRecords,
-        isCurrentWeek: weekSlice.some((d) => isToday(d)),
-      })
-    }
-
-    return weekGroups
-  }, [currentDate, recordsByDate])
+    return { incomeCount, expenseCount, reminderCount, totalDaysWithRecords }
+  }, [recordsByDate])
 
   const recordsForSelectedDate = useMemo(() => {
-    if (!selectedDate || !recordsQuery.data) return []
+    if (!selectedDate) return []
     const dayKey = fmt(selectedDate, 'yyyy-MM-dd')
     return recordsByDate.get(dayKey) || []
-  }, [selectedDate, recordsQuery.data, recordsByDate])
+  }, [selectedDate, recordsByDate])
 
-  function handleCardClick(date: Date) {
+  function handleDayClick(date: Date) {
     setSelectedDate(date)
     setSheetOpen(true)
   }
@@ -110,20 +95,21 @@ export function CalendarView9() {
       <Main>
         <div className='mb-6 flex items-center justify-between'>
           <div>
-            <h1 className='text-2xl font-bold tracking-tight'>日历视图 9 · 看板日程</h1>
+            <h1 className='text-2xl font-bold tracking-tight'>日历视图 9 · 迷你仪表盘</h1>
             <p className='mt-1 text-sm text-muted-foreground'>
-              按周分列的看板式日程视图
+              统计卡片 + 紧凑月历概览
             </p>
           </div>
         </div>
 
+        {/* Month navigation */}
         <div className='mb-4 flex items-center justify-between rounded-xl border border-border/60 bg-card px-4 py-3 shadow-sm'>
           <div className='flex items-center gap-3'>
             <div className='flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10'>
               <CalendarDays className='h-4 w-4 text-primary' />
             </div>
             <h2 className='text-lg font-semibold tracking-tight'>
-              {format(currentDate, 'yyyy年M月', { locale: zhCN })}
+              {fmt(currentDate, 'yyyy年M月', { locale: zhCN })}
             </h2>
           </div>
           <div className='flex items-center gap-1.5'>
@@ -140,120 +126,195 @@ export function CalendarView9() {
           </div>
         </div>
 
-        <div className='mb-4 flex items-center gap-4 rounded-lg border border-border/40 bg-card px-4 py-2.5 shadow-sm'>
-          <div className='flex items-center gap-1.5'>
-            <TrendingUp className='h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400' />
-            <span className='text-[10px] text-muted-foreground'>收入</span>
-            <span className='text-xs font-semibold text-emerald-700 dark:text-emerald-400'>{formatAmount(monthSummary.income, 'CNY')}</span>
+        {/* Stats cards - 2x2 grid */}
+        <div className='mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4'>
+          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
+            <div className='flex items-center gap-2'>
+              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10'>
+                <TrendingUp className='h-4 w-4 text-emerald-600 dark:text-emerald-400' />
+              </div>
+              <div>
+                <p className='text-[10px] text-muted-foreground'>收入</p>
+                <p className='text-sm font-bold text-emerald-700 dark:text-emerald-400'>{formatAmount(summary.income, 'CNY')}</p>
+              </div>
+            </div>
+            <p className='mt-1.5 text-[10px] text-muted-foreground/60'>{stats.incomeCount} 笔收入记录</p>
           </div>
-          <div className='h-3 w-px bg-border' />
-          <div className='flex items-center gap-1.5'>
-            <TrendingDown className='h-3.5 w-3.5 text-rose-600 dark:text-rose-400' />
-            <span className='text-[10px] text-muted-foreground'>支出</span>
-            <span className='text-xs font-semibold text-rose-700 dark:text-rose-400'>{formatAmount(monthSummary.expense, 'CNY')}</span>
+          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
+            <div className='flex items-center gap-2'>
+              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-rose-500/10'>
+                <TrendingDown className='h-4 w-4 text-rose-600 dark:text-rose-400' />
+              </div>
+              <div>
+                <p className='text-[10px] text-muted-foreground'>支出</p>
+                <p className='text-sm font-bold text-rose-700 dark:text-rose-400'>{formatAmount(summary.expense, 'CNY')}</p>
+              </div>
+            </div>
+            <p className='mt-1.5 text-[10px] text-muted-foreground/60'>{stats.expenseCount} 笔支出记录</p>
           </div>
-          <div className='h-3 w-px bg-border' />
-          <div className='flex items-center gap-1.5'>
-            <Columns3 className='h-3.5 w-3.5 text-primary' />
-            <span className='text-[10px] text-muted-foreground'>共 {weeks.reduce((sum, w) => sum + w.records.length, 0)} 条</span>
+          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
+            <div className='flex items-center gap-2'>
+              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10'>
+                <Wallet className='h-4 w-4 text-primary' />
+              </div>
+              <div>
+                <p className='text-[10px] text-muted-foreground'>结余</p>
+                <p className={cn('text-sm font-bold', summary.balance >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400')}>
+                  {summary.balance >= 0 ? '+' : ''}{formatAmount(Math.abs(summary.balance), 'CNY')}
+                </p>
+              </div>
+            </div>
+            <p className='mt-1.5 text-[10px] text-muted-foreground/60'>净收支差额</p>
+          </div>
+          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
+            <div className='flex items-center gap-2'>
+              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10'>
+                <Activity className='h-4 w-4 text-amber-600 dark:text-amber-400' />
+              </div>
+              <div>
+                <p className='text-[10px] text-muted-foreground'>活跃天数</p>
+                <p className='text-sm font-bold text-foreground/80'>{stats.totalDaysWithRecords} 天</p>
+              </div>
+            </div>
+            <div className='mt-1.5 flex items-center gap-1.5'>
+              <Hash className='h-3 w-3 text-muted-foreground/40' />
+              <span className='text-[10px] text-muted-foreground/60'>{stats.reminderCount} 个提醒</span>
+            </div>
           </div>
         </div>
 
         {recordsQuery.isLoading ? (
-          <div className='flex gap-3 overflow-x-auto pb-4'>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className='min-w-[260px] shrink-0 rounded-xl border bg-card p-3 shadow-sm'>
-                <div className='mb-3 h-6 animate-pulse rounded bg-muted/30' />
-                {Array.from({ length: 3 }).map((_, j) => (
-                  <div key={j} className='mb-2 h-16 animate-pulse rounded-lg bg-muted/20' />
-                ))}
-              </div>
+          <div className='grid grid-cols-7 gap-1'>
+            {Array.from({ length: 35 }).map((_, i) => (
+              <div key={i} className='aspect-square animate-pulse rounded-lg bg-muted/30' />
             ))}
           </div>
         ) : (
-          <div className='flex gap-3 overflow-x-auto pb-4'>
-            {weeks.map((week) => (
-              <div
-                key={week.weekLabel}
-                className={cn(
-                  'min-w-[260px] max-w-[300px] shrink-0 rounded-xl border shadow-sm transition-all',
-                  week.isCurrentWeek
-                    ? 'border-primary/30 bg-primary/[0.02]'
-                    : 'border-border/40 bg-card'
-                )}
-              >
-                <div className={cn(
-                  'flex items-center justify-between border-b px-3 py-2.5',
-                  week.isCurrentWeek ? 'border-primary/20' : 'border-border/30'
-                )}>
-                  <div>
-                    <span className='text-xs font-semibold text-foreground/80'>{week.weekLabel}</span>
-                    {week.isCurrentWeek && (
-                      <Badge variant='secondary' className='ml-1.5 h-4 px-1 text-[8px]'>本周</Badge>
-                    )}
-                  </div>
-                  <div className='flex gap-0.5'>
-                    {week.weekDays.slice(0, 7).map((day) => {
-                      const key = fmt(day, 'yyyy-MM-dd')
-                      const hasRecords = (recordsByDate.get(key) || []).length > 0
-                      return (
-                        <span
-                          key={key}
-                          className={cn(
-                            'h-1.5 w-1.5 rounded-full',
-                            isToday(day) ? 'bg-primary' : hasRecords ? 'bg-emerald-400' : 'bg-muted/30'
-                          )}
-                        />
-                      )
-                    })}
-                  </div>
-                </div>
-
-                <div className='space-y-2 p-3'>
-                  {week.records.length === 0 ? (
-                    <div className='flex h-20 items-center justify-center text-xs text-muted-foreground/40'>
-                      暂无日程
+          /* Mini bar chart + calendar */
+          <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>
+            {/* Calendar grid */}
+            <div className='lg:col-span-2'>
+              <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
+                <div className='grid grid-cols-7 gap-px bg-muted/30 px-3 pt-3 pb-1'>
+                  {WEEK_DAYS.map((day, idx) => (
+                    <div
+                      key={day}
+                      className={cn(
+                        'py-2 text-center text-[10px] font-semibold tracking-wider',
+                        idx === 0 || idx === 6 ? 'text-rose-500/60' : 'text-muted-foreground/60'
+                      )}
+                    >
+                      {day}
                     </div>
-                  ) : (
-                    week.records.map((item, idx) => {
-                      const colors = getRecordColorClasses(item.record)
-                      const isPayment = item.record.type === 'payment'
-                      const payment = isPayment ? (item.record as PaymentRecord) : null
+                  ))}
+                </div>
+                <div className='grid grid-cols-7 gap-1 p-3'>
+                  {Array.from({ length: firstDayOffset }).map((_, i) => (
+                    <div key={`empty-${i}`} className='aspect-square rounded-lg bg-muted/5' />
+                  ))}
+                  {days.map((day) => {
+                    const dateKey = fmt(day, 'yyyy-MM-dd')
+                    const dayRecords = recordsByDate.get(dateKey) || []
+                    const isCurrentDay = isToday(day)
 
-                      return (
-                        <button
-                          key={`${item.record.id}-${idx}`}
-                          onClick={() => handleCardClick(item.date)}
-                          className={cn(
-                            'flex w-full flex-col gap-1 rounded-lg border-l-3 bg-card p-2.5 text-left transition-all',
-                            colors.ring,
-                            'hover:-translate-y-0.5 hover:shadow-md',
-                            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
-                          )}
-                        >
-                          <div className='flex items-center justify-between'>
-                            <span className='truncate text-xs font-medium text-foreground/80'>{item.record.name}</span>
-                            <Badge variant='outline' className={cn('shrink-0 px-1 text-[8px]', colors.bg, colors.text)}>
-                              {payment?.direction === 'income' ? '收入' : payment?.direction === 'expense' ? '支出' : '提醒'}
-                            </Badge>
+                    return (
+                      <button
+                        key={dateKey}
+                        onClick={() => handleDayClick(day)}
+                        className={cn(
+                          'group relative flex aspect-square flex-col items-center justify-center rounded-lg transition-all duration-200',
+                          isCurrentDay && 'bg-primary/10 ring-2 ring-primary/30',
+                          !isCurrentDay && dayRecords.length > 0 && 'bg-accent/30',
+                          !isCurrentDay && dayRecords.length === 0 && 'hover:bg-accent/20',
+                          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+                        )}
+                      >
+                        <span className={cn(
+                          'flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium',
+                          isCurrentDay
+                            ? 'bg-primary text-primary-foreground font-bold shadow-sm'
+                            : 'text-foreground/70'
+                        )}>
+                          {fmt(day, 'd')}
+                        </span>
+                        {dayRecords.length > 0 && (
+                          <div className='mt-0.5 flex gap-0.5'>
+                            {dayRecords.slice(0, 3).map((record, idx) => (
+                              <span key={`${record.id}-${idx}`} className={cn('h-1 w-1 rounded-full', getRecordDotColor(record))} />
+                            ))}
                           </div>
-                          <div className='flex items-center justify-between'>
-                            <span className='text-[10px] text-muted-foreground'>
-                              {format(item.date, 'M/d')}
-                            </span>
-                            {payment && (
-                              <span className={cn('text-[10px] font-semibold', colors.text)}>
-                                {payment.direction === 'income' ? '+' : '-'}{formatAmount(payment.amount, payment.currency)}
-                              </span>
-                            )}
-                          </div>
-                        </button>
-                      )
-                    })
-                  )}
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Side panel - proportion chart */}
+            <div className='rounded-2xl border border-border/40 bg-card p-4 shadow-sm'>
+              <div className='flex items-center gap-2 mb-4'>
+                <PieChart className='h-4 w-4 text-primary' />
+                <h3 className='text-sm font-semibold'>本月构成</h3>
+              </div>
+
+              {allMonthRecords.length === 0 ? (
+                <div className='flex h-32 items-center justify-center text-sm text-muted-foreground/50'>
+                  暂无数据
+                </div>
+              ) : (
+                <div className='space-y-3'>
+                  {/* Income bar */}
+                  <div>
+                    <div className='flex items-center justify-between text-[11px] mb-1'>
+                      <span className='text-muted-foreground'>收入</span>
+                      <span className='font-medium text-emerald-700 dark:text-emerald-400'>{stats.incomeCount} 笔</span>
+                    </div>
+                    <div className='h-2 rounded-full bg-muted/50 overflow-hidden'>
+                      <div
+                        className='h-full rounded-full bg-emerald-500 transition-all duration-500'
+                        style={{ width: `${allMonthRecords.length > 0 ? (stats.incomeCount / allMonthRecords.length) * 100 : 0}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Expense bar */}
+                  <div>
+                    <div className='flex items-center justify-between text-[11px] mb-1'>
+                      <span className='text-muted-foreground'>支出</span>
+                      <span className='font-medium text-rose-700 dark:text-rose-400'>{stats.expenseCount} 笔</span>
+                    </div>
+                    <div className='h-2 rounded-full bg-muted/50 overflow-hidden'>
+                      <div
+                        className='h-full rounded-full bg-rose-500 transition-all duration-500'
+                        style={{ width: `${allMonthRecords.length > 0 ? (stats.expenseCount / allMonthRecords.length) * 100 : 0}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Reminder bar */}
+                  <div>
+                    <div className='flex items-center justify-between text-[11px] mb-1'>
+                      <span className='text-muted-foreground'>提醒</span>
+                      <span className='font-medium text-blue-700 dark:text-blue-400'>{stats.reminderCount} 个</span>
+                    </div>
+                    <div className='h-2 rounded-full bg-muted/50 overflow-hidden'>
+                      <div
+                        className='h-full rounded-full bg-blue-500 transition-all duration-500'
+                        style={{ width: `${allMonthRecords.length > 0 ? (stats.reminderCount / allMonthRecords.length) * 100 : 0}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className='mt-4 border-t border-border/30 pt-3'>
+                    <div className='flex items-center justify-between text-xs'>
+                      <span className='text-muted-foreground'>总记录数</span>
+                      <span className='font-bold text-foreground/80'>{allMonthRecords.length}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </Main>

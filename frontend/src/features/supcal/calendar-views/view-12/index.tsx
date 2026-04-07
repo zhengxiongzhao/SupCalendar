@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react'
-import { ChevronLeft, ChevronRight, Wallet, TrendingUp, TrendingDown, CalendarDays, Activity, PieChart, Hash } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarDays, FolderOpen, Tag, ArrowUpRight, ArrowDownLeft, Clock } from 'lucide-react'
 import { addMonths, subMonths, isToday, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -11,7 +12,7 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { useRecords } from '../../api/records'
-import { buildRecordsByDateMap, getFinancialSummary, getRecordDotColor, format as fmt } from '../shared'
+import { buildRecordsByDateMap, getRecordDotColor, format as fmt } from '../shared'
 import { DayDetailSheet } from '../../calendar/components/day-detail-sheet'
 import { formatAmount } from '../../lib/format'
 import type { CalendarRecord, PaymentRecord } from '../../types'
@@ -32,14 +33,6 @@ export function CalendarView12() {
     [recordsQuery.data, year, month]
   )
 
-  const allMonthRecords = useMemo(() => {
-    const all: CalendarRecord[] = []
-    recordsByDate.forEach((records) => all.push(...records))
-    return all
-  }, [recordsByDate])
-
-  const summary = useMemo(() => getFinancialSummary(allMonthRecords), [allMonthRecords])
-
   const { days, firstDayOffset } = useMemo(() => {
     const monthStart = startOfMonth(currentDate)
     const monthEnd = endOfMonth(currentDate)
@@ -48,27 +41,19 @@ export function CalendarView12() {
     return { days: daysInMonth, firstDayOffset: offset }
   }, [currentDate])
 
-  const stats = useMemo(() => {
-    let incomeCount = 0
-    let expenseCount = 0
-    let reminderCount = 0
-    let totalDaysWithRecords = 0
-
-    recordsByDate.forEach((records) => {
-      totalDaysWithRecords++
-      for (const r of records) {
-        if (r.type === 'payment') {
-          const p = r as PaymentRecord
-          if (p.direction === 'income') incomeCount++
-          else expenseCount++
-        } else {
-          reminderCount++
-        }
-      }
-    })
-
-    return { incomeCount, expenseCount, reminderCount, totalDaysWithRecords }
-  }, [recordsByDate])
+  const categoryTree = useMemo(() => {
+    const tree = new Map<string, CalendarRecord[]>()
+    if (!recordsQuery.data) return tree
+    for (const record of recordsQuery.data) {
+      const category = record.type === 'payment'
+        ? (record as PaymentRecord).category || '未分类'
+        : '提醒'
+      const existing = tree.get(category) || []
+      existing.push(record)
+      tree.set(category, existing)
+    }
+    return tree
+  }, [recordsQuery.data])
 
   const recordsForSelectedDate = useMemo(() => {
     if (!selectedDate) return []
@@ -95,14 +80,13 @@ export function CalendarView12() {
       <Main>
         <div className='mb-6 flex items-center justify-between'>
           <div>
-            <h1 className='text-2xl font-bold tracking-tight'>日历视图 12 · 迷你仪表盘</h1>
+            <h1 className='text-2xl font-bold tracking-tight'>日历视图 12 · 树形概览</h1>
             <p className='mt-1 text-sm text-muted-foreground'>
-              统计卡片 + 紧凑月历概览
+              分类树形结构 + 紧凑月历导航
             </p>
           </div>
         </div>
 
-        {/* Month navigation */}
         <div className='mb-4 flex items-center justify-between rounded-xl border border-border/60 bg-card px-4 py-3 shadow-sm'>
           <div className='flex items-center gap-3'>
             <div className='flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10'>
@@ -126,63 +110,6 @@ export function CalendarView12() {
           </div>
         </div>
 
-        {/* Stats cards - 2x2 grid */}
-        <div className='mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4'>
-          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
-            <div className='flex items-center gap-2'>
-              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10'>
-                <TrendingUp className='h-4 w-4 text-emerald-600 dark:text-emerald-400' />
-              </div>
-              <div>
-                <p className='text-[10px] text-muted-foreground'>收入</p>
-                <p className='text-sm font-bold text-emerald-700 dark:text-emerald-400'>{formatAmount(summary.income, 'CNY')}</p>
-              </div>
-            </div>
-            <p className='mt-1.5 text-[10px] text-muted-foreground/60'>{stats.incomeCount} 笔收入记录</p>
-          </div>
-          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
-            <div className='flex items-center gap-2'>
-              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-rose-500/10'>
-                <TrendingDown className='h-4 w-4 text-rose-600 dark:text-rose-400' />
-              </div>
-              <div>
-                <p className='text-[10px] text-muted-foreground'>支出</p>
-                <p className='text-sm font-bold text-rose-700 dark:text-rose-400'>{formatAmount(summary.expense, 'CNY')}</p>
-              </div>
-            </div>
-            <p className='mt-1.5 text-[10px] text-muted-foreground/60'>{stats.expenseCount} 笔支出记录</p>
-          </div>
-          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
-            <div className='flex items-center gap-2'>
-              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10'>
-                <Wallet className='h-4 w-4 text-primary' />
-              </div>
-              <div>
-                <p className='text-[10px] text-muted-foreground'>结余</p>
-                <p className={cn('text-sm font-bold', summary.balance >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400')}>
-                  {summary.balance >= 0 ? '+' : ''}{formatAmount(Math.abs(summary.balance), 'CNY')}
-                </p>
-              </div>
-            </div>
-            <p className='mt-1.5 text-[10px] text-muted-foreground/60'>净收支差额</p>
-          </div>
-          <div className='rounded-xl border border-border/40 bg-card p-3 shadow-sm'>
-            <div className='flex items-center gap-2'>
-              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10'>
-                <Activity className='h-4 w-4 text-amber-600 dark:text-amber-400' />
-              </div>
-              <div>
-                <p className='text-[10px] text-muted-foreground'>活跃天数</p>
-                <p className='text-sm font-bold text-foreground/80'>{stats.totalDaysWithRecords} 天</p>
-              </div>
-            </div>
-            <div className='mt-1.5 flex items-center gap-1.5'>
-              <Hash className='h-3 w-3 text-muted-foreground/40' />
-              <span className='text-[10px] text-muted-foreground/60'>{stats.reminderCount} 个提醒</span>
-            </div>
-          </div>
-        </div>
-
         {recordsQuery.isLoading ? (
           <div className='grid grid-cols-7 gap-1'>
             {Array.from({ length: 35 }).map((_, i) => (
@@ -190,17 +117,15 @@ export function CalendarView12() {
             ))}
           </div>
         ) : (
-          /* Mini bar chart + calendar */
-          <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>
-            {/* Calendar grid */}
+          <div className='grid grid-cols-1 gap-4 lg:grid-cols-5'>
             <div className='lg:col-span-2'>
               <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
-                <div className='grid grid-cols-7 gap-px bg-muted/30 px-3 pt-3 pb-1'>
+                <div className='grid grid-cols-7 gap-px bg-muted/30 px-2 pt-3 pb-1'>
                   {WEEK_DAYS.map((day, idx) => (
                     <div
                       key={day}
                       className={cn(
-                        'py-2 text-center text-[10px] font-semibold tracking-wider',
+                        'py-1.5 text-center text-[10px] font-semibold tracking-wider',
                         idx === 0 || idx === 6 ? 'text-rose-500/60' : 'text-muted-foreground/60'
                       )}
                     >
@@ -208,7 +133,7 @@ export function CalendarView12() {
                     </div>
                   ))}
                 </div>
-                <div className='grid grid-cols-7 gap-1 p-3'>
+                <div className='grid grid-cols-7 gap-1 p-2'>
                   {Array.from({ length: firstDayOffset }).map((_, i) => (
                     <div key={`empty-${i}`} className='aspect-square rounded-lg bg-muted/5' />
                   ))}
@@ -216,7 +141,6 @@ export function CalendarView12() {
                     const dateKey = fmt(day, 'yyyy-MM-dd')
                     const dayRecords = recordsByDate.get(dateKey) || []
                     const isCurrentDay = isToday(day)
-
                     return (
                       <button
                         key={dateKey}
@@ -230,10 +154,8 @@ export function CalendarView12() {
                         )}
                       >
                         <span className={cn(
-                          'flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium',
-                          isCurrentDay
-                            ? 'bg-primary text-primary-foreground font-bold shadow-sm'
-                            : 'text-foreground/70'
+                          'flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-medium',
+                          isCurrentDay ? 'bg-primary text-primary-foreground font-bold shadow-sm' : 'text-foreground/70'
                         )}>
                           {fmt(day, 'd')}
                         </span>
@@ -251,69 +173,63 @@ export function CalendarView12() {
               </div>
             </div>
 
-            {/* Side panel - proportion chart */}
-            <div className='rounded-2xl border border-border/40 bg-card p-4 shadow-sm'>
-              <div className='flex items-center gap-2 mb-4'>
-                <PieChart className='h-4 w-4 text-primary' />
-                <h3 className='text-sm font-semibold'>本月构成</h3>
+            <div className='lg:col-span-3'>
+              <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
+                <div className='border-b border-border/30 px-4 py-3'>
+                  <h3 className='text-sm font-semibold'>分类概览</h3>
+                  <p className='text-[10px] text-muted-foreground'>{categoryTree.size} 个分类</p>
+                </div>
+
+                {categoryTree.size === 0 ? (
+                  <div className='flex h-40 items-center justify-center text-sm text-muted-foreground/50'>
+                    暂无记录
+                  </div>
+                ) : (
+                  <div className='max-h-[500px] divide-y divide-border/20 overflow-y-auto'>
+                    {Array.from(categoryTree.entries()).map(([category, records]) => (
+                      <div key={category} className='px-4 py-3'>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <FolderOpen className='h-4 w-4 text-primary/60' />
+                          <span className='text-sm font-semibold text-foreground/80'>{category}</span>
+                          <Badge variant='secondary' className='text-[9px]'>
+                            {records.length} 条
+                          </Badge>
+                        </div>
+                        <div className='ml-6 space-y-1'>
+                          {records.slice(0, 5).map((record) => {
+                            const isPayment = record.type === 'payment'
+                            const payment = isPayment ? (record as PaymentRecord) : null
+                            return (
+                              <div key={record.id} className='flex items-center gap-2 py-1'>
+                                <Tag className='h-3 w-3 text-muted-foreground/40' />
+                                {payment?.direction === 'income' ? (
+                                  <ArrowUpRight className='h-3 w-3 text-emerald-500' />
+                                ) : payment?.direction === 'expense' ? (
+                                  <ArrowDownLeft className='h-3 w-3 text-rose-500' />
+                                ) : (
+                                  <Clock className='h-3 w-3 text-blue-500' />
+                                )}
+                                <span className='text-xs text-foreground/70 truncate flex-1'>{record.name}</span>
+                                {payment && (
+                                  <span className={cn(
+                                    'text-[10px] font-semibold',
+                                    payment.direction === 'income' ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
+                                  )}>
+                                    {payment.direction === 'income' ? '+' : '-'}{formatAmount(payment.amount, payment.currency)}
+                                  </span>
+                                )}
+                              </div>
+                            )
+                          })}
+                          {records.length > 5 && (
+                            <span className='text-[10px] text-muted-foreground/50'>还有 {records.length - 5} 条...</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-
-              {allMonthRecords.length === 0 ? (
-                <div className='flex h-32 items-center justify-center text-sm text-muted-foreground/50'>
-                  暂无数据
-                </div>
-              ) : (
-                <div className='space-y-3'>
-                  {/* Income bar */}
-                  <div>
-                    <div className='flex items-center justify-between text-[11px] mb-1'>
-                      <span className='text-muted-foreground'>收入</span>
-                      <span className='font-medium text-emerald-700 dark:text-emerald-400'>{stats.incomeCount} 笔</span>
-                    </div>
-                    <div className='h-2 rounded-full bg-muted/50 overflow-hidden'>
-                      <div
-                        className='h-full rounded-full bg-emerald-500 transition-all duration-500'
-                        style={{ width: `${allMonthRecords.length > 0 ? (stats.incomeCount / allMonthRecords.length) * 100 : 0}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Expense bar */}
-                  <div>
-                    <div className='flex items-center justify-between text-[11px] mb-1'>
-                      <span className='text-muted-foreground'>支出</span>
-                      <span className='font-medium text-rose-700 dark:text-rose-400'>{stats.expenseCount} 笔</span>
-                    </div>
-                    <div className='h-2 rounded-full bg-muted/50 overflow-hidden'>
-                      <div
-                        className='h-full rounded-full bg-rose-500 transition-all duration-500'
-                        style={{ width: `${allMonthRecords.length > 0 ? (stats.expenseCount / allMonthRecords.length) * 100 : 0}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Reminder bar */}
-                  <div>
-                    <div className='flex items-center justify-between text-[11px] mb-1'>
-                      <span className='text-muted-foreground'>提醒</span>
-                      <span className='font-medium text-blue-700 dark:text-blue-400'>{stats.reminderCount} 个</span>
-                    </div>
-                    <div className='h-2 rounded-full bg-muted/50 overflow-hidden'>
-                      <div
-                        className='h-full rounded-full bg-blue-500 transition-all duration-500'
-                        style={{ width: `${allMonthRecords.length > 0 ? (stats.reminderCount / allMonthRecords.length) * 100 : 0}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className='mt-4 border-t border-border/30 pt-3'>
-                    <div className='flex items-center justify-between text-xs'>
-                      <span className='text-muted-foreground'>总记录数</span>
-                      <span className='font-bold text-foreground/80'>{allMonthRecords.length}</span>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         )}

@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight, CalendarDays, Wallet, TrendingUp, TrendingDo
 import { addMonths, subMonths, format, isToday, isWeekend, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -12,7 +11,7 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { useRecords } from '../../api/records'
-import { buildRecordsByDateMap, getFinancialSummary, getRecordDotColor, format as fmt } from '../shared'
+import { buildRecordsByDateMap, getFinancialSummary, format as fmt } from '../shared'
 import { DayDetailSheet } from '../../calendar/components/day-detail-sheet'
 import { formatAmount } from '../../lib/format'
 import type { CalendarRecord, PaymentRecord } from '../../types'
@@ -72,16 +71,16 @@ export function CalendarView3() {
       <Main>
         <div className='mb-6 flex items-center justify-between'>
           <div>
-            <h1 className='text-2xl font-bold tracking-tight'>日历视图 3 · 紧凑网格</h1>
+            <h1 className='text-2xl font-bold tracking-tight'>日历视图 3 · 玻璃网格</h1>
             <p className='mt-1 text-sm text-muted-foreground'>
-              信息密度更高的紧凑月历视图
+              玻璃拟态风格的现代月历视图
             </p>
           </div>
         </div>
 
-        <div className='mb-4 flex items-center justify-between rounded-xl border border-border/60 bg-card px-4 py-3 shadow-sm'>
+        <div className='mb-4 flex items-center justify-between rounded-2xl border border-white/20 bg-white/40 px-4 py-3 shadow-lg shadow-primary/5 backdrop-blur-md dark:bg-black/20 dark:border-white/10'>
           <div className='flex items-center gap-3'>
-            <div className='flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10'>
+            <div className='flex h-9 w-9 items-center justify-center rounded-xl bg-primary/20 backdrop-blur-sm'>
               <CalendarDays className='h-4 w-4 text-primary' />
             </div>
             <h2 className='text-lg font-semibold tracking-tight'>
@@ -97,11 +96,11 @@ export function CalendarView3() {
             >
               今天
             </Button>
-            <div className='mx-1 h-4 w-px bg-border' />
+            <div className='mx-1 h-4 w-px bg-border/50' />
             <Button
               variant='ghost'
               size='icon'
-              className='h-8 w-8 rounded-lg'
+              className='h-8 w-8 rounded-xl'
               onClick={() => setCurrentDate((d) => subMonths(d, 1))}
             >
               <ChevronLeft className='h-4 w-4' />
@@ -109,7 +108,7 @@ export function CalendarView3() {
             <Button
               variant='ghost'
               size='icon'
-              className='h-8 w-8 rounded-lg'
+              className='h-8 w-8 rounded-xl'
               onClick={() => setCurrentDate((d) => addMonths(d, 1))}
             >
               <ChevronRight className='h-4 w-4' />
@@ -118,70 +117,59 @@ export function CalendarView3() {
         </div>
 
         <div className='mb-4 grid grid-cols-3 gap-3'>
-          <div className='flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2'>
-            <TrendingUp className='h-4 w-4 text-emerald-600 dark:text-emerald-400' />
-            <div>
-              <p className='text-[10px] text-muted-foreground'>本月收入</p>
-              <p className='text-sm font-semibold text-emerald-700 dark:text-emerald-400'>
-                {formatAmount(monthSummary.income, 'CNY')}
-              </p>
-            </div>
+          <div className='group relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 p-3 backdrop-blur-sm transition-all hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10'>
+            <div className='absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100' />
+            <TrendingUp className='mb-1 h-4 w-4 text-emerald-600 dark:text-emerald-400' />
+            <p className='text-[10px] text-muted-foreground'>本月收入</p>
+            <p className='text-sm font-bold text-emerald-700 dark:text-emerald-400'>
+              {formatAmount(monthSummary.income, 'CNY')}
+            </p>
           </div>
-          <div className='flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-3 py-2'>
-            <TrendingDown className='h-4 w-4 text-rose-600 dark:text-rose-400' />
-            <div>
-              <p className='text-[10px] text-muted-foreground'>本月支出</p>
-              <p className='text-sm font-semibold text-rose-700 dark:text-rose-400'>
-                {formatAmount(monthSummary.expense, 'CNY')}
-              </p>
-            </div>
+          <div className='group relative overflow-hidden rounded-2xl border border-rose-500/30 bg-gradient-to-br from-rose-500/10 to-rose-500/5 p-3 backdrop-blur-sm transition-all hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/10'>
+            <div className='absolute inset-0 bg-gradient-to-br from-rose-500/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100' />
+            <TrendingDown className='mb-1 h-4 w-4 text-rose-600 dark:text-rose-400' />
+            <p className='text-[10px] text-muted-foreground'>本月支出</p>
+            <p className='text-sm font-bold text-rose-700 dark:text-rose-400'>
+              {formatAmount(monthSummary.expense, 'CNY')}
+            </p>
           </div>
-          <div className='flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-3 py-2'>
-            <Wallet className='h-4 w-4 text-primary' />
-            <div>
-              <p className='text-[10px] text-muted-foreground'>本月结余</p>
-              <p className={cn(
-                'text-sm font-semibold',
-                monthSummary.balance >= 0
-                  ? 'text-emerald-700 dark:text-emerald-400'
-                  : 'text-rose-700 dark:text-rose-400'
-              )}>
-                {monthSummary.balance >= 0 ? '+' : ''}
-                {formatAmount(Math.abs(monthSummary.balance), 'CNY')}
-              </p>
-            </div>
+          <div className='group relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-3 backdrop-blur-sm transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10'>
+            <div className='absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100' />
+            <Wallet className='mb-1 h-4 w-4 text-primary' />
+            <p className='text-[10px] text-muted-foreground'>本月结余</p>
+            <p className={cn(
+              'text-sm font-bold',
+              monthSummary.balance >= 0
+                ? 'text-emerald-700 dark:text-emerald-400'
+                : 'text-rose-700 dark:text-rose-400'
+            )}>
+              {monthSummary.balance >= 0 ? '+' : ''}
+              {formatAmount(Math.abs(monthSummary.balance), 'CNY')}
+            </p>
           </div>
         </div>
 
         {recordsQuery.isLoading ? (
-          <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
-            <div className='grid grid-cols-7 gap-px bg-muted/30 px-2 pt-3 pb-1'>
-              {WEEK_DAYS.map((day) => (
-                <div key={day} className='py-2.5 text-center text-[11px] font-semibold tracking-wider text-muted-foreground/60'>
-                  {day}
-                </div>
-              ))}
-            </div>
-            <div className='grid grid-cols-7 gap-px p-2'>
+          <div className='overflow-hidden rounded-3xl border border-white/20 bg-white/30 p-4 shadow-xl shadow-primary/5 backdrop-blur-md dark:bg-black/20'>
+            <div className='grid grid-cols-7 gap-2'>
               {Array.from({ length: 35 }).map((_, i) => (
-                <div key={`skel-${i}`} className='rounded-xl p-2'>
-                  <div className='h-6 w-6 animate-pulse rounded-full bg-muted/60' />
-                  <div className='mt-1 h-8 animate-pulse rounded bg-muted/40' />
+                <div key={`skel-${i}`} className='aspect-square rounded-2xl bg-white/30 dark:bg-white/5'>
+                  <div className='h-8 w-8 animate-pulse rounded-full bg-white/50 dark:bg-white/10' />
                 </div>
               ))}
             </div>
           </div>
         ) : (
-          <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
-            <div className='grid grid-cols-7 gap-px bg-muted/30 px-2 pt-3 pb-1'>
+          <div className='overflow-hidden rounded-3xl border border-white/20 bg-white/30 p-3 shadow-xl shadow-primary/5 backdrop-blur-md dark:bg-black/20 dark:border-white/10'>
+            <div className='mb-2 grid grid-cols-7 gap-1'>
               {WEEK_DAYS.map((day, idx) => (
                 <div
                   key={day}
                   className={cn(
-                    'py-2.5 text-center text-[11px] font-semibold tracking-wider',
+                    'py-2 text-center text-[10px] font-semibold uppercase tracking-wider',
                     idx === 0 || idx === 6
-                      ? 'text-rose-500/60 dark:text-rose-400/50'
-                      : 'text-muted-foreground/60'
+                      ? 'text-rose-500/70 dark:text-rose-400/60'
+                      : 'text-muted-foreground/70'
                   )}
                 >
                   {day}
@@ -189,11 +177,11 @@ export function CalendarView3() {
               ))}
             </div>
 
-            <div className='grid grid-cols-7 gap-px p-1.5'>
+            <div className='grid grid-cols-7 gap-1.5'>
               {Array.from({ length: firstDayOffset }).map((_, i) => (
                 <div
                   key={`empty-${i}`}
-                  className='min-h-[90px] rounded-lg bg-muted/5'
+                  className='aspect-square rounded-2xl bg-white/20 dark:bg-white/5'
                 />
               ))}
 
@@ -202,14 +190,12 @@ export function CalendarView3() {
                 const dayRecords = recordsByDate.get(dateKey) || []
                 const isCurrentDay = isToday(day)
                 const isWeekendDay = isWeekend(day)
+                const hasRecords = dayRecords.length > 0
                 const incomeCount = dayRecords.filter(
                   (r) => r.type === 'payment' && (r as PaymentRecord).direction === 'income'
                 ).length
                 const expenseCount = dayRecords.filter(
                   (r) => r.type === 'payment' && (r as PaymentRecord).direction === 'expense'
-                ).length
-                const reminderCount = dayRecords.filter(
-                  (r) => r.type === 'simple'
                 ).length
 
                 return (
@@ -217,71 +203,40 @@ export function CalendarView3() {
                     key={dateKey}
                     onClick={() => handleDayClick(day)}
                     className={cn(
-                      'group relative flex min-h-[90px] flex-col rounded-lg p-1.5 text-left transition-all duration-200',
-                      'hover:bg-accent/40 hover:shadow-sm',
-                      isCurrentDay && 'ring-2 ring-primary/30 bg-primary/5',
-                      isWeekendDay && !isCurrentDay && 'bg-muted/10',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+                      'group relative flex aspect-square flex-col items-center justify-start rounded-2xl border border-white/40 p-1.5 transition-all duration-300',
+                      hasRecords
+                        ? 'bg-white/60 dark:bg-white/10 shadow-md shadow-primary/5'
+                        : 'bg-white/20 dark:bg-white/5 hover:bg-white/40 dark:hover:bg-white/10',
+                      isCurrentDay && 'border-primary/50 bg-primary/20 dark:bg-primary/20 shadow-lg shadow-primary/20',
+                      isWeekendDay && !isCurrentDay && 'bg-rose-500/5 dark:bg-rose-500/10',
+                      'hover:scale-105 hover:shadow-lg hover:shadow-primary/10',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50'
                     )}
                   >
-                    <div className='flex items-center justify-between'>
-                      <span
-                        className={cn(
-                          'flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium transition-all',
-                          isCurrentDay
-                            ? 'bg-primary text-primary-foreground font-bold shadow-sm'
-                            : isWeekendDay
-                              ? 'text-rose-600/70 dark:text-rose-400/60'
-                              : 'text-foreground/70 group-hover:text-foreground'
+                    <span
+                      className={cn(
+                        'flex h-7 w-7 items-center justify-center rounded-xl text-xs font-semibold transition-all',
+                        isCurrentDay
+                          ? 'bg-primary text-primary-foreground shadow-md shadow-primary/30'
+                          : isWeekendDay
+                            ? 'text-rose-600/80 dark:text-rose-400/70'
+                            : 'text-foreground/70 group-hover:text-foreground'
+                      )}
+                    >
+                      {format(day, 'd')}
+                    </span>
+
+                    {hasRecords && (
+                      <div className='mt-0.5 flex flex-wrap justify-center gap-0.5'>
+                        {incomeCount > 0 && (
+                          <span className='h-1.5 w-1.5 rounded-full bg-emerald-500 ring-1 ring-white/50' />
                         )}
-                      >
-                        {format(day, 'd')}
-                      </span>
-                      {dayRecords.length > 0 && (
-                        <Badge variant='secondary' className='h-4 px-1 text-[8px] font-bold'>
-                          {dayRecords.length}
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className='mt-1 flex flex-col gap-0.5'>
-                      {incomeCount > 0 && (
-                        <div className='flex items-center gap-1 rounded bg-emerald-500/10 px-1 py-0.5'>
-                          <span className='h-1.5 w-1.5 rounded-full bg-emerald-500' />
-                          <span className='text-[8px] font-medium text-emerald-700 dark:text-emerald-400'>
-                            +{incomeCount}
-                          </span>
-                        </div>
-                      )}
-                      {expenseCount > 0 && (
-                        <div className='flex items-center gap-1 rounded bg-rose-500/10 px-1 py-0.5'>
-                          <span className='h-1.5 w-1.5 rounded-full bg-rose-500' />
-                          <span className='text-[8px] font-medium text-rose-700 dark:text-rose-400'>
-                            -{expenseCount}
-                          </span>
-                        </div>
-                      )}
-                      {reminderCount > 0 && (
-                        <div className='flex items-center gap-1 rounded bg-blue-500/10 px-1 py-0.5'>
-                          <span className='h-1.5 w-1.5 rounded-full bg-blue-500' />
-                          <span className='text-[8px] font-medium text-blue-700 dark:text-blue-400'>
-                            {reminderCount}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {dayRecords.length > 0 && (
-                      <div className='absolute bottom-1 left-1 right-1 flex gap-[2px]'>
-                        {dayRecords.slice(0, 4).map((record, idx) => (
-                          <span
-                            key={`${record.id}-${idx}`}
-                            className={cn(
-                              'h-1 flex-1 rounded-full',
-                              getRecordDotColor(record)
-                            )}
-                          />
-                        ))}
+                        {expenseCount > 0 && (
+                          <span className='h-1.5 w-1.5 rounded-full bg-rose-500 ring-1 ring-white/50' />
+                        )}
+                        {dayRecords.filter(r => r.type === 'simple').length > 0 && (
+                          <span className='h-1.5 w-1.5 rounded-full bg-blue-500 ring-1 ring-white/50' />
+                        )}
                       </div>
                     )}
                   </button>

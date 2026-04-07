@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { ChevronLeft, ChevronRight, CalendarDays, Wallet } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarDays, Wallet, TrendingUp, TrendingDown } from 'lucide-react'
 import { addMonths, subMonths, format, isToday, isWeekend, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
@@ -15,8 +15,6 @@ import { buildRecordsByDateMap, getFinancialSummary, getRecordDotColor, format a
 import { DayDetailSheet } from '../../calendar/components/day-detail-sheet'
 import { formatAmount } from '../../lib/format'
 import type { CalendarRecord } from '../../types'
-
-const WEEK_DAYS = ['日', '一', '二', '三', '四', '五', '六']
 
 export function CalendarView2() {
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -71,9 +69,9 @@ export function CalendarView2() {
       <Main>
         <div className='mb-6 flex items-center justify-between'>
           <div>
-            <h1 className='text-2xl font-bold tracking-tight'>日历视图 2 · 极简网格</h1>
+            <h1 className='text-2xl font-bold tracking-tight'>日历视图 2 · 卡片网格</h1>
             <p className='mt-1 text-sm text-muted-foreground'>
-              极简设计的月历网格，专注于核心信息
+              卡片式月历网格，每一天都是独立卡片
             </p>
           </div>
         </div>
@@ -118,7 +116,7 @@ export function CalendarView2() {
 
         <div className='mb-4 grid grid-cols-3 gap-3'>
           <div className='flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2'>
-            <Wallet className='h-4 w-4 text-emerald-600 dark:text-emerald-400' />
+            <TrendingUp className='h-4 w-4 text-emerald-600 dark:text-emerald-400' />
             <div>
               <p className='text-[10px] text-muted-foreground'>本月收入</p>
               <p className='text-sm font-semibold text-emerald-700 dark:text-emerald-400'>
@@ -127,7 +125,7 @@ export function CalendarView2() {
             </div>
           </div>
           <div className='flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-3 py-2'>
-            <Wallet className='h-4 w-4 text-rose-600 dark:text-rose-400' />
+            <TrendingDown className='h-4 w-4 text-rose-600 dark:text-rose-400' />
             <div>
               <p className='text-[10px] text-muted-foreground'>本月支出</p>
               <p className='text-sm font-semibold text-rose-700 dark:text-rose-400'>
@@ -153,97 +151,71 @@ export function CalendarView2() {
         </div>
 
         {recordsQuery.isLoading ? (
-          <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
-            <div className='grid grid-cols-7 gap-px bg-muted/30 px-2 pt-3 pb-1'>
-              {WEEK_DAYS.map((day) => (
-                <div key={day} className='py-2.5 text-center text-[11px] font-semibold tracking-wider text-muted-foreground/60'>
-                  {day}
-                </div>
-              ))}
-            </div>
-            <div className='grid grid-cols-7 gap-px p-2'>
-              {Array.from({ length: 35 }).map((_, i) => (
-                <div key={`skel-${i}`} className='rounded-xl p-2.5'>
-                  <div className='h-7 w-7 animate-pulse rounded-lg bg-muted/60' />
-                </div>
-              ))}
-            </div>
+          <div className='grid grid-cols-7 gap-2'>
+            {Array.from({ length: 35 }).map((_, i) => (
+              <div key={`skel-${i}`} className='aspect-square rounded-2xl border bg-card p-3 shadow-sm'>
+                <div className='h-8 w-8 animate-pulse rounded-full bg-muted/60' />
+              </div>
+            ))}
           </div>
         ) : (
-          <div className='overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm'>
-            <div className='grid grid-cols-7 gap-px bg-muted/30 px-2 pt-3 pb-1'>
-              {WEEK_DAYS.map((day, idx) => (
-                <div
-                  key={day}
+          <div className='grid grid-cols-7 gap-2'>
+            {Array.from({ length: firstDayOffset }).map((_, i) => (
+              <div
+                key={`empty-${i}`}
+                className='aspect-square rounded-2xl bg-transparent'
+              />
+            ))}
+
+            {days.map((day) => {
+              const dateKey = fmt(day, 'yyyy-MM-dd')
+              const dayRecords = recordsByDate.get(dateKey) || []
+              const isCurrentDay = isToday(day)
+              const isWeekendDay = isWeekend(day)
+
+              return (
+                <button
+                  key={dateKey}
+                  onClick={() => handleDayClick(day)}
                   className={cn(
-                    'py-2.5 text-center text-[11px] font-semibold tracking-wider',
-                    idx === 0 || idx === 6
-                      ? 'text-rose-500/60 dark:text-rose-400/50'
-                      : 'text-muted-foreground/60'
+                    'group relative flex aspect-square flex-col items-center justify-start rounded-2xl border-2 p-2 transition-all duration-200',
+                    isCurrentDay
+                      ? 'border-primary/50 bg-primary/5 shadow-lg shadow-primary/10'
+                      : isWeekendDay
+                        ? 'border-rose-200/50 bg-rose-50/30 dark:border-rose-800/30 dark:bg-rose-950/10'
+                        : 'border-border/30 bg-card hover:border-primary/30 hover:shadow-md hover:shadow-primary/5',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
                   )}
                 >
-                  {day}
-                </div>
-              ))}
-            </div>
+                  <div className={cn(
+                    'flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition-transform',
+                    isCurrentDay
+                      ? 'bg-primary text-primary-foreground shadow-md shadow-primary/30 scale-110'
+                      : 'text-foreground/80 group-hover:scale-105'
+                  )}>
+                    {format(day, 'd')}
+                  </div>
 
-            <div className='grid grid-cols-7 gap-0.5 p-1'>
-              {Array.from({ length: firstDayOffset }).map((_, i) => (
-                <div
-                  key={`empty-${i}`}
-                  className='min-h-[60px] rounded-lg bg-muted/5'
-                />
-              ))}
+                  <div className='mt-1 flex flex-wrap justify-center gap-1'>
+                    {dayRecords.slice(0, 4).map((record, idx) => (
+                      <span
+                        key={`${record.id}-${idx}`}
+                        className={cn(
+                          'h-2 w-2 rounded-full',
+                          getRecordDotColor(record)
+                        )}
+                      />
+                    ))}
+                  </div>
 
-              {days.map((day) => {
-                const dateKey = fmt(day, 'yyyy-MM-dd')
-                const dayRecords = recordsByDate.get(dateKey) || []
-                const isCurrentDay = isToday(day)
-                const isWeekendDay = isWeekend(day)
-                const hasRecords = dayRecords.length > 0
-
-                return (
-                  <button
-                    key={dateKey}
-                    onClick={() => handleDayClick(day)}
-                    className={cn(
-                      'group relative flex min-h-[60px] flex-col items-center justify-start rounded-lg p-1.5 text-left transition-all duration-200 ease-out',
-                      'hover:bg-accent/30',
-                      isCurrentDay && 'bg-primary/5',
-                      isWeekendDay && !isCurrentDay && 'bg-muted/5',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        'flex h-6 w-6 items-center justify-center rounded-full text-xs transition-all duration-200',
-                        isCurrentDay
-                          ? 'bg-primary text-primary-foreground font-bold'
-                          : isWeekendDay
-                            ? 'text-rose-600/60 dark:text-rose-400/50'
-                            : 'text-foreground/60 group-hover:text-foreground'
-                      )}
-                    >
-                      {format(day, 'd')}
-                    </span>
-
-                    {hasRecords && (
-                      <div className='mt-1 flex gap-0.5'>
-                        {dayRecords.slice(0, 3).map((record, idx) => (
-                          <span
-                            key={`${record.id}-${idx}`}
-                            className={cn(
-                              'h-1.5 w-1.5 rounded-full',
-                              getRecordDotColor(record)
-                            )}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </button>
-                )
-              })}
-            </div>
+                  {dayRecords.length > 0 && (
+                    <div className='absolute -bottom-1 -right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground shadow-sm'>
+                      {dayRecords.length}
+                    </div>
+                  )}
+                </button>
+              )
+            })}
           </div>
         )}
       </Main>

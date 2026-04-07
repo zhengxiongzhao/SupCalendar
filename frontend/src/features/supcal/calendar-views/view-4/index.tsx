@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { ChevronLeft, ChevronRight, CalendarDays, Wallet, TrendingUp, TrendingDown } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarDays, Wallet, TrendingUp, TrendingDown, PieChart } from 'lucide-react'
 import { addMonths, subMonths, format, isToday, isWeekend, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
@@ -11,10 +11,122 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { useRecords } from '../../api/records'
-import { buildRecordsByDateMap, getFinancialSummary, getRecordDotColor, format as fmt } from '../shared'
+import { buildRecordsByDateMap, getFinancialSummary, format as fmt } from '../shared'
 import { DayDetailSheet } from '../../calendar/components/day-detail-sheet'
 import { formatAmount } from '../../lib/format'
-import type { CalendarRecord } from '../../types'
+import type { CalendarRecord, PaymentRecord } from '../../types'
+
+const WEEK_DAYS = ['日', '一', '二', '三', '四', '五', '六']
+
+function DonutChart({ income, expense, size = 140, strokeWidth = 14 }: {
+  income: number
+  expense: number
+  size?: number
+  strokeWidth?: number
+}) {
+  const total = income + expense
+  const radius = (size - strokeWidth) / 2
+  const circumference = 2 * Math.PI * radius
+
+  if (total === 0) {
+    return (
+      <svg width={size} height={size} className='mx-auto'>
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill='none'
+          stroke='currentColor'
+          strokeWidth={strokeWidth}
+          className='text-muted/30'
+        />
+        <text x={size / 2} y={size / 2} textAnchor='middle' dominantBaseline='central' className='fill-muted-foreground text-xs font-medium'>
+          暂无数据
+        </text>
+      </svg>
+    )
+  }
+
+  const incomePercent = income / total
+  const expensePercent = expense / total
+  const incomeDash = circumference * incomePercent
+  const expenseDash = circumference * expensePercent
+  const incomeOffset = 0
+  const expenseOffset = -incomeDash
+
+  return (
+    <svg width={size} height={size} className='mx-auto -rotate-90'>
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill='none'
+        stroke='currentColor'
+        strokeWidth={strokeWidth}
+        className='text-muted/10'
+      />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill='none'
+        strokeWidth={strokeWidth}
+        strokeDasharray={`${incomeDash} ${circumference - incomeDash}`}
+        strokeDashoffset={incomeOffset}
+        strokeLinecap='round'
+        className='stroke-emerald-500'
+      />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill='none'
+        strokeWidth={strokeWidth}
+        strokeDasharray={`${expenseDash} ${circumference - expenseDash}`}
+        strokeDashoffset={expenseOffset}
+        strokeLinecap='round'
+        className='stroke-rose-500'
+      />
+    </svg>
+  )
+}
+
+function SmallRing({ value, maxValue, color, size = 64, strokeWidth = 6 }: {
+  value: number
+  maxValue: number
+  color: string
+  size?: number
+  strokeWidth?: number
+}) {
+  const radius = (size - strokeWidth) / 2
+  const circumference = 2 * Math.PI * radius
+  const percent = maxValue > 0 ? Math.min(value / maxValue, 1) : 0
+  const dash = circumference * percent
+
+  return (
+    <svg width={size} height={size} className='-rotate-90'>
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill='none'
+        stroke='currentColor'
+        strokeWidth={strokeWidth}
+        className='text-muted/20'
+      />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill='none'
+        strokeWidth={strokeWidth}
+        strokeDasharray={`${dash} ${circumference - dash}`}
+        strokeLinecap='round'
+        className={color}
+      />
+    </svg>
+  )
+}
 
 export function CalendarView4() {
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -34,6 +146,24 @@ export function CalendarView4() {
     const allRecords: CalendarRecord[] = []
     recordsByDate.forEach((records) => allRecords.push(...records))
     return getFinancialSummary(allRecords)
+  }, [recordsByDate])
+
+  const recordStats = useMemo(() => {
+    let incomeCount = 0
+    let expenseCount = 0
+    let reminderCount = 0
+    recordsByDate.forEach((records) => {
+      for (const r of records) {
+        if (r.type === 'payment') {
+          const p = r as PaymentRecord
+          if (p.direction === 'income') incomeCount++
+          else expenseCount++
+        } else {
+          reminderCount++
+        }
+      }
+    })
+    return { incomeCount, expenseCount, reminderCount, total: incomeCount + expenseCount + reminderCount }
   }, [recordsByDate])
 
   const { days, firstDayOffset } = useMemo(() => {
@@ -69,9 +199,9 @@ export function CalendarView4() {
       <Main>
         <div className='mb-6 flex items-center justify-between'>
           <div>
-            <h1 className='text-2xl font-bold tracking-tight'>日历视图 4 · 卡片网格</h1>
+            <h1 className='text-2xl font-bold tracking-tight'>日历视图 4 · 环形统计</h1>
             <p className='mt-1 text-sm text-muted-foreground'>
-              卡片式月历网格，每一天都是独立卡片
+              环形图 + 月历网格的可视化统计视图
             </p>
           </div>
         </div>
@@ -86,137 +216,154 @@ export function CalendarView4() {
             </h2>
           </div>
           <div className='flex items-center gap-1.5'>
-            <Button
-              variant='ghost'
-              size='sm'
-              className='h-8 text-xs font-medium'
-              onClick={() => setCurrentDate(new Date())}
-            >
+            <Button variant='ghost' size='sm' className='h-8 text-xs font-medium' onClick={() => setCurrentDate(new Date())}>
               今天
             </Button>
             <div className='mx-1 h-4 w-px bg-border' />
-            <Button
-              variant='ghost'
-              size='icon'
-              className='h-8 w-8 rounded-lg'
-              onClick={() => setCurrentDate((d) => subMonths(d, 1))}
-            >
+            <Button variant='ghost' size='icon' className='h-8 w-8 rounded-lg' onClick={() => setCurrentDate((d) => subMonths(d, 1))}>
               <ChevronLeft className='h-4 w-4' />
             </Button>
-            <Button
-              variant='ghost'
-              size='icon'
-              className='h-8 w-8 rounded-lg'
-              onClick={() => setCurrentDate((d) => addMonths(d, 1))}
-            >
+            <Button variant='ghost' size='icon' className='h-8 w-8 rounded-lg' onClick={() => setCurrentDate((d) => addMonths(d, 1))}>
               <ChevronRight className='h-4 w-4' />
             </Button>
           </div>
         </div>
 
-        <div className='mb-4 grid grid-cols-3 gap-3'>
-          <div className='flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2'>
-            <TrendingUp className='h-4 w-4 text-emerald-600 dark:text-emerald-400' />
-            <div>
-              <p className='text-[10px] text-muted-foreground'>本月收入</p>
-              <p className='text-sm font-semibold text-emerald-700 dark:text-emerald-400'>
-                {formatAmount(monthSummary.income, 'CNY')}
-              </p>
-            </div>
-          </div>
-          <div className='flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-3 py-2'>
-            <TrendingDown className='h-4 w-4 text-rose-600 dark:text-rose-400' />
-            <div>
-              <p className='text-[10px] text-muted-foreground'>本月支出</p>
-              <p className='text-sm font-semibold text-rose-700 dark:text-rose-400'>
-                {formatAmount(monthSummary.expense, 'CNY')}
-              </p>
-            </div>
-          </div>
-          <div className='flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-3 py-2'>
-            <Wallet className='h-4 w-4 text-primary' />
-            <div>
-              <p className='text-[10px] text-muted-foreground'>本月结余</p>
-              <p className={cn(
-                'text-sm font-semibold',
-                monthSummary.balance >= 0
-                  ? 'text-emerald-700 dark:text-emerald-400'
-                  : 'text-rose-700 dark:text-rose-400'
-              )}>
-                {monthSummary.balance >= 0 ? '+' : ''}
-                {formatAmount(Math.abs(monthSummary.balance), 'CNY')}
-              </p>
-            </div>
-          </div>
-        </div>
-
         {recordsQuery.isLoading ? (
-          <div className='grid grid-cols-7 gap-2'>
-            {Array.from({ length: 35 }).map((_, i) => (
-              <div key={`skel-${i}`} className='aspect-square rounded-2xl border bg-card p-3 shadow-sm'>
-                <div className='h-8 w-8 animate-pulse rounded-full bg-muted/60' />
-              </div>
-            ))}
+          <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>
+            <div className='h-64 animate-pulse rounded-2xl bg-muted/30' />
+            <div className='h-64 animate-pulse rounded-2xl bg-muted/30 lg:col-span-2' />
           </div>
         ) : (
-          <div className='grid grid-cols-7 gap-2'>
-            {Array.from({ length: firstDayOffset }).map((_, i) => (
-              <div
-                key={`empty-${i}`}
-                className='aspect-square rounded-2xl bg-transparent'
-              />
-            ))}
-
-            {days.map((day) => {
-              const dateKey = fmt(day, 'yyyy-MM-dd')
-              const dayRecords = recordsByDate.get(dateKey) || []
-              const isCurrentDay = isToday(day)
-              const isWeekendDay = isWeekend(day)
-
-              return (
-                <button
-                  key={dateKey}
-                  onClick={() => handleDayClick(day)}
-                  className={cn(
-                    'group relative flex aspect-square flex-col items-center justify-start rounded-2xl border-2 p-2 transition-all duration-200',
-                    isCurrentDay
-                      ? 'border-primary/50 bg-primary/5 shadow-lg shadow-primary/10'
-                      : isWeekendDay
-                        ? 'border-rose-200/50 bg-rose-50/30 dark:border-rose-800/30 dark:bg-rose-950/10'
-                        : 'border-border/30 bg-card hover:border-primary/30 hover:shadow-md hover:shadow-primary/5',
-                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
-                  )}
-                >
-                  <div className={cn(
-                    'flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition-transform',
-                    isCurrentDay
-                      ? 'bg-primary text-primary-foreground shadow-md shadow-primary/30 scale-110'
-                      : 'text-foreground/80 group-hover:scale-105'
-                  )}>
-                    {format(day, 'd')}
+          <>
+            <div className='mb-4 grid grid-cols-1 gap-4 lg:grid-cols-3'>
+              <div className='flex flex-col items-center justify-center rounded-2xl border border-border/40 bg-card p-6 shadow-sm'>
+                <div className='relative'>
+                  <DonutChart income={monthSummary.income} expense={monthSummary.expense} />
+                  <div className='absolute inset-0 flex flex-col items-center justify-center'>
+                    <PieChart className='h-4 w-4 text-muted-foreground' />
+                    <span className={cn(
+                      'mt-0.5 text-sm font-bold',
+                      monthSummary.balance >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
+                    )}>
+                      {monthSummary.balance >= 0 ? '+' : ''}{formatAmount(Math.abs(monthSummary.balance), 'CNY')}
+                    </span>
                   </div>
-
-                  <div className='mt-1 flex flex-wrap justify-center gap-1'>
-                    {dayRecords.slice(0, 4).map((record, idx) => (
-                      <span
-                        key={`${record.id}-${idx}`}
-                        className={cn(
-                          'h-2 w-2 rounded-full',
-                          getRecordDotColor(record)
-                        )}
-                      />
-                    ))}
+                </div>
+                <div className='mt-4 flex gap-4 text-xs'>
+                  <div className='flex items-center gap-1.5'>
+                    <span className='h-2 w-2 rounded-full bg-emerald-500' />
+                    <span className='text-muted-foreground'>收入 {formatAmount(monthSummary.income, 'CNY')}</span>
                   </div>
+                  <div className='flex items-center gap-1.5'>
+                    <span className='h-2 w-2 rounded-full bg-rose-500' />
+                    <span className='text-muted-foreground'>支出 {formatAmount(monthSummary.expense, 'CNY')}</span>
+                  </div>
+                </div>
+              </div>
 
-                  {dayRecords.length > 0 && (
-                    <div className='absolute -bottom-1 -right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground shadow-sm'>
-                      {dayRecords.length}
+              <div className='rounded-2xl border border-border/40 bg-card p-4 shadow-sm lg:col-span-2'>
+                <div className='mb-2 grid grid-cols-7 gap-1'>
+                  {WEEK_DAYS.map((day, idx) => (
+                    <div
+                      key={day}
+                      className={cn(
+                        'py-1.5 text-center text-[10px] font-semibold tracking-wider',
+                        idx === 0 || idx === 6 ? 'text-rose-500/60 dark:text-rose-400/50' : 'text-muted-foreground/60'
+                      )}
+                    >
+                      {day}
                     </div>
-                  )}
-                </button>
-              )
-            })}
-          </div>
+                  ))}
+                </div>
+                <div className='grid grid-cols-7 gap-1'>
+                  {Array.from({ length: firstDayOffset }).map((_, i) => (
+                    <div key={`empty-${i}`} className='aspect-square rounded-lg bg-muted/5' />
+                  ))}
+                  {days.map((day) => {
+                    const dateKey = fmt(day, 'yyyy-MM-dd')
+                    const dayRecords = recordsByDate.get(dateKey) || []
+                    const isCurrentDay = isToday(day)
+                    const isWeekendDay = isWeekend(day)
+                    const hasIncome = dayRecords.some((r) => r.type === 'payment' && (r as PaymentRecord).direction === 'income')
+                    const hasExpense = dayRecords.some((r) => r.type === 'payment' && (r as PaymentRecord).direction === 'expense')
+                    const hasReminder = dayRecords.some((r) => r.type === 'simple')
+
+                    return (
+                      <button
+                        key={dateKey}
+                        onClick={() => handleDayClick(day)}
+                        className={cn(
+                          'group relative flex aspect-square flex-col items-center justify-center rounded-lg transition-all duration-200',
+                          isCurrentDay
+                            ? 'bg-primary/10 ring-2 ring-primary/30'
+                            : isWeekendDay
+                              ? 'bg-rose-500/5 hover:bg-rose-500/10'
+                              : 'hover:bg-accent/40',
+                          dayRecords.length > 0 && !isCurrentDay && 'bg-accent/20',
+                          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+                        )}
+                      >
+                        <span className={cn(
+                          'flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium',
+                          isCurrentDay
+                            ? 'bg-primary text-primary-foreground font-bold shadow-sm'
+                            : isWeekendDay
+                              ? 'text-rose-600/70 dark:text-rose-400/60'
+                              : 'text-foreground/70'
+                        )}>
+                          {format(day, 'd')}
+                        </span>
+                        {dayRecords.length > 0 && (
+                          <div className='mt-0.5 flex gap-0.5'>
+                            {hasIncome && <span className='h-1 w-1 rounded-full bg-emerald-500' />}
+                            {hasExpense && <span className='h-1 w-1 rounded-full bg-rose-500' />}
+                            {hasReminder && <span className='h-1 w-1 rounded-full bg-blue-500' />}
+                          </div>
+                        )}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <div className='grid grid-cols-3 gap-3'>
+              <div className='flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4'>
+                <SmallRing value={monthSummary.income} maxValue={monthSummary.income + monthSummary.expense} color='stroke-emerald-500' />
+                <div>
+                  <div className='flex items-center gap-1.5'>
+                    <TrendingUp className='h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400' />
+                    <span className='text-[10px] font-medium text-muted-foreground'>收入</span>
+                  </div>
+                  <p className='text-sm font-bold text-emerald-700 dark:text-emerald-400'>{formatAmount(monthSummary.income, 'CNY')}</p>
+                  <p className='text-[10px] text-muted-foreground'>{recordStats.incomeCount} 笔</p>
+                </div>
+              </div>
+              <div className='flex items-center gap-3 rounded-xl border border-rose-500/20 bg-rose-500/5 p-4'>
+                <SmallRing value={monthSummary.expense} maxValue={monthSummary.income + monthSummary.expense} color='stroke-rose-500' />
+                <div>
+                  <div className='flex items-center gap-1.5'>
+                    <TrendingDown className='h-3.5 w-3.5 text-rose-600 dark:text-rose-400' />
+                    <span className='text-[10px] font-medium text-muted-foreground'>支出</span>
+                  </div>
+                  <p className='text-sm font-bold text-rose-700 dark:text-rose-400'>{formatAmount(monthSummary.expense, 'CNY')}</p>
+                  <p className='text-[10px] text-muted-foreground'>{recordStats.expenseCount} 笔</p>
+                </div>
+              </div>
+              <div className='flex items-center gap-3 rounded-xl border border-blue-500/20 bg-blue-500/5 p-4'>
+                <SmallRing value={recordStats.reminderCount} maxValue={recordStats.total || 1} color='stroke-blue-500' />
+                <div>
+                  <div className='flex items-center gap-1.5'>
+                    <Wallet className='h-3.5 w-3.5 text-blue-600 dark:text-blue-400' />
+                    <span className='text-[10px] font-medium text-muted-foreground'>提醒</span>
+                  </div>
+                  <p className='text-sm font-bold text-blue-700 dark:text-blue-400'>{recordStats.reminderCount} 条</p>
+                  <p className='text-[10px] text-muted-foreground'>共 {recordStats.total} 条记录</p>
+                </div>
+              </div>
+            </div>
+          </>
         )}
       </Main>
 
