@@ -114,24 +114,44 @@ export const sidebarData: SidebarData = {
           icon: CalendarDays,
           items: [
             {
-              title: '日历视图 1 · 月历网格',
+              title: '日历视图 1 · 热力图',
               url: '/supcal/calendar-1',
             },
             {
-              title: '日历视图 2 · 时间轴',
+              title: '日历视图 2 · 密度网格',
               url: '/supcal/calendar-2',
             },
             {
-              title: '日历视图 3 · 周计划',
+              title: '日历视图 3 · 紧凑网格',
               url: '/supcal/calendar-3',
             },
             {
-              title: '日历视图 4 · 瀑布卡片',
+              title: '日历视图 4 · 卡片网格',
               url: '/supcal/calendar-4',
             },
             {
-              title: '日历视图 5 · 议程列表',
+              title: '日历视图 5 · 玻璃网格',
               url: '/supcal/calendar-5',
+            },
+            {
+              title: '日历视图 6 · 甘特日程',
+              url: '/supcal/calendar-6',
+            },
+            {
+              title: '日历视图 7 · 环形统计',
+              url: '/supcal/calendar-7',
+            },
+            {
+              title: '日历视图 8 · 双栏日程',
+              url: '/supcal/calendar-8',
+            },
+            {
+              title: '日历视图 9 · 看板日程',
+              url: '/supcal/calendar-9',
+            },
+            {
+              title: '日历视图 10 · 日程提醒',
+              url: '/supcal/calendar-10',
             },
           ],
         },
