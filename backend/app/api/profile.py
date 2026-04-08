@@ -5,6 +5,7 @@ from datetime import datetime
 import json
 import traceback
 from ..models.record import SimpleRecord, PaymentRecord
+from ..models.support import Category, PaymentMethod
 from ..models.base import PeriodType, Direction
 from ..database import get_db
 
@@ -58,8 +59,30 @@ async def export_records():
         export_data = {
             "version": "1.0.0",
             "export_date": datetime.utcnow().isoformat() + "Z",
+            "categories": [],
+            "payment_methods": [],
             "records": [],
         }
+
+        # 导出分类
+        categories = db.execute(select(Category)).scalars().all()
+        for cat in categories:
+            export_data["categories"].append(
+                {
+                    "id": cat.id,
+                    "name": cat.name,
+                }
+            )
+
+        # 导出付款方式
+        payment_methods = db.execute(select(PaymentMethod)).scalars().all()
+        for pm in payment_methods:
+            export_data["payment_methods"].append(
+                {
+                    "id": pm.id,
+                    "name": pm.name,
+                }
+            )
 
         # 添加简单提醒
         for record in simple_records:
@@ -69,7 +92,7 @@ async def export_records():
                     "id": record.id,
                     "title": record.name,
                     "date": record.time.isoformat() if record.time else None,
-                    "category": record.description or "",
+                    "description": record.description or "",
                     "repeat_type": record.period.value if record.period else "none",
                     "created_at": record.created_at.isoformat()
                     if record.created_at
@@ -92,7 +115,13 @@ async def export_records():
                     "date": record.start_time.isoformat()
                     if record.start_time
                     else None,
-                    "category": record.description or "",
+                    "category": [c.name for c in record.categories]
+                    if record.categories
+                    else [],
+                    "payment_method": [pm.name for pm in record.payment_methods]
+                    if record.payment_methods
+                    else [],
+                    "description": record.description or "",
                     "payment_type": record.direction.value
                     if record.direction
                     else "expense",
@@ -124,11 +153,9 @@ async def import_records(file: UploadFile = File(...)):
     从 JSON 文件导入记录
     """
     try:
-        # 读取文件内容
         content = await file.read()
         data = json.loads(content.decode("utf-8"))
 
-        # 验证格式
         if "records" not in data:
             return JSONResponse(
                 status_code=400, content={"error": "无效的文件格式：缺少 records 字段"}
@@ -137,7 +164,6 @@ async def import_records(file: UploadFile = File(...)):
         records = data["records"]
         db = next(get_db())
 
-        # 统计结果
         result = {
             "success": True,
             "total": len(records),
@@ -147,19 +173,47 @@ async def import_records(file: UploadFile = File(...)):
             "errors": [],
         }
 
-        # 导入每条记录
+        # 处理分类
+        category_map = {}
+        for cat_data in data.get("categories", []):
+            existing = (
+                db.query(Category).filter(Category.name == cat_data["name"]).first()
+            )
+            if existing:
+                category_map[cat_data["name"]] = existing
+            else:
+                new_cat = Category(name=cat_data["name"])
+                db.add(new_cat)
+                db.flush()
+                category_map[cat_data["name"]] = new_cat
+
+        # 处理付款方式
+        payment_method_map = {}
+        for pm_data in data.get("payment_methods", []):
+            existing = (
+                db.query(PaymentMethod)
+                .filter(PaymentMethod.name == pm_data["name"])
+                .first()
+            )
+            if existing:
+                payment_method_map[pm_data["name"]] = existing
+            else:
+                new_pm = PaymentMethod(name=pm_data["name"])
+                db.add(new_pm)
+                db.flush()
+                payment_method_map[pm_data["name"]] = new_pm
+
         for idx, record in enumerate(records):
             try:
                 record_type = record.get("type")
 
                 if record_type == "simple":
-                    # 创建简单提醒 — 字段映射到模型字段名
                     simple_record = SimpleRecord(
                         name=record.get("title", ""),
                         time=datetime.fromisoformat(record["date"])
                         if record.get("date")
                         else datetime.utcnow(),
-                        description=record.get("category", ""),
+                        description=record.get("description", ""),
                         period=_parse_period(record.get("repeat_type", "month")),
                     )
                     db.add(simple_record)
@@ -168,7 +222,9 @@ async def import_records(file: UploadFile = File(...)):
                     result["simple_records"] += 1
 
                 elif record_type == "payment":
-                    # 创建收付款记录 — 字段映射到模型字段名
+                    category_names = record.get("category", [])
+                    payment_method_names = record.get("payment_method", [])
+
                     payment_record = PaymentRecord(
                         name=record.get("title", ""),
                         amount=float(record.get("amount", 0)),
@@ -180,12 +236,34 @@ async def import_records(file: UploadFile = File(...)):
                             record.get("payment_type", "expense")
                         ),
                         period=_parse_period(record.get("repeat_type", "month")),
-                        category=record.get("category", ""),
                         description=record.get("description", ""),
-                        payment_method=record.get("payment_method", None),
                         notes=record.get("notes", None),
                     )
-                    db.add(payment_record)
+
+                    # 关联分类
+                    categories = []
+                    for cat_name in category_names:
+                        if cat_name in category_map:
+                            categories.append(category_map[cat_name])
+                        else:
+                            new_cat = Category(name=cat_name)
+                            db.add(new_cat)
+                            db.flush()
+                            category_map[cat_name] = new_cat
+                            categories.append(new_cat)
+                    payment_record.categories = categories
+
+                    payment_methods = []
+                    for pm_name in payment_method_names:
+                        if pm_name in payment_method_map:
+                            payment_methods.append(payment_method_map[pm_name])
+                        else:
+                            new_pm = PaymentMethod(name=pm_name)
+                            db.add(new_pm)
+                            db.flush()
+                            payment_method_map[pm_name] = new_pm
+                            payment_methods.append(new_pm)
+                    payment_record.payment_methods = payment_methods
                     db.flush()
                     result["imported"] += 1
                     result["payment_records"] += 1
@@ -198,11 +276,9 @@ async def import_records(file: UploadFile = File(...)):
             except Exception as e:
                 result["errors"].append({"index": idx, "reason": f"导入失败: {str(e)}"})
 
-        # 如果全部失败，标记 success=False
         if result["imported"] == 0 and len(result["errors"]) > 0:
             result["success"] = False
 
-        # 提交所有更改
         db.commit()
         db.close()
 
