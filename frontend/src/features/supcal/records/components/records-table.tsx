@@ -104,9 +104,12 @@ export function RecordsTable({ data, isLoading }: RecordsTableProps) {
               </TableCell>
               <TableCell>
                 {isPayment
-                  ? (payment!.category || (
-                      <span className='text-muted-foreground'>未分类</span>
-                    ))
+                  ? (payment!.category
+                      ? (Array.isArray(payment!.category) 
+                          ? payment!.category.join(', ')
+                          : payment!.category)
+                      : <span className='text-muted-foreground'>未分类</span>
+                    )
                   : '-'}
               </TableCell>
               <TableCell>

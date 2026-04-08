@@ -46,7 +46,7 @@ export function CalendarView12() {
     if (!recordsQuery.data) return tree
     for (const record of recordsQuery.data) {
       const category = record.type === 'payment'
-        ? (record as PaymentRecord).category || '未分类'
+        ? ((record as PaymentRecord).category?.[0] || '未分类')
         : '提醒'
       const existing = tree.get(category) || []
       existing.push(record)

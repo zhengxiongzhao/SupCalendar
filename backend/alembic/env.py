@@ -1,5 +1,5 @@
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config
+from sqlalchemy import create_engine
 from sqlalchemy import pool
 from alembic import context
 import sys
@@ -7,9 +7,8 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from app.database import Base
-from app.models.base import BaseRecord
-from app.models.record import SimpleRecord, PaymentRecord, CustomRecord
+from app.models.base import Base
+from app.models.record import BaseRecord, SimpleRecord, PaymentRecord, CustomRecord
 from app.models.support import (
     Category,
     PaymentMethod,
@@ -39,9 +38,12 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
-        prefix="sqlalchemy.",
+    from app.config import get_settings
+
+    settings = get_settings()
+
+    connectable = create_engine(
+        settings.database_url,
         poolclass=pool.NullPool,
     )
 

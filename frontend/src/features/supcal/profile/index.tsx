@@ -7,6 +7,7 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { useProfileStats } from '../api/profile'
 import { StatsCards } from './components/stats-cards'
 import { ExportImport } from './components/export-import'
+import { CategoryPaymentMethodManagement } from './components/category-payment-method-management'
 
 export function SupcalProfile() {
   const statsQuery = useProfileStats()
@@ -33,6 +34,7 @@ export function SupcalProfile() {
             stats={statsQuery.data}
             isLoading={statsQuery.isLoading}
           />
+          <CategoryPaymentMethodManagement />
           <ExportImport />
         </div>
       </Main>

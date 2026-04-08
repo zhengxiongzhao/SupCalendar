@@ -102,7 +102,9 @@ export function UpcomingList({ records, isLoading }: UpcomingListProps) {
                     <div className='flex items-center gap-2'>
                       {isPayment ? (
                         <span className='text-xs text-muted-foreground'>
-                          {(record as PaymentRecord).category || '未分类'}
+                          {((record as PaymentRecord).category && Array.isArray((record as PaymentRecord).category))
+                            ? (record as PaymentRecord).category!.join(', ')
+                            : '未分类'}
                         </span>
                       ) : (
                         <Badge variant='outline' className='px-1.5 py-0 text-[10px]'>

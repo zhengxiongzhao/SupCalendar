@@ -49,9 +49,9 @@ export interface PaymentRecord {
   name: string
   description?: string | null
   direction: Direction
-  category?: string | null
+  category?: string[] | null
   amount: number
-  payment_method: string
+  payment_method?: string[] | null
   period: PeriodType
   start_time: string
   end_time?: string | null
@@ -105,13 +105,13 @@ export interface ImportResult {
 
 export interface Category {
   id: string
+  user_id: string
   name: string
-  type: string
-  color?: string
 }
 
 export interface PaymentMethod {
   id: string
+  user_id: string
   name: string
 }
 
@@ -128,8 +128,8 @@ export const paymentRecordSchema = z.object({
   direction: z.enum(['income', 'expense'] as const),
   amount: z.number().min(0, '金额不能为负'),
   currency: z.enum(['CNY', 'USD'] as const),
-  category: z.string(),
-  payment_method: z.string(),
+  category: z.array(z.string()).default([]),
+  payment_method: z.array(z.string()).default([]),
   period: z.enum(['week', 'month', 'quarter', 'half-year', 'year'] as const),
   start_time: z.string().min(1, '请选择开始时间'),
   end_time: z.string(),

@@ -1,21 +1,32 @@
 from sqlalchemy import Column, String
-from app.models.base import Base, Direction, SQLEnum, uuid
+from sqlalchemy.orm import relationship
+from app.models.base import Base, SQLEnum, uuid
 
 
 class Category(Base):
     __tablename__ = "categories"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, default="default", nullable=False)
     name = Column(String, nullable=False)
-    type = Column(SQLEnum(Direction), nullable=False)
-    color = Column(String)
+
+    records = relationship(
+        "PaymentRecord", secondary="record_categories", back_populates="categories"
+    )
 
 
 class PaymentMethod(Base):
     __tablename__ = "payment_methods"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = Column(String, nullable=False, unique=True)
+    user_id = Column(String, default="default", nullable=False)
+    name = Column(String, nullable=False)
+
+    records = relationship(
+        "PaymentRecord",
+        secondary="record_payment_methods",
+        back_populates="payment_methods",
+    )
 
 
 class CalendarSync(Base):

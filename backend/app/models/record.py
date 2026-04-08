@@ -1,6 +1,26 @@
+import json
 from datetime import datetime
-from sqlalchemy import Column, String, DateTime, Float, ForeignKey, JSON
+from sqlalchemy import Column, String, DateTime, Float, ForeignKey, JSON, Table
+from sqlalchemy.orm import relationship
 from app.models.base import Base, RecordType, PeriodType, Direction, SQLEnum, uuid
+
+
+record_categories = Table(
+    "record_categories",
+    Base.metadata,
+    Column("record_id", String, ForeignKey("records.id"), primary_key=True),
+    Column("category_id", String, ForeignKey("categories.id"), primary_key=True),
+)
+
+
+record_payment_methods = Table(
+    "record_payment_methods",
+    Base.metadata,
+    Column("record_id", String, ForeignKey("records.id"), primary_key=True),
+    Column(
+        "payment_method_id", String, ForeignKey("payment_methods.id"), primary_key=True
+    ),
+)
 
 
 class BaseRecord(Base):
@@ -30,17 +50,23 @@ class PaymentRecord(BaseRecord):
     __tablename__ = "payment_records"
 
     record_id = Column(String, ForeignKey("records.id"), primary_key=True)
+    user_id = Column(String, default="default", nullable=False)
     name = Column(String, nullable=False)
     description = Column(String)
     direction = Column(SQLEnum(Direction), nullable=False)
-    category = Column(String)
     amount = Column(Float, nullable=False)
-    payment_method = Column(String)
     period = Column(SQLEnum(PeriodType), nullable=False)
     start_time = Column(DateTime, nullable=False)
     end_time = Column(DateTime)
     notes = Column(String)
     currency = Column(String(3), default="CNY")
+
+    categories = relationship(
+        "Category", secondary=record_categories, back_populates="records"
+    )
+    payment_methods = relationship(
+        "PaymentMethod", secondary=record_payment_methods, back_populates="records"
+    )
 
     __mapper_args__ = {"polymorphic_identity": RecordType.PAYMENT}
 

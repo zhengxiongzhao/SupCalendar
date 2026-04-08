@@ -82,8 +82,8 @@ export function TopPaymentsList({ payments, isLoading }: TopPaymentsListProps) {
                   <div>
                     <p className='text-sm font-medium'>{record.name}</p>
                     <p className='text-xs text-muted-foreground'>
-                      {record.category && `${record.category} · `}
-                      {record.payment_method}
+                      {record.category && Array.isArray(record.category) && record.category.length > 0 && `${record.category.join(', ')} · `}
+                      {record.payment_method && Array.isArray(record.payment_method) ? record.payment_method.join(', ') : ''}
                     </p>
                   </div>
                 </div>
