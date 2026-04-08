@@ -52,7 +52,7 @@ import {
   DIRECTION_OPTIONS,
   CURRENCY_OPTIONS,
 } from '../../types'
-import { calculateEndTime } from '../../lib/urgency'
+import { calculateEndTime, getDefaultStartTime } from '../../lib/urgency'
 
 function FormSection({
   icon: Icon,
@@ -269,7 +269,7 @@ export function PaymentForm({
       category: [] as string[],
       payment_method: [] as string[],
       period: 'month' as const,
-      start_time: '',
+      start_time: getDefaultStartTime(),
       end_time: '',
       notes: '',
       description: '',

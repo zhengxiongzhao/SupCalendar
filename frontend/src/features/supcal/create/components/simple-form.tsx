@@ -24,6 +24,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { useCreateSimpleRecord } from '../../api/records'
+import { getDefaultReminderTime } from '../../lib/urgency'
 import {
   simpleRecordSchema,
   type SimpleRecordFormValues,
@@ -74,7 +75,7 @@ export function SimpleForm({
     resolver: zodResolver(simpleRecordSchema),
     defaultValues: {
       name: '',
-      time: '',
+      time: getDefaultReminderTime(),
       period: 'month',
       description: '',
       ...defaultValues,
