@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react'
 import { ChevronLeft, ChevronRight, CalendarDays, Wallet, TrendingUp, TrendingDown, PieChart } from 'lucide-react'
-import { addMonths, subMonths, format, isToday, isWeekend, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns'
+import { addMonths, subMonths, format, isToday, isWeekend, startOfMonth, endOfMonth, eachDayOfInterval, getDay , isSameDay } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -11,7 +12,7 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { useRecords } from '../../api/records'
-import { buildRecordsByDateMap, getFinancialSummary, format as fmt } from '../shared'
+import { buildRecordsByDateMap, getFinancialSummary, format as fmt , getRecordColorClasses } from '../shared'
 import { DayDetailSheet } from '../../calendar/components/day-detail-sheet'
 import { formatAmount } from '../../lib/format'
 import type { CalendarRecord, PaymentRecord } from '../../types'
@@ -174,16 +175,25 @@ export function CalendarView4() {
     return { days: daysInMonth, firstDayOffset: offset }
   }, [currentDate])
 
+
+  function handleDayClick(date: Date) { setSelectedDate(date); setSheetOpen(true) }
+  function handleDaySelect(date: Date) { setSelectedDate(date) }
+
+  const monthRecordList = useMemo(() => {
+    const result: { date: Date; record: CalendarRecord }[] = []
+    recordsByDate.forEach((recs, key) => {
+      const d = new Date(key)
+      recs.forEach((r) => result.push({ date: d, record: r }))
+    })
+    return result.sort((a, b) => a.date.getTime() - b.date.getTime())
+  }, [recordsByDate])
+
   const recordsForSelectedDate = useMemo(() => {
     if (!selectedDate || !recordsQuery.data) return []
     const dayKey = fmt(selectedDate, 'yyyy-MM-dd')
     return recordsByDate.get(dayKey) || []
   }, [selectedDate, recordsQuery.data, recordsByDate])
 
-  function handleDayClick(date: Date) {
-    setSelectedDate(date)
-    setSheetOpen(true)
-  }
 
   return (
     <>
@@ -365,7 +375,52 @@ export function CalendarView4() {
             </div>
           </>
         )}
-      </Main>
+      
+            <div className='mt-6'>
+              <div className='mb-3 flex items-center justify-between'>
+                <h3 className='text-sm font-semibold'>本月日程</h3>
+                {monthRecordList.length > 0 && <Badge variant='secondary' className='text-xs'>{monthRecordList.length} 条日程</Badge>}
+              </div>
+              {monthRecordList.length > 0 ? (
+                <div className='space-y-3 max-h-[600px] overflow-y-auto pr-1'>
+                  {Array.from(recordsByDate.entries()).sort(([a], [b]) => a.localeCompare(b)).map(([dateKey, recs]) => {
+                    const date = new Date(dateKey)
+                    const isSelected = selectedDate ? isSameDay(date, selectedDate) : false
+                    return (
+                      <div key={dateKey} className={cn('rounded-lg border border-border/20 p-3 transition-all', isSelected && 'bg-primary/5 ring-1 ring-primary/20')}>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <button onClick={() => handleDaySelect(date)} className='flex items-center gap-2 hover:bg-accent/20 rounded px-1 py-0.5 transition-colors'>
+                            <span className='text-xs font-semibold'>{fmt(date, 'M月d日', { locale: zhCN })}</span>
+                            <span className='text-[10px] text-muted-foreground'>{fmt(date, 'EEE', { locale: zhCN })}</span>
+                          </button>
+                          <Badge variant='outline' className='text-[9px] h-4 px-1.5'>{recs.length}条</Badge>
+                        </div>
+                        <div className='space-y-1.5'>
+                          {recs.map((record) => {
+                            const colors = getRecordColorClasses(record)
+                            const isPayment = record.type === 'payment'
+                            const payment = isPayment ? (record as PaymentRecord) : null
+                            return (
+                              <button key={record.id} onClick={() => { setSelectedDate(date); setSheetOpen(true) }} className={cn('flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-accent/20')}>
+                                <div className={cn('h-2 w-2 rounded-full shrink-0', colors.dot)} />
+                                <span className='truncate text-xs flex-1'>{record.name}</span>
+                                {payment && <span className={cn('text-[10px] shrink-0 font-semibold', colors.text)}>{payment.direction === 'income' ? '+' : '-'}{formatAmount(payment.amount, payment.currency)}</span>}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <div className='flex flex-col items-center justify-center rounded-xl border border-dashed border-border/40 py-16 text-muted-foreground'>
+                  <CalendarDays className='mb-2 h-8 w-8 text-muted-foreground/30' />
+                  <p className='text-sm'>本月暂无记录</p>
+                </div>
+              )}
+            </div>
+</Main>
 
       <DayDetailSheet
         date={selectedDate}

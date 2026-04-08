@@ -1,0 +1,161 @@
+import { useState, useMemo } from 'react'
+import { ChevronLeft, ChevronRight, BarChart3, CalendarDays } from 'lucide-react'
+import { addMonths, subMonths, isToday, isWeekend, startOfMonth, endOfMonth, eachDayOfInterval, getDay, isSameDay } from 'date-fns'
+import { zhCN } from 'date-fns/locale'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
+import { Header } from '@/components/layout/header'
+import { Main } from '@/components/layout/main'
+import { Search } from '@/components/search'
+import { ThemeSwitch } from '@/components/theme-switch'
+import { ConfigDrawer } from '@/components/config-drawer'
+import { ProfileDropdown } from '@/components/profile-dropdown'
+import { useRecords } from '../../api/records'
+import { buildRecordsByDateMap, getFinancialSummary, getRecordColorClasses, format as fmt } from '../shared'
+import { DayDetailSheet } from '../../calendar/components/day-detail-sheet'
+import { formatAmount } from '../../lib/format'
+import type { CalendarRecord, PaymentRecord } from '../../types'
+
+const WEEK_DAYS = ['日', '一', '二', '三', '四', '五', '六']
+
+export function CalendarView19() {
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date>(() => new Date())
+  const [sheetOpen, setSheetOpen] = useState(false)
+  const recordsQuery = useRecords()
+  const year = currentDate.getFullYear()
+  const month = currentDate.getMonth()
+  const recordsByDate = useMemo(() => buildRecordsByDateMap(recordsQuery.data, year, month), [recordsQuery.data, year, month])
+  const allMonthRecords = useMemo(() => { const all: CalendarRecord[] = []; recordsByDate.forEach((recs) => all.push(...recs)); return all }, [recordsByDate])
+  const summary = useMemo(() => getFinancialSummary(allMonthRecords), [allMonthRecords])
+  const { days, firstDayOffset } = useMemo(() => {
+    const ms = startOfMonth(currentDate); const me = endOfMonth(currentDate)
+    return { days: eachDayOfInterval({ start: ms, end: me }), firstDayOffset: getDay(ms) }
+  }, [currentDate])
+
+  const monthRecordList = useMemo(() => {
+    const result: { date: Date; record: CalendarRecord }[] = []
+    recordsByDate.forEach((recs, key) => {
+      const d = new Date(key)
+      recs.forEach((r) => result.push({ date: d, record: r }))
+    })
+    return result.sort((a, b) => a.date.getTime() - b.date.getTime())
+  }, [recordsByDate])
+
+  const recordsForSheet = useMemo(() => { if (!selectedDate) return []; return recordsByDate.get(fmt(selectedDate, 'yyyy-MM-dd')) || [] }, [selectedDate, recordsByDate])
+
+  function handleDaySelect(date: Date) { setSelectedDate(date) }
+
+  return (
+    <>
+      <Header><Search /><div className='ms-auto flex items-center space-x-4'><ThemeSwitch /><ConfigDrawer /><ProfileDropdown /></div></Header>
+      <Main>
+        <div className='mb-6 flex items-center justify-between'>
+          <div>
+            <h1 className='text-2xl font-bold tracking-tight'>日历视图 19 · 紧凑卡片</h1>
+            <p className='mt-1 text-sm text-muted-foreground'>紧凑月历格子内嵌收支指示条 + 下方日程卡片</p>
+          </div>
+        </div>
+        {recordsQuery.isLoading ? (
+          <div className='space-y-4'><div className='h-10 animate-pulse rounded-xl bg-muted/30' /><div className='h-64 animate-pulse rounded-xl bg-muted/30' /></div>
+        ) : (
+          <>
+            <div className='mb-3 flex items-center justify-between'>
+              <div className='flex items-center gap-3'>
+                <div className='flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10'><BarChart3 className='h-4 w-4 text-primary' /></div>
+                <div>
+                  <h2 className='text-sm font-semibold'>{fmt(currentDate, 'yyyy年M月', { locale: zhCN })}</h2>
+                  <p className='text-[10px] text-muted-foreground'>收入 {formatAmount(summary.income, 'CNY')} · 支出 {formatAmount(summary.expense, 'CNY')} · 结余 {summary.balance >= 0 ? '+' : ''}{formatAmount(summary.balance, 'CNY')}</p>
+                </div>
+              </div>
+              <div className='flex items-center gap-1'>
+                <Button variant='ghost' size='sm' className='h-7 px-2 text-[10px]' onClick={() => setCurrentDate(new Date())}>今天</Button>
+                <Button variant='ghost' size='icon' className='h-7 w-7' onClick={() => setCurrentDate(d => subMonths(d, 1))}><ChevronLeft className='h-3.5 w-3.5' /></Button>
+                <Button variant='ghost' size='icon' className='h-7 w-7' onClick={() => setCurrentDate(d => addMonths(d, 1))}><ChevronRight className='h-3.5 w-3.5' /></Button>
+              </div>
+            </div>
+            <div className='mb-4 rounded-2xl border border-border/40 bg-card p-3 shadow-sm'>
+              <div className='grid grid-cols-7 gap-1'>
+                {WEEK_DAYS.map((day, idx) => <div key={day} className={cn('py-1 text-center text-[10px] font-semibold', idx === 0 || idx === 6 ? 'text-rose-500/50' : 'text-muted-foreground/50')}>{day}</div>)}
+              </div>
+              <div className='grid grid-cols-7 gap-1'>
+                {Array.from({ length: firstDayOffset }).map((_, i) => <div key={`e-${i}`} className='h-16' />)}
+                {days.map((day) => {
+                  const dateKey = fmt(day, 'yyyy-MM-dd')
+                  const dayRecs = recordsByDate.get(dateKey) || []
+                  const isCurrentDay = isToday(day)
+                  const isSelected = selectedDate ? isSameDay(day, selectedDate) : false
+                  const dayIncome = dayRecs.reduce((s, r) => r.type === 'payment' && (r as PaymentRecord).direction === 'income' ? s + (r as PaymentRecord).amount : s, 0)
+                  const dayExpense = dayRecs.reduce((s, r) => r.type === 'payment' && (r as PaymentRecord).direction === 'expense' ? s + (r as PaymentRecord).amount : s, 0)
+                  const maxAmount = Math.max(summary.income, summary.expense, 1)
+                  const incomeWidth = (dayIncome / maxAmount) * 100
+                  const expenseWidth = (dayExpense / maxAmount) * 100
+                  return (
+                    <button key={dateKey} onClick={() => handleDaySelect(day)} className={cn('flex h-16 flex-col items-center justify-between rounded-lg p-1.5 transition-all', isSelected ? 'bg-primary/10 ring-2 ring-primary shadow-sm' : isCurrentDay ? 'bg-primary/5 ring-1 ring-primary/30' : 'hover:bg-accent/30')}>
+                      <span className={cn('text-[11px] font-medium', isSelected ? 'text-primary font-bold' : isCurrentDay ? 'text-primary' : isWeekend(day) ? 'text-rose-600/60' : 'text-foreground/70')}>{fmt(day, 'd')}</span>
+                      <div className='w-full space-y-0.5'>
+                        {dayIncome > 0 && <div className='h-1 rounded-full bg-emerald-500 transition-all' style={{ width: `${Math.min(incomeWidth, 100)}%` }} />}
+                        {dayExpense > 0 && <div className='h-1 rounded-full bg-rose-500 transition-all' style={{ width: `${Math.min(expenseWidth, 100)}%` }} />}
+                        {dayRecs.some(r => r.type === 'simple') && <div className='h-1 rounded-full bg-blue-500 w-full' />}
+                        {dayRecs.length === 0 && <div className='h-1' />}
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+              <div className='mt-2 flex items-center justify-end gap-3 text-[9px] text-muted-foreground'>
+                <span className='flex items-center gap-1'><span className='h-1.5 w-3 rounded-full bg-emerald-500' />收入</span>
+                <span className='flex items-center gap-1'><span className='h-1.5 w-3 rounded-full bg-rose-500' />支出</span>
+                <span className='flex items-center gap-1'><span className='h-1.5 w-3 rounded-full bg-blue-500' />提醒</span>
+              </div>
+            </div>
+            <div className='mb-3 flex items-center justify-between'>
+              <h3 className='text-sm font-semibold'>{selectedDate ? `${fmt(selectedDate, 'M月d日 EEEE', { locale: zhCN })} 日程` : '选择日期查看日程'}</h3>
+              {monthRecordList.length > 0 && <Badge variant='secondary' className='text-[10px]'>{monthRecordList.length} 条日程</Badge>}
+            </div>
+            {monthRecordList.length > 0 ? (
+                <div className='space-y-3 max-h-[600px] overflow-y-auto pr-1'>
+                  {Array.from(recordsByDate.entries()).sort(([a], [b]) => a.localeCompare(b)).map(([dateKey, recs]) => {
+                    const date = new Date(dateKey)
+                    const isSelected = selectedDate ? isSameDay(date, selectedDate) : false
+                    return (
+                      <div key={dateKey} className={cn('rounded-lg border border-border/20 p-3 transition-all', isSelected && 'bg-primary/5 ring-1 ring-primary/20')}>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <button onClick={() => handleDaySelect(date)} className='flex items-center gap-2 hover:bg-accent/20 rounded px-1 py-0.5 transition-colors'>
+                            <span className='text-xs font-semibold'>{fmt(date, 'M月d日', { locale: zhCN })}</span>
+                            <span className='text-[10px] text-muted-foreground'>{fmt(date, 'EEE', { locale: zhCN })}</span>
+                          </button>
+                          <Badge variant='outline' className='text-[9px] h-4 px-1.5'>{recs.length}条</Badge>
+                        </div>
+                        <div className='space-y-1.5'>
+                          {recs.map((record) => {
+                            const colors = getRecordColorClasses(record)
+                            const isPayment = record.type === 'payment'
+                            const payment = isPayment ? (record as PaymentRecord) : null
+                            return (
+                              <button key={record.id} onClick={() => { setSelectedDate(date); setSheetOpen(true) }} className={cn('flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-accent/20')}>
+                                <div className={cn('h-2 w-2 rounded-full shrink-0', colors.dot)} />
+                                <span className='truncate text-xs flex-1'>{record.name}</span>
+                                {payment && <span className={cn('text-[10px] shrink-0 font-semibold', colors.text)}>{payment.direction === 'income' ? '+' : '-'}{formatAmount(payment.amount, payment.currency)}</span>}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <div className='flex flex-col items-center justify-center rounded-xl border border-dashed border-border/40 py-16 text-muted-foreground'>
+                  <CalendarDays className='mb-2 h-8 w-8 text-muted-foreground/30' />
+                  <p className='text-sm'>本月暂无记录</p>
+                </div>
+              )}
+          </>
+        )}
+      </Main>
+      <DayDetailSheet date={selectedDate} records={recordsForSheet} open={sheetOpen} onOpenChange={setSheetOpen} />
+    </>
+  )
+}

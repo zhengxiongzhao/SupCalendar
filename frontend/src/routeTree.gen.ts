@@ -38,19 +38,139 @@ import { Route as ClerkauthSignInRouteImport } from './routes/clerk/(auth)/sign-
 import { Route as AuthenticatedSupcalRecordsRouteImport } from './routes/_authenticated/supcal/records'
 import { Route as AuthenticatedSupcalProfileRouteImport } from './routes/_authenticated/supcal/profile'
 import { Route as AuthenticatedSupcalCreateRouteImport } from './routes/_authenticated/supcal/create'
+import { Route as AuthenticatedSupcalCalendar99RouteImport } from './routes/_authenticated/supcal/calendar-99'
+import { Route as AuthenticatedSupcalCalendar98RouteImport } from './routes/_authenticated/supcal/calendar-98'
+import { Route as AuthenticatedSupcalCalendar97RouteImport } from './routes/_authenticated/supcal/calendar-97'
+import { Route as AuthenticatedSupcalCalendar96RouteImport } from './routes/_authenticated/supcal/calendar-96'
+import { Route as AuthenticatedSupcalCalendar95RouteImport } from './routes/_authenticated/supcal/calendar-95'
+import { Route as AuthenticatedSupcalCalendar94RouteImport } from './routes/_authenticated/supcal/calendar-94'
+import { Route as AuthenticatedSupcalCalendar93RouteImport } from './routes/_authenticated/supcal/calendar-93'
+import { Route as AuthenticatedSupcalCalendar92RouteImport } from './routes/_authenticated/supcal/calendar-92'
+import { Route as AuthenticatedSupcalCalendar91RouteImport } from './routes/_authenticated/supcal/calendar-91'
+import { Route as AuthenticatedSupcalCalendar90RouteImport } from './routes/_authenticated/supcal/calendar-90'
 import { Route as AuthenticatedSupcalCalendar9RouteImport } from './routes/_authenticated/supcal/calendar-9'
+import { Route as AuthenticatedSupcalCalendar89RouteImport } from './routes/_authenticated/supcal/calendar-89'
+import { Route as AuthenticatedSupcalCalendar88RouteImport } from './routes/_authenticated/supcal/calendar-88'
+import { Route as AuthenticatedSupcalCalendar87RouteImport } from './routes/_authenticated/supcal/calendar-87'
+import { Route as AuthenticatedSupcalCalendar86RouteImport } from './routes/_authenticated/supcal/calendar-86'
+import { Route as AuthenticatedSupcalCalendar85RouteImport } from './routes/_authenticated/supcal/calendar-85'
+import { Route as AuthenticatedSupcalCalendar84RouteImport } from './routes/_authenticated/supcal/calendar-84'
+import { Route as AuthenticatedSupcalCalendar83RouteImport } from './routes/_authenticated/supcal/calendar-83'
+import { Route as AuthenticatedSupcalCalendar82RouteImport } from './routes/_authenticated/supcal/calendar-82'
+import { Route as AuthenticatedSupcalCalendar81RouteImport } from './routes/_authenticated/supcal/calendar-81'
+import { Route as AuthenticatedSupcalCalendar80RouteImport } from './routes/_authenticated/supcal/calendar-80'
 import { Route as AuthenticatedSupcalCalendar8RouteImport } from './routes/_authenticated/supcal/calendar-8'
+import { Route as AuthenticatedSupcalCalendar79RouteImport } from './routes/_authenticated/supcal/calendar-79'
+import { Route as AuthenticatedSupcalCalendar78RouteImport } from './routes/_authenticated/supcal/calendar-78'
+import { Route as AuthenticatedSupcalCalendar77RouteImport } from './routes/_authenticated/supcal/calendar-77'
+import { Route as AuthenticatedSupcalCalendar76RouteImport } from './routes/_authenticated/supcal/calendar-76'
+import { Route as AuthenticatedSupcalCalendar75RouteImport } from './routes/_authenticated/supcal/calendar-75'
+import { Route as AuthenticatedSupcalCalendar74RouteImport } from './routes/_authenticated/supcal/calendar-74'
+import { Route as AuthenticatedSupcalCalendar73RouteImport } from './routes/_authenticated/supcal/calendar-73'
+import { Route as AuthenticatedSupcalCalendar72RouteImport } from './routes/_authenticated/supcal/calendar-72'
+import { Route as AuthenticatedSupcalCalendar71RouteImport } from './routes/_authenticated/supcal/calendar-71'
+import { Route as AuthenticatedSupcalCalendar70RouteImport } from './routes/_authenticated/supcal/calendar-70'
 import { Route as AuthenticatedSupcalCalendar7RouteImport } from './routes/_authenticated/supcal/calendar-7'
+import { Route as AuthenticatedSupcalCalendar69RouteImport } from './routes/_authenticated/supcal/calendar-69'
+import { Route as AuthenticatedSupcalCalendar68RouteImport } from './routes/_authenticated/supcal/calendar-68'
+import { Route as AuthenticatedSupcalCalendar67RouteImport } from './routes/_authenticated/supcal/calendar-67'
+import { Route as AuthenticatedSupcalCalendar66RouteImport } from './routes/_authenticated/supcal/calendar-66'
+import { Route as AuthenticatedSupcalCalendar65RouteImport } from './routes/_authenticated/supcal/calendar-65'
+import { Route as AuthenticatedSupcalCalendar64RouteImport } from './routes/_authenticated/supcal/calendar-64'
+import { Route as AuthenticatedSupcalCalendar63RouteImport } from './routes/_authenticated/supcal/calendar-63'
+import { Route as AuthenticatedSupcalCalendar62RouteImport } from './routes/_authenticated/supcal/calendar-62'
+import { Route as AuthenticatedSupcalCalendar61RouteImport } from './routes/_authenticated/supcal/calendar-61'
+import { Route as AuthenticatedSupcalCalendar60RouteImport } from './routes/_authenticated/supcal/calendar-60'
 import { Route as AuthenticatedSupcalCalendar6RouteImport } from './routes/_authenticated/supcal/calendar-6'
+import { Route as AuthenticatedSupcalCalendar59RouteImport } from './routes/_authenticated/supcal/calendar-59'
+import { Route as AuthenticatedSupcalCalendar58RouteImport } from './routes/_authenticated/supcal/calendar-58'
+import { Route as AuthenticatedSupcalCalendar57RouteImport } from './routes/_authenticated/supcal/calendar-57'
+import { Route as AuthenticatedSupcalCalendar56RouteImport } from './routes/_authenticated/supcal/calendar-56'
+import { Route as AuthenticatedSupcalCalendar55RouteImport } from './routes/_authenticated/supcal/calendar-55'
+import { Route as AuthenticatedSupcalCalendar54RouteImport } from './routes/_authenticated/supcal/calendar-54'
+import { Route as AuthenticatedSupcalCalendar53RouteImport } from './routes/_authenticated/supcal/calendar-53'
+import { Route as AuthenticatedSupcalCalendar52RouteImport } from './routes/_authenticated/supcal/calendar-52'
+import { Route as AuthenticatedSupcalCalendar51RouteImport } from './routes/_authenticated/supcal/calendar-51'
+import { Route as AuthenticatedSupcalCalendar50RouteImport } from './routes/_authenticated/supcal/calendar-50'
 import { Route as AuthenticatedSupcalCalendar5RouteImport } from './routes/_authenticated/supcal/calendar-5'
+import { Route as AuthenticatedSupcalCalendar49RouteImport } from './routes/_authenticated/supcal/calendar-49'
+import { Route as AuthenticatedSupcalCalendar48RouteImport } from './routes/_authenticated/supcal/calendar-48'
+import { Route as AuthenticatedSupcalCalendar47RouteImport } from './routes/_authenticated/supcal/calendar-47'
+import { Route as AuthenticatedSupcalCalendar46RouteImport } from './routes/_authenticated/supcal/calendar-46'
+import { Route as AuthenticatedSupcalCalendar45RouteImport } from './routes/_authenticated/supcal/calendar-45'
+import { Route as AuthenticatedSupcalCalendar44RouteImport } from './routes/_authenticated/supcal/calendar-44'
+import { Route as AuthenticatedSupcalCalendar43RouteImport } from './routes/_authenticated/supcal/calendar-43'
+import { Route as AuthenticatedSupcalCalendar42RouteImport } from './routes/_authenticated/supcal/calendar-42'
+import { Route as AuthenticatedSupcalCalendar41RouteImport } from './routes/_authenticated/supcal/calendar-41'
+import { Route as AuthenticatedSupcalCalendar40RouteImport } from './routes/_authenticated/supcal/calendar-40'
 import { Route as AuthenticatedSupcalCalendar4RouteImport } from './routes/_authenticated/supcal/calendar-4'
+import { Route as AuthenticatedSupcalCalendar39RouteImport } from './routes/_authenticated/supcal/calendar-39'
+import { Route as AuthenticatedSupcalCalendar38RouteImport } from './routes/_authenticated/supcal/calendar-38'
+import { Route as AuthenticatedSupcalCalendar37RouteImport } from './routes/_authenticated/supcal/calendar-37'
+import { Route as AuthenticatedSupcalCalendar36RouteImport } from './routes/_authenticated/supcal/calendar-36'
+import { Route as AuthenticatedSupcalCalendar35RouteImport } from './routes/_authenticated/supcal/calendar-35'
+import { Route as AuthenticatedSupcalCalendar34RouteImport } from './routes/_authenticated/supcal/calendar-34'
+import { Route as AuthenticatedSupcalCalendar33RouteImport } from './routes/_authenticated/supcal/calendar-33'
+import { Route as AuthenticatedSupcalCalendar32RouteImport } from './routes/_authenticated/supcal/calendar-32'
+import { Route as AuthenticatedSupcalCalendar31RouteImport } from './routes/_authenticated/supcal/calendar-31'
+import { Route as AuthenticatedSupcalCalendar30RouteImport } from './routes/_authenticated/supcal/calendar-30'
 import { Route as AuthenticatedSupcalCalendar3RouteImport } from './routes/_authenticated/supcal/calendar-3'
+import { Route as AuthenticatedSupcalCalendar29RouteImport } from './routes/_authenticated/supcal/calendar-29'
+import { Route as AuthenticatedSupcalCalendar28RouteImport } from './routes/_authenticated/supcal/calendar-28'
+import { Route as AuthenticatedSupcalCalendar27RouteImport } from './routes/_authenticated/supcal/calendar-27'
+import { Route as AuthenticatedSupcalCalendar26RouteImport } from './routes/_authenticated/supcal/calendar-26'
+import { Route as AuthenticatedSupcalCalendar25RouteImport } from './routes/_authenticated/supcal/calendar-25'
+import { Route as AuthenticatedSupcalCalendar24RouteImport } from './routes/_authenticated/supcal/calendar-24'
+import { Route as AuthenticatedSupcalCalendar23RouteImport } from './routes/_authenticated/supcal/calendar-23'
+import { Route as AuthenticatedSupcalCalendar22RouteImport } from './routes/_authenticated/supcal/calendar-22'
+import { Route as AuthenticatedSupcalCalendar21RouteImport } from './routes/_authenticated/supcal/calendar-21'
+import { Route as AuthenticatedSupcalCalendar20RouteImport } from './routes/_authenticated/supcal/calendar-20'
 import { Route as AuthenticatedSupcalCalendar2RouteImport } from './routes/_authenticated/supcal/calendar-2'
+import { Route as AuthenticatedSupcalCalendar19RouteImport } from './routes/_authenticated/supcal/calendar-19'
+import { Route as AuthenticatedSupcalCalendar18RouteImport } from './routes/_authenticated/supcal/calendar-18'
+import { Route as AuthenticatedSupcalCalendar17RouteImport } from './routes/_authenticated/supcal/calendar-17'
+import { Route as AuthenticatedSupcalCalendar16RouteImport } from './routes/_authenticated/supcal/calendar-16'
 import { Route as AuthenticatedSupcalCalendar15RouteImport } from './routes/_authenticated/supcal/calendar-15'
 import { Route as AuthenticatedSupcalCalendar14RouteImport } from './routes/_authenticated/supcal/calendar-14'
+import { Route as AuthenticatedSupcalCalendar135RouteImport } from './routes/_authenticated/supcal/calendar-135'
+import { Route as AuthenticatedSupcalCalendar134RouteImport } from './routes/_authenticated/supcal/calendar-134'
+import { Route as AuthenticatedSupcalCalendar133RouteImport } from './routes/_authenticated/supcal/calendar-133'
+import { Route as AuthenticatedSupcalCalendar132RouteImport } from './routes/_authenticated/supcal/calendar-132'
+import { Route as AuthenticatedSupcalCalendar131RouteImport } from './routes/_authenticated/supcal/calendar-131'
+import { Route as AuthenticatedSupcalCalendar130RouteImport } from './routes/_authenticated/supcal/calendar-130'
 import { Route as AuthenticatedSupcalCalendar13RouteImport } from './routes/_authenticated/supcal/calendar-13'
+import { Route as AuthenticatedSupcalCalendar129RouteImport } from './routes/_authenticated/supcal/calendar-129'
+import { Route as AuthenticatedSupcalCalendar128RouteImport } from './routes/_authenticated/supcal/calendar-128'
+import { Route as AuthenticatedSupcalCalendar127RouteImport } from './routes/_authenticated/supcal/calendar-127'
+import { Route as AuthenticatedSupcalCalendar126RouteImport } from './routes/_authenticated/supcal/calendar-126'
+import { Route as AuthenticatedSupcalCalendar125RouteImport } from './routes/_authenticated/supcal/calendar-125'
+import { Route as AuthenticatedSupcalCalendar124RouteImport } from './routes/_authenticated/supcal/calendar-124'
+import { Route as AuthenticatedSupcalCalendar123RouteImport } from './routes/_authenticated/supcal/calendar-123'
+import { Route as AuthenticatedSupcalCalendar122RouteImport } from './routes/_authenticated/supcal/calendar-122'
+import { Route as AuthenticatedSupcalCalendar121RouteImport } from './routes/_authenticated/supcal/calendar-121'
+import { Route as AuthenticatedSupcalCalendar120RouteImport } from './routes/_authenticated/supcal/calendar-120'
 import { Route as AuthenticatedSupcalCalendar12RouteImport } from './routes/_authenticated/supcal/calendar-12'
+import { Route as AuthenticatedSupcalCalendar119RouteImport } from './routes/_authenticated/supcal/calendar-119'
+import { Route as AuthenticatedSupcalCalendar118RouteImport } from './routes/_authenticated/supcal/calendar-118'
+import { Route as AuthenticatedSupcalCalendar117RouteImport } from './routes/_authenticated/supcal/calendar-117'
+import { Route as AuthenticatedSupcalCalendar116RouteImport } from './routes/_authenticated/supcal/calendar-116'
+import { Route as AuthenticatedSupcalCalendar115RouteImport } from './routes/_authenticated/supcal/calendar-115'
+import { Route as AuthenticatedSupcalCalendar114RouteImport } from './routes/_authenticated/supcal/calendar-114'
+import { Route as AuthenticatedSupcalCalendar113RouteImport } from './routes/_authenticated/supcal/calendar-113'
+import { Route as AuthenticatedSupcalCalendar112RouteImport } from './routes/_authenticated/supcal/calendar-112'
+import { Route as AuthenticatedSupcalCalendar111RouteImport } from './routes/_authenticated/supcal/calendar-111'
+import { Route as AuthenticatedSupcalCalendar110RouteImport } from './routes/_authenticated/supcal/calendar-110'
 import { Route as AuthenticatedSupcalCalendar11RouteImport } from './routes/_authenticated/supcal/calendar-11'
+import { Route as AuthenticatedSupcalCalendar109RouteImport } from './routes/_authenticated/supcal/calendar-109'
+import { Route as AuthenticatedSupcalCalendar108RouteImport } from './routes/_authenticated/supcal/calendar-108'
+import { Route as AuthenticatedSupcalCalendar107RouteImport } from './routes/_authenticated/supcal/calendar-107'
+import { Route as AuthenticatedSupcalCalendar106RouteImport } from './routes/_authenticated/supcal/calendar-106'
+import { Route as AuthenticatedSupcalCalendar105RouteImport } from './routes/_authenticated/supcal/calendar-105'
+import { Route as AuthenticatedSupcalCalendar104RouteImport } from './routes/_authenticated/supcal/calendar-104'
+import { Route as AuthenticatedSupcalCalendar103RouteImport } from './routes/_authenticated/supcal/calendar-103'
+import { Route as AuthenticatedSupcalCalendar102RouteImport } from './routes/_authenticated/supcal/calendar-102'
+import { Route as AuthenticatedSupcalCalendar101RouteImport } from './routes/_authenticated/supcal/calendar-101'
+import { Route as AuthenticatedSupcalCalendar100RouteImport } from './routes/_authenticated/supcal/calendar-100'
 import { Route as AuthenticatedSupcalCalendar10RouteImport } from './routes/_authenticated/supcal/calendar-10'
 import { Route as AuthenticatedSupcalCalendar1RouteImport } from './routes/_authenticated/supcal/calendar-1'
 import { Route as AuthenticatedSupcalCalendarRouteImport } from './routes/_authenticated/supcal/calendar'
@@ -211,10 +331,130 @@ const AuthenticatedSupcalCreateRoute =
     path: '/supcal/create',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar99Route =
+  AuthenticatedSupcalCalendar99RouteImport.update({
+    id: '/supcal/calendar-99',
+    path: '/supcal/calendar-99',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar98Route =
+  AuthenticatedSupcalCalendar98RouteImport.update({
+    id: '/supcal/calendar-98',
+    path: '/supcal/calendar-98',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar97Route =
+  AuthenticatedSupcalCalendar97RouteImport.update({
+    id: '/supcal/calendar-97',
+    path: '/supcal/calendar-97',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar96Route =
+  AuthenticatedSupcalCalendar96RouteImport.update({
+    id: '/supcal/calendar-96',
+    path: '/supcal/calendar-96',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar95Route =
+  AuthenticatedSupcalCalendar95RouteImport.update({
+    id: '/supcal/calendar-95',
+    path: '/supcal/calendar-95',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar94Route =
+  AuthenticatedSupcalCalendar94RouteImport.update({
+    id: '/supcal/calendar-94',
+    path: '/supcal/calendar-94',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar93Route =
+  AuthenticatedSupcalCalendar93RouteImport.update({
+    id: '/supcal/calendar-93',
+    path: '/supcal/calendar-93',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar92Route =
+  AuthenticatedSupcalCalendar92RouteImport.update({
+    id: '/supcal/calendar-92',
+    path: '/supcal/calendar-92',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar91Route =
+  AuthenticatedSupcalCalendar91RouteImport.update({
+    id: '/supcal/calendar-91',
+    path: '/supcal/calendar-91',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar90Route =
+  AuthenticatedSupcalCalendar90RouteImport.update({
+    id: '/supcal/calendar-90',
+    path: '/supcal/calendar-90',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendar9Route =
   AuthenticatedSupcalCalendar9RouteImport.update({
     id: '/supcal/calendar-9',
     path: '/supcal/calendar-9',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar89Route =
+  AuthenticatedSupcalCalendar89RouteImport.update({
+    id: '/supcal/calendar-89',
+    path: '/supcal/calendar-89',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar88Route =
+  AuthenticatedSupcalCalendar88RouteImport.update({
+    id: '/supcal/calendar-88',
+    path: '/supcal/calendar-88',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar87Route =
+  AuthenticatedSupcalCalendar87RouteImport.update({
+    id: '/supcal/calendar-87',
+    path: '/supcal/calendar-87',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar86Route =
+  AuthenticatedSupcalCalendar86RouteImport.update({
+    id: '/supcal/calendar-86',
+    path: '/supcal/calendar-86',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar85Route =
+  AuthenticatedSupcalCalendar85RouteImport.update({
+    id: '/supcal/calendar-85',
+    path: '/supcal/calendar-85',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar84Route =
+  AuthenticatedSupcalCalendar84RouteImport.update({
+    id: '/supcal/calendar-84',
+    path: '/supcal/calendar-84',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar83Route =
+  AuthenticatedSupcalCalendar83RouteImport.update({
+    id: '/supcal/calendar-83',
+    path: '/supcal/calendar-83',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar82Route =
+  AuthenticatedSupcalCalendar82RouteImport.update({
+    id: '/supcal/calendar-82',
+    path: '/supcal/calendar-82',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar81Route =
+  AuthenticatedSupcalCalendar81RouteImport.update({
+    id: '/supcal/calendar-81',
+    path: '/supcal/calendar-81',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar80Route =
+  AuthenticatedSupcalCalendar80RouteImport.update({
+    id: '/supcal/calendar-80',
+    path: '/supcal/calendar-80',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSupcalCalendar8Route =
@@ -223,10 +463,130 @@ const AuthenticatedSupcalCalendar8Route =
     path: '/supcal/calendar-8',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar79Route =
+  AuthenticatedSupcalCalendar79RouteImport.update({
+    id: '/supcal/calendar-79',
+    path: '/supcal/calendar-79',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar78Route =
+  AuthenticatedSupcalCalendar78RouteImport.update({
+    id: '/supcal/calendar-78',
+    path: '/supcal/calendar-78',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar77Route =
+  AuthenticatedSupcalCalendar77RouteImport.update({
+    id: '/supcal/calendar-77',
+    path: '/supcal/calendar-77',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar76Route =
+  AuthenticatedSupcalCalendar76RouteImport.update({
+    id: '/supcal/calendar-76',
+    path: '/supcal/calendar-76',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar75Route =
+  AuthenticatedSupcalCalendar75RouteImport.update({
+    id: '/supcal/calendar-75',
+    path: '/supcal/calendar-75',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar74Route =
+  AuthenticatedSupcalCalendar74RouteImport.update({
+    id: '/supcal/calendar-74',
+    path: '/supcal/calendar-74',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar73Route =
+  AuthenticatedSupcalCalendar73RouteImport.update({
+    id: '/supcal/calendar-73',
+    path: '/supcal/calendar-73',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar72Route =
+  AuthenticatedSupcalCalendar72RouteImport.update({
+    id: '/supcal/calendar-72',
+    path: '/supcal/calendar-72',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar71Route =
+  AuthenticatedSupcalCalendar71RouteImport.update({
+    id: '/supcal/calendar-71',
+    path: '/supcal/calendar-71',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar70Route =
+  AuthenticatedSupcalCalendar70RouteImport.update({
+    id: '/supcal/calendar-70',
+    path: '/supcal/calendar-70',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendar7Route =
   AuthenticatedSupcalCalendar7RouteImport.update({
     id: '/supcal/calendar-7',
     path: '/supcal/calendar-7',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar69Route =
+  AuthenticatedSupcalCalendar69RouteImport.update({
+    id: '/supcal/calendar-69',
+    path: '/supcal/calendar-69',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar68Route =
+  AuthenticatedSupcalCalendar68RouteImport.update({
+    id: '/supcal/calendar-68',
+    path: '/supcal/calendar-68',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar67Route =
+  AuthenticatedSupcalCalendar67RouteImport.update({
+    id: '/supcal/calendar-67',
+    path: '/supcal/calendar-67',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar66Route =
+  AuthenticatedSupcalCalendar66RouteImport.update({
+    id: '/supcal/calendar-66',
+    path: '/supcal/calendar-66',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar65Route =
+  AuthenticatedSupcalCalendar65RouteImport.update({
+    id: '/supcal/calendar-65',
+    path: '/supcal/calendar-65',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar64Route =
+  AuthenticatedSupcalCalendar64RouteImport.update({
+    id: '/supcal/calendar-64',
+    path: '/supcal/calendar-64',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar63Route =
+  AuthenticatedSupcalCalendar63RouteImport.update({
+    id: '/supcal/calendar-63',
+    path: '/supcal/calendar-63',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar62Route =
+  AuthenticatedSupcalCalendar62RouteImport.update({
+    id: '/supcal/calendar-62',
+    path: '/supcal/calendar-62',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar61Route =
+  AuthenticatedSupcalCalendar61RouteImport.update({
+    id: '/supcal/calendar-61',
+    path: '/supcal/calendar-61',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar60Route =
+  AuthenticatedSupcalCalendar60RouteImport.update({
+    id: '/supcal/calendar-60',
+    path: '/supcal/calendar-60',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSupcalCalendar6Route =
@@ -235,10 +595,130 @@ const AuthenticatedSupcalCalendar6Route =
     path: '/supcal/calendar-6',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar59Route =
+  AuthenticatedSupcalCalendar59RouteImport.update({
+    id: '/supcal/calendar-59',
+    path: '/supcal/calendar-59',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar58Route =
+  AuthenticatedSupcalCalendar58RouteImport.update({
+    id: '/supcal/calendar-58',
+    path: '/supcal/calendar-58',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar57Route =
+  AuthenticatedSupcalCalendar57RouteImport.update({
+    id: '/supcal/calendar-57',
+    path: '/supcal/calendar-57',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar56Route =
+  AuthenticatedSupcalCalendar56RouteImport.update({
+    id: '/supcal/calendar-56',
+    path: '/supcal/calendar-56',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar55Route =
+  AuthenticatedSupcalCalendar55RouteImport.update({
+    id: '/supcal/calendar-55',
+    path: '/supcal/calendar-55',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar54Route =
+  AuthenticatedSupcalCalendar54RouteImport.update({
+    id: '/supcal/calendar-54',
+    path: '/supcal/calendar-54',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar53Route =
+  AuthenticatedSupcalCalendar53RouteImport.update({
+    id: '/supcal/calendar-53',
+    path: '/supcal/calendar-53',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar52Route =
+  AuthenticatedSupcalCalendar52RouteImport.update({
+    id: '/supcal/calendar-52',
+    path: '/supcal/calendar-52',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar51Route =
+  AuthenticatedSupcalCalendar51RouteImport.update({
+    id: '/supcal/calendar-51',
+    path: '/supcal/calendar-51',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar50Route =
+  AuthenticatedSupcalCalendar50RouteImport.update({
+    id: '/supcal/calendar-50',
+    path: '/supcal/calendar-50',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendar5Route =
   AuthenticatedSupcalCalendar5RouteImport.update({
     id: '/supcal/calendar-5',
     path: '/supcal/calendar-5',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar49Route =
+  AuthenticatedSupcalCalendar49RouteImport.update({
+    id: '/supcal/calendar-49',
+    path: '/supcal/calendar-49',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar48Route =
+  AuthenticatedSupcalCalendar48RouteImport.update({
+    id: '/supcal/calendar-48',
+    path: '/supcal/calendar-48',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar47Route =
+  AuthenticatedSupcalCalendar47RouteImport.update({
+    id: '/supcal/calendar-47',
+    path: '/supcal/calendar-47',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar46Route =
+  AuthenticatedSupcalCalendar46RouteImport.update({
+    id: '/supcal/calendar-46',
+    path: '/supcal/calendar-46',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar45Route =
+  AuthenticatedSupcalCalendar45RouteImport.update({
+    id: '/supcal/calendar-45',
+    path: '/supcal/calendar-45',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar44Route =
+  AuthenticatedSupcalCalendar44RouteImport.update({
+    id: '/supcal/calendar-44',
+    path: '/supcal/calendar-44',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar43Route =
+  AuthenticatedSupcalCalendar43RouteImport.update({
+    id: '/supcal/calendar-43',
+    path: '/supcal/calendar-43',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar42Route =
+  AuthenticatedSupcalCalendar42RouteImport.update({
+    id: '/supcal/calendar-42',
+    path: '/supcal/calendar-42',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar41Route =
+  AuthenticatedSupcalCalendar41RouteImport.update({
+    id: '/supcal/calendar-41',
+    path: '/supcal/calendar-41',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar40Route =
+  AuthenticatedSupcalCalendar40RouteImport.update({
+    id: '/supcal/calendar-40',
+    path: '/supcal/calendar-40',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSupcalCalendar4Route =
@@ -247,16 +727,160 @@ const AuthenticatedSupcalCalendar4Route =
     path: '/supcal/calendar-4',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar39Route =
+  AuthenticatedSupcalCalendar39RouteImport.update({
+    id: '/supcal/calendar-39',
+    path: '/supcal/calendar-39',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar38Route =
+  AuthenticatedSupcalCalendar38RouteImport.update({
+    id: '/supcal/calendar-38',
+    path: '/supcal/calendar-38',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar37Route =
+  AuthenticatedSupcalCalendar37RouteImport.update({
+    id: '/supcal/calendar-37',
+    path: '/supcal/calendar-37',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar36Route =
+  AuthenticatedSupcalCalendar36RouteImport.update({
+    id: '/supcal/calendar-36',
+    path: '/supcal/calendar-36',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar35Route =
+  AuthenticatedSupcalCalendar35RouteImport.update({
+    id: '/supcal/calendar-35',
+    path: '/supcal/calendar-35',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar34Route =
+  AuthenticatedSupcalCalendar34RouteImport.update({
+    id: '/supcal/calendar-34',
+    path: '/supcal/calendar-34',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar33Route =
+  AuthenticatedSupcalCalendar33RouteImport.update({
+    id: '/supcal/calendar-33',
+    path: '/supcal/calendar-33',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar32Route =
+  AuthenticatedSupcalCalendar32RouteImport.update({
+    id: '/supcal/calendar-32',
+    path: '/supcal/calendar-32',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar31Route =
+  AuthenticatedSupcalCalendar31RouteImport.update({
+    id: '/supcal/calendar-31',
+    path: '/supcal/calendar-31',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar30Route =
+  AuthenticatedSupcalCalendar30RouteImport.update({
+    id: '/supcal/calendar-30',
+    path: '/supcal/calendar-30',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendar3Route =
   AuthenticatedSupcalCalendar3RouteImport.update({
     id: '/supcal/calendar-3',
     path: '/supcal/calendar-3',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar29Route =
+  AuthenticatedSupcalCalendar29RouteImport.update({
+    id: '/supcal/calendar-29',
+    path: '/supcal/calendar-29',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar28Route =
+  AuthenticatedSupcalCalendar28RouteImport.update({
+    id: '/supcal/calendar-28',
+    path: '/supcal/calendar-28',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar27Route =
+  AuthenticatedSupcalCalendar27RouteImport.update({
+    id: '/supcal/calendar-27',
+    path: '/supcal/calendar-27',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar26Route =
+  AuthenticatedSupcalCalendar26RouteImport.update({
+    id: '/supcal/calendar-26',
+    path: '/supcal/calendar-26',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar25Route =
+  AuthenticatedSupcalCalendar25RouteImport.update({
+    id: '/supcal/calendar-25',
+    path: '/supcal/calendar-25',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar24Route =
+  AuthenticatedSupcalCalendar24RouteImport.update({
+    id: '/supcal/calendar-24',
+    path: '/supcal/calendar-24',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar23Route =
+  AuthenticatedSupcalCalendar23RouteImport.update({
+    id: '/supcal/calendar-23',
+    path: '/supcal/calendar-23',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar22Route =
+  AuthenticatedSupcalCalendar22RouteImport.update({
+    id: '/supcal/calendar-22',
+    path: '/supcal/calendar-22',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar21Route =
+  AuthenticatedSupcalCalendar21RouteImport.update({
+    id: '/supcal/calendar-21',
+    path: '/supcal/calendar-21',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar20Route =
+  AuthenticatedSupcalCalendar20RouteImport.update({
+    id: '/supcal/calendar-20',
+    path: '/supcal/calendar-20',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendar2Route =
   AuthenticatedSupcalCalendar2RouteImport.update({
     id: '/supcal/calendar-2',
     path: '/supcal/calendar-2',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar19Route =
+  AuthenticatedSupcalCalendar19RouteImport.update({
+    id: '/supcal/calendar-19',
+    path: '/supcal/calendar-19',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar18Route =
+  AuthenticatedSupcalCalendar18RouteImport.update({
+    id: '/supcal/calendar-18',
+    path: '/supcal/calendar-18',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar17Route =
+  AuthenticatedSupcalCalendar17RouteImport.update({
+    id: '/supcal/calendar-17',
+    path: '/supcal/calendar-17',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar16Route =
+  AuthenticatedSupcalCalendar16RouteImport.update({
+    id: '/supcal/calendar-16',
+    path: '/supcal/calendar-16',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSupcalCalendar15Route =
@@ -271,10 +895,106 @@ const AuthenticatedSupcalCalendar14Route =
     path: '/supcal/calendar-14',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar135Route =
+  AuthenticatedSupcalCalendar135RouteImport.update({
+    id: '/supcal/calendar-135',
+    path: '/supcal/calendar-135',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar134Route =
+  AuthenticatedSupcalCalendar134RouteImport.update({
+    id: '/supcal/calendar-134',
+    path: '/supcal/calendar-134',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar133Route =
+  AuthenticatedSupcalCalendar133RouteImport.update({
+    id: '/supcal/calendar-133',
+    path: '/supcal/calendar-133',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar132Route =
+  AuthenticatedSupcalCalendar132RouteImport.update({
+    id: '/supcal/calendar-132',
+    path: '/supcal/calendar-132',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar131Route =
+  AuthenticatedSupcalCalendar131RouteImport.update({
+    id: '/supcal/calendar-131',
+    path: '/supcal/calendar-131',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar130Route =
+  AuthenticatedSupcalCalendar130RouteImport.update({
+    id: '/supcal/calendar-130',
+    path: '/supcal/calendar-130',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendar13Route =
   AuthenticatedSupcalCalendar13RouteImport.update({
     id: '/supcal/calendar-13',
     path: '/supcal/calendar-13',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar129Route =
+  AuthenticatedSupcalCalendar129RouteImport.update({
+    id: '/supcal/calendar-129',
+    path: '/supcal/calendar-129',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar128Route =
+  AuthenticatedSupcalCalendar128RouteImport.update({
+    id: '/supcal/calendar-128',
+    path: '/supcal/calendar-128',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar127Route =
+  AuthenticatedSupcalCalendar127RouteImport.update({
+    id: '/supcal/calendar-127',
+    path: '/supcal/calendar-127',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar126Route =
+  AuthenticatedSupcalCalendar126RouteImport.update({
+    id: '/supcal/calendar-126',
+    path: '/supcal/calendar-126',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar125Route =
+  AuthenticatedSupcalCalendar125RouteImport.update({
+    id: '/supcal/calendar-125',
+    path: '/supcal/calendar-125',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar124Route =
+  AuthenticatedSupcalCalendar124RouteImport.update({
+    id: '/supcal/calendar-124',
+    path: '/supcal/calendar-124',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar123Route =
+  AuthenticatedSupcalCalendar123RouteImport.update({
+    id: '/supcal/calendar-123',
+    path: '/supcal/calendar-123',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar122Route =
+  AuthenticatedSupcalCalendar122RouteImport.update({
+    id: '/supcal/calendar-122',
+    path: '/supcal/calendar-122',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar121Route =
+  AuthenticatedSupcalCalendar121RouteImport.update({
+    id: '/supcal/calendar-121',
+    path: '/supcal/calendar-121',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar120Route =
+  AuthenticatedSupcalCalendar120RouteImport.update({
+    id: '/supcal/calendar-120',
+    path: '/supcal/calendar-120',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSupcalCalendar12Route =
@@ -283,10 +1003,130 @@ const AuthenticatedSupcalCalendar12Route =
     path: '/supcal/calendar-12',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSupcalCalendar119Route =
+  AuthenticatedSupcalCalendar119RouteImport.update({
+    id: '/supcal/calendar-119',
+    path: '/supcal/calendar-119',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar118Route =
+  AuthenticatedSupcalCalendar118RouteImport.update({
+    id: '/supcal/calendar-118',
+    path: '/supcal/calendar-118',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar117Route =
+  AuthenticatedSupcalCalendar117RouteImport.update({
+    id: '/supcal/calendar-117',
+    path: '/supcal/calendar-117',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar116Route =
+  AuthenticatedSupcalCalendar116RouteImport.update({
+    id: '/supcal/calendar-116',
+    path: '/supcal/calendar-116',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar115Route =
+  AuthenticatedSupcalCalendar115RouteImport.update({
+    id: '/supcal/calendar-115',
+    path: '/supcal/calendar-115',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar114Route =
+  AuthenticatedSupcalCalendar114RouteImport.update({
+    id: '/supcal/calendar-114',
+    path: '/supcal/calendar-114',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar113Route =
+  AuthenticatedSupcalCalendar113RouteImport.update({
+    id: '/supcal/calendar-113',
+    path: '/supcal/calendar-113',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar112Route =
+  AuthenticatedSupcalCalendar112RouteImport.update({
+    id: '/supcal/calendar-112',
+    path: '/supcal/calendar-112',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar111Route =
+  AuthenticatedSupcalCalendar111RouteImport.update({
+    id: '/supcal/calendar-111',
+    path: '/supcal/calendar-111',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar110Route =
+  AuthenticatedSupcalCalendar110RouteImport.update({
+    id: '/supcal/calendar-110',
+    path: '/supcal/calendar-110',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSupcalCalendar11Route =
   AuthenticatedSupcalCalendar11RouteImport.update({
     id: '/supcal/calendar-11',
     path: '/supcal/calendar-11',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar109Route =
+  AuthenticatedSupcalCalendar109RouteImport.update({
+    id: '/supcal/calendar-109',
+    path: '/supcal/calendar-109',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar108Route =
+  AuthenticatedSupcalCalendar108RouteImport.update({
+    id: '/supcal/calendar-108',
+    path: '/supcal/calendar-108',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar107Route =
+  AuthenticatedSupcalCalendar107RouteImport.update({
+    id: '/supcal/calendar-107',
+    path: '/supcal/calendar-107',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar106Route =
+  AuthenticatedSupcalCalendar106RouteImport.update({
+    id: '/supcal/calendar-106',
+    path: '/supcal/calendar-106',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar105Route =
+  AuthenticatedSupcalCalendar105RouteImport.update({
+    id: '/supcal/calendar-105',
+    path: '/supcal/calendar-105',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar104Route =
+  AuthenticatedSupcalCalendar104RouteImport.update({
+    id: '/supcal/calendar-104',
+    path: '/supcal/calendar-104',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar103Route =
+  AuthenticatedSupcalCalendar103RouteImport.update({
+    id: '/supcal/calendar-103',
+    path: '/supcal/calendar-103',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar102Route =
+  AuthenticatedSupcalCalendar102RouteImport.update({
+    id: '/supcal/calendar-102',
+    path: '/supcal/calendar-102',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar101Route =
+  AuthenticatedSupcalCalendar101RouteImport.update({
+    id: '/supcal/calendar-101',
+    path: '/supcal/calendar-101',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSupcalCalendar100Route =
+  AuthenticatedSupcalCalendar100RouteImport.update({
+    id: '/supcal/calendar-100',
+    path: '/supcal/calendar-100',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSupcalCalendar10Route =
@@ -366,19 +1206,139 @@ export interface FileRoutesByFullPath {
   '/supcal/calendar': typeof AuthenticatedSupcalCalendarRoute
   '/supcal/calendar-1': typeof AuthenticatedSupcalCalendar1Route
   '/supcal/calendar-10': typeof AuthenticatedSupcalCalendar10Route
+  '/supcal/calendar-100': typeof AuthenticatedSupcalCalendar100Route
+  '/supcal/calendar-101': typeof AuthenticatedSupcalCalendar101Route
+  '/supcal/calendar-102': typeof AuthenticatedSupcalCalendar102Route
+  '/supcal/calendar-103': typeof AuthenticatedSupcalCalendar103Route
+  '/supcal/calendar-104': typeof AuthenticatedSupcalCalendar104Route
+  '/supcal/calendar-105': typeof AuthenticatedSupcalCalendar105Route
+  '/supcal/calendar-106': typeof AuthenticatedSupcalCalendar106Route
+  '/supcal/calendar-107': typeof AuthenticatedSupcalCalendar107Route
+  '/supcal/calendar-108': typeof AuthenticatedSupcalCalendar108Route
+  '/supcal/calendar-109': typeof AuthenticatedSupcalCalendar109Route
   '/supcal/calendar-11': typeof AuthenticatedSupcalCalendar11Route
+  '/supcal/calendar-110': typeof AuthenticatedSupcalCalendar110Route
+  '/supcal/calendar-111': typeof AuthenticatedSupcalCalendar111Route
+  '/supcal/calendar-112': typeof AuthenticatedSupcalCalendar112Route
+  '/supcal/calendar-113': typeof AuthenticatedSupcalCalendar113Route
+  '/supcal/calendar-114': typeof AuthenticatedSupcalCalendar114Route
+  '/supcal/calendar-115': typeof AuthenticatedSupcalCalendar115Route
+  '/supcal/calendar-116': typeof AuthenticatedSupcalCalendar116Route
+  '/supcal/calendar-117': typeof AuthenticatedSupcalCalendar117Route
+  '/supcal/calendar-118': typeof AuthenticatedSupcalCalendar118Route
+  '/supcal/calendar-119': typeof AuthenticatedSupcalCalendar119Route
   '/supcal/calendar-12': typeof AuthenticatedSupcalCalendar12Route
+  '/supcal/calendar-120': typeof AuthenticatedSupcalCalendar120Route
+  '/supcal/calendar-121': typeof AuthenticatedSupcalCalendar121Route
+  '/supcal/calendar-122': typeof AuthenticatedSupcalCalendar122Route
+  '/supcal/calendar-123': typeof AuthenticatedSupcalCalendar123Route
+  '/supcal/calendar-124': typeof AuthenticatedSupcalCalendar124Route
+  '/supcal/calendar-125': typeof AuthenticatedSupcalCalendar125Route
+  '/supcal/calendar-126': typeof AuthenticatedSupcalCalendar126Route
+  '/supcal/calendar-127': typeof AuthenticatedSupcalCalendar127Route
+  '/supcal/calendar-128': typeof AuthenticatedSupcalCalendar128Route
+  '/supcal/calendar-129': typeof AuthenticatedSupcalCalendar129Route
   '/supcal/calendar-13': typeof AuthenticatedSupcalCalendar13Route
+  '/supcal/calendar-130': typeof AuthenticatedSupcalCalendar130Route
+  '/supcal/calendar-131': typeof AuthenticatedSupcalCalendar131Route
+  '/supcal/calendar-132': typeof AuthenticatedSupcalCalendar132Route
+  '/supcal/calendar-133': typeof AuthenticatedSupcalCalendar133Route
+  '/supcal/calendar-134': typeof AuthenticatedSupcalCalendar134Route
+  '/supcal/calendar-135': typeof AuthenticatedSupcalCalendar135Route
   '/supcal/calendar-14': typeof AuthenticatedSupcalCalendar14Route
   '/supcal/calendar-15': typeof AuthenticatedSupcalCalendar15Route
+  '/supcal/calendar-16': typeof AuthenticatedSupcalCalendar16Route
+  '/supcal/calendar-17': typeof AuthenticatedSupcalCalendar17Route
+  '/supcal/calendar-18': typeof AuthenticatedSupcalCalendar18Route
+  '/supcal/calendar-19': typeof AuthenticatedSupcalCalendar19Route
   '/supcal/calendar-2': typeof AuthenticatedSupcalCalendar2Route
+  '/supcal/calendar-20': typeof AuthenticatedSupcalCalendar20Route
+  '/supcal/calendar-21': typeof AuthenticatedSupcalCalendar21Route
+  '/supcal/calendar-22': typeof AuthenticatedSupcalCalendar22Route
+  '/supcal/calendar-23': typeof AuthenticatedSupcalCalendar23Route
+  '/supcal/calendar-24': typeof AuthenticatedSupcalCalendar24Route
+  '/supcal/calendar-25': typeof AuthenticatedSupcalCalendar25Route
+  '/supcal/calendar-26': typeof AuthenticatedSupcalCalendar26Route
+  '/supcal/calendar-27': typeof AuthenticatedSupcalCalendar27Route
+  '/supcal/calendar-28': typeof AuthenticatedSupcalCalendar28Route
+  '/supcal/calendar-29': typeof AuthenticatedSupcalCalendar29Route
   '/supcal/calendar-3': typeof AuthenticatedSupcalCalendar3Route
+  '/supcal/calendar-30': typeof AuthenticatedSupcalCalendar30Route
+  '/supcal/calendar-31': typeof AuthenticatedSupcalCalendar31Route
+  '/supcal/calendar-32': typeof AuthenticatedSupcalCalendar32Route
+  '/supcal/calendar-33': typeof AuthenticatedSupcalCalendar33Route
+  '/supcal/calendar-34': typeof AuthenticatedSupcalCalendar34Route
+  '/supcal/calendar-35': typeof AuthenticatedSupcalCalendar35Route
+  '/supcal/calendar-36': typeof AuthenticatedSupcalCalendar36Route
+  '/supcal/calendar-37': typeof AuthenticatedSupcalCalendar37Route
+  '/supcal/calendar-38': typeof AuthenticatedSupcalCalendar38Route
+  '/supcal/calendar-39': typeof AuthenticatedSupcalCalendar39Route
   '/supcal/calendar-4': typeof AuthenticatedSupcalCalendar4Route
+  '/supcal/calendar-40': typeof AuthenticatedSupcalCalendar40Route
+  '/supcal/calendar-41': typeof AuthenticatedSupcalCalendar41Route
+  '/supcal/calendar-42': typeof AuthenticatedSupcalCalendar42Route
+  '/supcal/calendar-43': typeof AuthenticatedSupcalCalendar43Route
+  '/supcal/calendar-44': typeof AuthenticatedSupcalCalendar44Route
+  '/supcal/calendar-45': typeof AuthenticatedSupcalCalendar45Route
+  '/supcal/calendar-46': typeof AuthenticatedSupcalCalendar46Route
+  '/supcal/calendar-47': typeof AuthenticatedSupcalCalendar47Route
+  '/supcal/calendar-48': typeof AuthenticatedSupcalCalendar48Route
+  '/supcal/calendar-49': typeof AuthenticatedSupcalCalendar49Route
   '/supcal/calendar-5': typeof AuthenticatedSupcalCalendar5Route
+  '/supcal/calendar-50': typeof AuthenticatedSupcalCalendar50Route
+  '/supcal/calendar-51': typeof AuthenticatedSupcalCalendar51Route
+  '/supcal/calendar-52': typeof AuthenticatedSupcalCalendar52Route
+  '/supcal/calendar-53': typeof AuthenticatedSupcalCalendar53Route
+  '/supcal/calendar-54': typeof AuthenticatedSupcalCalendar54Route
+  '/supcal/calendar-55': typeof AuthenticatedSupcalCalendar55Route
+  '/supcal/calendar-56': typeof AuthenticatedSupcalCalendar56Route
+  '/supcal/calendar-57': typeof AuthenticatedSupcalCalendar57Route
+  '/supcal/calendar-58': typeof AuthenticatedSupcalCalendar58Route
+  '/supcal/calendar-59': typeof AuthenticatedSupcalCalendar59Route
   '/supcal/calendar-6': typeof AuthenticatedSupcalCalendar6Route
+  '/supcal/calendar-60': typeof AuthenticatedSupcalCalendar60Route
+  '/supcal/calendar-61': typeof AuthenticatedSupcalCalendar61Route
+  '/supcal/calendar-62': typeof AuthenticatedSupcalCalendar62Route
+  '/supcal/calendar-63': typeof AuthenticatedSupcalCalendar63Route
+  '/supcal/calendar-64': typeof AuthenticatedSupcalCalendar64Route
+  '/supcal/calendar-65': typeof AuthenticatedSupcalCalendar65Route
+  '/supcal/calendar-66': typeof AuthenticatedSupcalCalendar66Route
+  '/supcal/calendar-67': typeof AuthenticatedSupcalCalendar67Route
+  '/supcal/calendar-68': typeof AuthenticatedSupcalCalendar68Route
+  '/supcal/calendar-69': typeof AuthenticatedSupcalCalendar69Route
   '/supcal/calendar-7': typeof AuthenticatedSupcalCalendar7Route
+  '/supcal/calendar-70': typeof AuthenticatedSupcalCalendar70Route
+  '/supcal/calendar-71': typeof AuthenticatedSupcalCalendar71Route
+  '/supcal/calendar-72': typeof AuthenticatedSupcalCalendar72Route
+  '/supcal/calendar-73': typeof AuthenticatedSupcalCalendar73Route
+  '/supcal/calendar-74': typeof AuthenticatedSupcalCalendar74Route
+  '/supcal/calendar-75': typeof AuthenticatedSupcalCalendar75Route
+  '/supcal/calendar-76': typeof AuthenticatedSupcalCalendar76Route
+  '/supcal/calendar-77': typeof AuthenticatedSupcalCalendar77Route
+  '/supcal/calendar-78': typeof AuthenticatedSupcalCalendar78Route
+  '/supcal/calendar-79': typeof AuthenticatedSupcalCalendar79Route
   '/supcal/calendar-8': typeof AuthenticatedSupcalCalendar8Route
+  '/supcal/calendar-80': typeof AuthenticatedSupcalCalendar80Route
+  '/supcal/calendar-81': typeof AuthenticatedSupcalCalendar81Route
+  '/supcal/calendar-82': typeof AuthenticatedSupcalCalendar82Route
+  '/supcal/calendar-83': typeof AuthenticatedSupcalCalendar83Route
+  '/supcal/calendar-84': typeof AuthenticatedSupcalCalendar84Route
+  '/supcal/calendar-85': typeof AuthenticatedSupcalCalendar85Route
+  '/supcal/calendar-86': typeof AuthenticatedSupcalCalendar86Route
+  '/supcal/calendar-87': typeof AuthenticatedSupcalCalendar87Route
+  '/supcal/calendar-88': typeof AuthenticatedSupcalCalendar88Route
+  '/supcal/calendar-89': typeof AuthenticatedSupcalCalendar89Route
   '/supcal/calendar-9': typeof AuthenticatedSupcalCalendar9Route
+  '/supcal/calendar-90': typeof AuthenticatedSupcalCalendar90Route
+  '/supcal/calendar-91': typeof AuthenticatedSupcalCalendar91Route
+  '/supcal/calendar-92': typeof AuthenticatedSupcalCalendar92Route
+  '/supcal/calendar-93': typeof AuthenticatedSupcalCalendar93Route
+  '/supcal/calendar-94': typeof AuthenticatedSupcalCalendar94Route
+  '/supcal/calendar-95': typeof AuthenticatedSupcalCalendar95Route
+  '/supcal/calendar-96': typeof AuthenticatedSupcalCalendar96Route
+  '/supcal/calendar-97': typeof AuthenticatedSupcalCalendar97Route
+  '/supcal/calendar-98': typeof AuthenticatedSupcalCalendar98Route
+  '/supcal/calendar-99': typeof AuthenticatedSupcalCalendar99Route
   '/supcal/create': typeof AuthenticatedSupcalCreateRoute
   '/supcal/profile': typeof AuthenticatedSupcalProfileRoute
   '/supcal/records': typeof AuthenticatedSupcalRecordsRoute
@@ -415,19 +1375,139 @@ export interface FileRoutesByTo {
   '/supcal/calendar': typeof AuthenticatedSupcalCalendarRoute
   '/supcal/calendar-1': typeof AuthenticatedSupcalCalendar1Route
   '/supcal/calendar-10': typeof AuthenticatedSupcalCalendar10Route
+  '/supcal/calendar-100': typeof AuthenticatedSupcalCalendar100Route
+  '/supcal/calendar-101': typeof AuthenticatedSupcalCalendar101Route
+  '/supcal/calendar-102': typeof AuthenticatedSupcalCalendar102Route
+  '/supcal/calendar-103': typeof AuthenticatedSupcalCalendar103Route
+  '/supcal/calendar-104': typeof AuthenticatedSupcalCalendar104Route
+  '/supcal/calendar-105': typeof AuthenticatedSupcalCalendar105Route
+  '/supcal/calendar-106': typeof AuthenticatedSupcalCalendar106Route
+  '/supcal/calendar-107': typeof AuthenticatedSupcalCalendar107Route
+  '/supcal/calendar-108': typeof AuthenticatedSupcalCalendar108Route
+  '/supcal/calendar-109': typeof AuthenticatedSupcalCalendar109Route
   '/supcal/calendar-11': typeof AuthenticatedSupcalCalendar11Route
+  '/supcal/calendar-110': typeof AuthenticatedSupcalCalendar110Route
+  '/supcal/calendar-111': typeof AuthenticatedSupcalCalendar111Route
+  '/supcal/calendar-112': typeof AuthenticatedSupcalCalendar112Route
+  '/supcal/calendar-113': typeof AuthenticatedSupcalCalendar113Route
+  '/supcal/calendar-114': typeof AuthenticatedSupcalCalendar114Route
+  '/supcal/calendar-115': typeof AuthenticatedSupcalCalendar115Route
+  '/supcal/calendar-116': typeof AuthenticatedSupcalCalendar116Route
+  '/supcal/calendar-117': typeof AuthenticatedSupcalCalendar117Route
+  '/supcal/calendar-118': typeof AuthenticatedSupcalCalendar118Route
+  '/supcal/calendar-119': typeof AuthenticatedSupcalCalendar119Route
   '/supcal/calendar-12': typeof AuthenticatedSupcalCalendar12Route
+  '/supcal/calendar-120': typeof AuthenticatedSupcalCalendar120Route
+  '/supcal/calendar-121': typeof AuthenticatedSupcalCalendar121Route
+  '/supcal/calendar-122': typeof AuthenticatedSupcalCalendar122Route
+  '/supcal/calendar-123': typeof AuthenticatedSupcalCalendar123Route
+  '/supcal/calendar-124': typeof AuthenticatedSupcalCalendar124Route
+  '/supcal/calendar-125': typeof AuthenticatedSupcalCalendar125Route
+  '/supcal/calendar-126': typeof AuthenticatedSupcalCalendar126Route
+  '/supcal/calendar-127': typeof AuthenticatedSupcalCalendar127Route
+  '/supcal/calendar-128': typeof AuthenticatedSupcalCalendar128Route
+  '/supcal/calendar-129': typeof AuthenticatedSupcalCalendar129Route
   '/supcal/calendar-13': typeof AuthenticatedSupcalCalendar13Route
+  '/supcal/calendar-130': typeof AuthenticatedSupcalCalendar130Route
+  '/supcal/calendar-131': typeof AuthenticatedSupcalCalendar131Route
+  '/supcal/calendar-132': typeof AuthenticatedSupcalCalendar132Route
+  '/supcal/calendar-133': typeof AuthenticatedSupcalCalendar133Route
+  '/supcal/calendar-134': typeof AuthenticatedSupcalCalendar134Route
+  '/supcal/calendar-135': typeof AuthenticatedSupcalCalendar135Route
   '/supcal/calendar-14': typeof AuthenticatedSupcalCalendar14Route
   '/supcal/calendar-15': typeof AuthenticatedSupcalCalendar15Route
+  '/supcal/calendar-16': typeof AuthenticatedSupcalCalendar16Route
+  '/supcal/calendar-17': typeof AuthenticatedSupcalCalendar17Route
+  '/supcal/calendar-18': typeof AuthenticatedSupcalCalendar18Route
+  '/supcal/calendar-19': typeof AuthenticatedSupcalCalendar19Route
   '/supcal/calendar-2': typeof AuthenticatedSupcalCalendar2Route
+  '/supcal/calendar-20': typeof AuthenticatedSupcalCalendar20Route
+  '/supcal/calendar-21': typeof AuthenticatedSupcalCalendar21Route
+  '/supcal/calendar-22': typeof AuthenticatedSupcalCalendar22Route
+  '/supcal/calendar-23': typeof AuthenticatedSupcalCalendar23Route
+  '/supcal/calendar-24': typeof AuthenticatedSupcalCalendar24Route
+  '/supcal/calendar-25': typeof AuthenticatedSupcalCalendar25Route
+  '/supcal/calendar-26': typeof AuthenticatedSupcalCalendar26Route
+  '/supcal/calendar-27': typeof AuthenticatedSupcalCalendar27Route
+  '/supcal/calendar-28': typeof AuthenticatedSupcalCalendar28Route
+  '/supcal/calendar-29': typeof AuthenticatedSupcalCalendar29Route
   '/supcal/calendar-3': typeof AuthenticatedSupcalCalendar3Route
+  '/supcal/calendar-30': typeof AuthenticatedSupcalCalendar30Route
+  '/supcal/calendar-31': typeof AuthenticatedSupcalCalendar31Route
+  '/supcal/calendar-32': typeof AuthenticatedSupcalCalendar32Route
+  '/supcal/calendar-33': typeof AuthenticatedSupcalCalendar33Route
+  '/supcal/calendar-34': typeof AuthenticatedSupcalCalendar34Route
+  '/supcal/calendar-35': typeof AuthenticatedSupcalCalendar35Route
+  '/supcal/calendar-36': typeof AuthenticatedSupcalCalendar36Route
+  '/supcal/calendar-37': typeof AuthenticatedSupcalCalendar37Route
+  '/supcal/calendar-38': typeof AuthenticatedSupcalCalendar38Route
+  '/supcal/calendar-39': typeof AuthenticatedSupcalCalendar39Route
   '/supcal/calendar-4': typeof AuthenticatedSupcalCalendar4Route
+  '/supcal/calendar-40': typeof AuthenticatedSupcalCalendar40Route
+  '/supcal/calendar-41': typeof AuthenticatedSupcalCalendar41Route
+  '/supcal/calendar-42': typeof AuthenticatedSupcalCalendar42Route
+  '/supcal/calendar-43': typeof AuthenticatedSupcalCalendar43Route
+  '/supcal/calendar-44': typeof AuthenticatedSupcalCalendar44Route
+  '/supcal/calendar-45': typeof AuthenticatedSupcalCalendar45Route
+  '/supcal/calendar-46': typeof AuthenticatedSupcalCalendar46Route
+  '/supcal/calendar-47': typeof AuthenticatedSupcalCalendar47Route
+  '/supcal/calendar-48': typeof AuthenticatedSupcalCalendar48Route
+  '/supcal/calendar-49': typeof AuthenticatedSupcalCalendar49Route
   '/supcal/calendar-5': typeof AuthenticatedSupcalCalendar5Route
+  '/supcal/calendar-50': typeof AuthenticatedSupcalCalendar50Route
+  '/supcal/calendar-51': typeof AuthenticatedSupcalCalendar51Route
+  '/supcal/calendar-52': typeof AuthenticatedSupcalCalendar52Route
+  '/supcal/calendar-53': typeof AuthenticatedSupcalCalendar53Route
+  '/supcal/calendar-54': typeof AuthenticatedSupcalCalendar54Route
+  '/supcal/calendar-55': typeof AuthenticatedSupcalCalendar55Route
+  '/supcal/calendar-56': typeof AuthenticatedSupcalCalendar56Route
+  '/supcal/calendar-57': typeof AuthenticatedSupcalCalendar57Route
+  '/supcal/calendar-58': typeof AuthenticatedSupcalCalendar58Route
+  '/supcal/calendar-59': typeof AuthenticatedSupcalCalendar59Route
   '/supcal/calendar-6': typeof AuthenticatedSupcalCalendar6Route
+  '/supcal/calendar-60': typeof AuthenticatedSupcalCalendar60Route
+  '/supcal/calendar-61': typeof AuthenticatedSupcalCalendar61Route
+  '/supcal/calendar-62': typeof AuthenticatedSupcalCalendar62Route
+  '/supcal/calendar-63': typeof AuthenticatedSupcalCalendar63Route
+  '/supcal/calendar-64': typeof AuthenticatedSupcalCalendar64Route
+  '/supcal/calendar-65': typeof AuthenticatedSupcalCalendar65Route
+  '/supcal/calendar-66': typeof AuthenticatedSupcalCalendar66Route
+  '/supcal/calendar-67': typeof AuthenticatedSupcalCalendar67Route
+  '/supcal/calendar-68': typeof AuthenticatedSupcalCalendar68Route
+  '/supcal/calendar-69': typeof AuthenticatedSupcalCalendar69Route
   '/supcal/calendar-7': typeof AuthenticatedSupcalCalendar7Route
+  '/supcal/calendar-70': typeof AuthenticatedSupcalCalendar70Route
+  '/supcal/calendar-71': typeof AuthenticatedSupcalCalendar71Route
+  '/supcal/calendar-72': typeof AuthenticatedSupcalCalendar72Route
+  '/supcal/calendar-73': typeof AuthenticatedSupcalCalendar73Route
+  '/supcal/calendar-74': typeof AuthenticatedSupcalCalendar74Route
+  '/supcal/calendar-75': typeof AuthenticatedSupcalCalendar75Route
+  '/supcal/calendar-76': typeof AuthenticatedSupcalCalendar76Route
+  '/supcal/calendar-77': typeof AuthenticatedSupcalCalendar77Route
+  '/supcal/calendar-78': typeof AuthenticatedSupcalCalendar78Route
+  '/supcal/calendar-79': typeof AuthenticatedSupcalCalendar79Route
   '/supcal/calendar-8': typeof AuthenticatedSupcalCalendar8Route
+  '/supcal/calendar-80': typeof AuthenticatedSupcalCalendar80Route
+  '/supcal/calendar-81': typeof AuthenticatedSupcalCalendar81Route
+  '/supcal/calendar-82': typeof AuthenticatedSupcalCalendar82Route
+  '/supcal/calendar-83': typeof AuthenticatedSupcalCalendar83Route
+  '/supcal/calendar-84': typeof AuthenticatedSupcalCalendar84Route
+  '/supcal/calendar-85': typeof AuthenticatedSupcalCalendar85Route
+  '/supcal/calendar-86': typeof AuthenticatedSupcalCalendar86Route
+  '/supcal/calendar-87': typeof AuthenticatedSupcalCalendar87Route
+  '/supcal/calendar-88': typeof AuthenticatedSupcalCalendar88Route
+  '/supcal/calendar-89': typeof AuthenticatedSupcalCalendar89Route
   '/supcal/calendar-9': typeof AuthenticatedSupcalCalendar9Route
+  '/supcal/calendar-90': typeof AuthenticatedSupcalCalendar90Route
+  '/supcal/calendar-91': typeof AuthenticatedSupcalCalendar91Route
+  '/supcal/calendar-92': typeof AuthenticatedSupcalCalendar92Route
+  '/supcal/calendar-93': typeof AuthenticatedSupcalCalendar93Route
+  '/supcal/calendar-94': typeof AuthenticatedSupcalCalendar94Route
+  '/supcal/calendar-95': typeof AuthenticatedSupcalCalendar95Route
+  '/supcal/calendar-96': typeof AuthenticatedSupcalCalendar96Route
+  '/supcal/calendar-97': typeof AuthenticatedSupcalCalendar97Route
+  '/supcal/calendar-98': typeof AuthenticatedSupcalCalendar98Route
+  '/supcal/calendar-99': typeof AuthenticatedSupcalCalendar99Route
   '/supcal/create': typeof AuthenticatedSupcalCreateRoute
   '/supcal/profile': typeof AuthenticatedSupcalProfileRoute
   '/supcal/records': typeof AuthenticatedSupcalRecordsRoute
@@ -469,19 +1549,139 @@ export interface FileRoutesById {
   '/_authenticated/supcal/calendar': typeof AuthenticatedSupcalCalendarRoute
   '/_authenticated/supcal/calendar-1': typeof AuthenticatedSupcalCalendar1Route
   '/_authenticated/supcal/calendar-10': typeof AuthenticatedSupcalCalendar10Route
+  '/_authenticated/supcal/calendar-100': typeof AuthenticatedSupcalCalendar100Route
+  '/_authenticated/supcal/calendar-101': typeof AuthenticatedSupcalCalendar101Route
+  '/_authenticated/supcal/calendar-102': typeof AuthenticatedSupcalCalendar102Route
+  '/_authenticated/supcal/calendar-103': typeof AuthenticatedSupcalCalendar103Route
+  '/_authenticated/supcal/calendar-104': typeof AuthenticatedSupcalCalendar104Route
+  '/_authenticated/supcal/calendar-105': typeof AuthenticatedSupcalCalendar105Route
+  '/_authenticated/supcal/calendar-106': typeof AuthenticatedSupcalCalendar106Route
+  '/_authenticated/supcal/calendar-107': typeof AuthenticatedSupcalCalendar107Route
+  '/_authenticated/supcal/calendar-108': typeof AuthenticatedSupcalCalendar108Route
+  '/_authenticated/supcal/calendar-109': typeof AuthenticatedSupcalCalendar109Route
   '/_authenticated/supcal/calendar-11': typeof AuthenticatedSupcalCalendar11Route
+  '/_authenticated/supcal/calendar-110': typeof AuthenticatedSupcalCalendar110Route
+  '/_authenticated/supcal/calendar-111': typeof AuthenticatedSupcalCalendar111Route
+  '/_authenticated/supcal/calendar-112': typeof AuthenticatedSupcalCalendar112Route
+  '/_authenticated/supcal/calendar-113': typeof AuthenticatedSupcalCalendar113Route
+  '/_authenticated/supcal/calendar-114': typeof AuthenticatedSupcalCalendar114Route
+  '/_authenticated/supcal/calendar-115': typeof AuthenticatedSupcalCalendar115Route
+  '/_authenticated/supcal/calendar-116': typeof AuthenticatedSupcalCalendar116Route
+  '/_authenticated/supcal/calendar-117': typeof AuthenticatedSupcalCalendar117Route
+  '/_authenticated/supcal/calendar-118': typeof AuthenticatedSupcalCalendar118Route
+  '/_authenticated/supcal/calendar-119': typeof AuthenticatedSupcalCalendar119Route
   '/_authenticated/supcal/calendar-12': typeof AuthenticatedSupcalCalendar12Route
+  '/_authenticated/supcal/calendar-120': typeof AuthenticatedSupcalCalendar120Route
+  '/_authenticated/supcal/calendar-121': typeof AuthenticatedSupcalCalendar121Route
+  '/_authenticated/supcal/calendar-122': typeof AuthenticatedSupcalCalendar122Route
+  '/_authenticated/supcal/calendar-123': typeof AuthenticatedSupcalCalendar123Route
+  '/_authenticated/supcal/calendar-124': typeof AuthenticatedSupcalCalendar124Route
+  '/_authenticated/supcal/calendar-125': typeof AuthenticatedSupcalCalendar125Route
+  '/_authenticated/supcal/calendar-126': typeof AuthenticatedSupcalCalendar126Route
+  '/_authenticated/supcal/calendar-127': typeof AuthenticatedSupcalCalendar127Route
+  '/_authenticated/supcal/calendar-128': typeof AuthenticatedSupcalCalendar128Route
+  '/_authenticated/supcal/calendar-129': typeof AuthenticatedSupcalCalendar129Route
   '/_authenticated/supcal/calendar-13': typeof AuthenticatedSupcalCalendar13Route
+  '/_authenticated/supcal/calendar-130': typeof AuthenticatedSupcalCalendar130Route
+  '/_authenticated/supcal/calendar-131': typeof AuthenticatedSupcalCalendar131Route
+  '/_authenticated/supcal/calendar-132': typeof AuthenticatedSupcalCalendar132Route
+  '/_authenticated/supcal/calendar-133': typeof AuthenticatedSupcalCalendar133Route
+  '/_authenticated/supcal/calendar-134': typeof AuthenticatedSupcalCalendar134Route
+  '/_authenticated/supcal/calendar-135': typeof AuthenticatedSupcalCalendar135Route
   '/_authenticated/supcal/calendar-14': typeof AuthenticatedSupcalCalendar14Route
   '/_authenticated/supcal/calendar-15': typeof AuthenticatedSupcalCalendar15Route
+  '/_authenticated/supcal/calendar-16': typeof AuthenticatedSupcalCalendar16Route
+  '/_authenticated/supcal/calendar-17': typeof AuthenticatedSupcalCalendar17Route
+  '/_authenticated/supcal/calendar-18': typeof AuthenticatedSupcalCalendar18Route
+  '/_authenticated/supcal/calendar-19': typeof AuthenticatedSupcalCalendar19Route
   '/_authenticated/supcal/calendar-2': typeof AuthenticatedSupcalCalendar2Route
+  '/_authenticated/supcal/calendar-20': typeof AuthenticatedSupcalCalendar20Route
+  '/_authenticated/supcal/calendar-21': typeof AuthenticatedSupcalCalendar21Route
+  '/_authenticated/supcal/calendar-22': typeof AuthenticatedSupcalCalendar22Route
+  '/_authenticated/supcal/calendar-23': typeof AuthenticatedSupcalCalendar23Route
+  '/_authenticated/supcal/calendar-24': typeof AuthenticatedSupcalCalendar24Route
+  '/_authenticated/supcal/calendar-25': typeof AuthenticatedSupcalCalendar25Route
+  '/_authenticated/supcal/calendar-26': typeof AuthenticatedSupcalCalendar26Route
+  '/_authenticated/supcal/calendar-27': typeof AuthenticatedSupcalCalendar27Route
+  '/_authenticated/supcal/calendar-28': typeof AuthenticatedSupcalCalendar28Route
+  '/_authenticated/supcal/calendar-29': typeof AuthenticatedSupcalCalendar29Route
   '/_authenticated/supcal/calendar-3': typeof AuthenticatedSupcalCalendar3Route
+  '/_authenticated/supcal/calendar-30': typeof AuthenticatedSupcalCalendar30Route
+  '/_authenticated/supcal/calendar-31': typeof AuthenticatedSupcalCalendar31Route
+  '/_authenticated/supcal/calendar-32': typeof AuthenticatedSupcalCalendar32Route
+  '/_authenticated/supcal/calendar-33': typeof AuthenticatedSupcalCalendar33Route
+  '/_authenticated/supcal/calendar-34': typeof AuthenticatedSupcalCalendar34Route
+  '/_authenticated/supcal/calendar-35': typeof AuthenticatedSupcalCalendar35Route
+  '/_authenticated/supcal/calendar-36': typeof AuthenticatedSupcalCalendar36Route
+  '/_authenticated/supcal/calendar-37': typeof AuthenticatedSupcalCalendar37Route
+  '/_authenticated/supcal/calendar-38': typeof AuthenticatedSupcalCalendar38Route
+  '/_authenticated/supcal/calendar-39': typeof AuthenticatedSupcalCalendar39Route
   '/_authenticated/supcal/calendar-4': typeof AuthenticatedSupcalCalendar4Route
+  '/_authenticated/supcal/calendar-40': typeof AuthenticatedSupcalCalendar40Route
+  '/_authenticated/supcal/calendar-41': typeof AuthenticatedSupcalCalendar41Route
+  '/_authenticated/supcal/calendar-42': typeof AuthenticatedSupcalCalendar42Route
+  '/_authenticated/supcal/calendar-43': typeof AuthenticatedSupcalCalendar43Route
+  '/_authenticated/supcal/calendar-44': typeof AuthenticatedSupcalCalendar44Route
+  '/_authenticated/supcal/calendar-45': typeof AuthenticatedSupcalCalendar45Route
+  '/_authenticated/supcal/calendar-46': typeof AuthenticatedSupcalCalendar46Route
+  '/_authenticated/supcal/calendar-47': typeof AuthenticatedSupcalCalendar47Route
+  '/_authenticated/supcal/calendar-48': typeof AuthenticatedSupcalCalendar48Route
+  '/_authenticated/supcal/calendar-49': typeof AuthenticatedSupcalCalendar49Route
   '/_authenticated/supcal/calendar-5': typeof AuthenticatedSupcalCalendar5Route
+  '/_authenticated/supcal/calendar-50': typeof AuthenticatedSupcalCalendar50Route
+  '/_authenticated/supcal/calendar-51': typeof AuthenticatedSupcalCalendar51Route
+  '/_authenticated/supcal/calendar-52': typeof AuthenticatedSupcalCalendar52Route
+  '/_authenticated/supcal/calendar-53': typeof AuthenticatedSupcalCalendar53Route
+  '/_authenticated/supcal/calendar-54': typeof AuthenticatedSupcalCalendar54Route
+  '/_authenticated/supcal/calendar-55': typeof AuthenticatedSupcalCalendar55Route
+  '/_authenticated/supcal/calendar-56': typeof AuthenticatedSupcalCalendar56Route
+  '/_authenticated/supcal/calendar-57': typeof AuthenticatedSupcalCalendar57Route
+  '/_authenticated/supcal/calendar-58': typeof AuthenticatedSupcalCalendar58Route
+  '/_authenticated/supcal/calendar-59': typeof AuthenticatedSupcalCalendar59Route
   '/_authenticated/supcal/calendar-6': typeof AuthenticatedSupcalCalendar6Route
+  '/_authenticated/supcal/calendar-60': typeof AuthenticatedSupcalCalendar60Route
+  '/_authenticated/supcal/calendar-61': typeof AuthenticatedSupcalCalendar61Route
+  '/_authenticated/supcal/calendar-62': typeof AuthenticatedSupcalCalendar62Route
+  '/_authenticated/supcal/calendar-63': typeof AuthenticatedSupcalCalendar63Route
+  '/_authenticated/supcal/calendar-64': typeof AuthenticatedSupcalCalendar64Route
+  '/_authenticated/supcal/calendar-65': typeof AuthenticatedSupcalCalendar65Route
+  '/_authenticated/supcal/calendar-66': typeof AuthenticatedSupcalCalendar66Route
+  '/_authenticated/supcal/calendar-67': typeof AuthenticatedSupcalCalendar67Route
+  '/_authenticated/supcal/calendar-68': typeof AuthenticatedSupcalCalendar68Route
+  '/_authenticated/supcal/calendar-69': typeof AuthenticatedSupcalCalendar69Route
   '/_authenticated/supcal/calendar-7': typeof AuthenticatedSupcalCalendar7Route
+  '/_authenticated/supcal/calendar-70': typeof AuthenticatedSupcalCalendar70Route
+  '/_authenticated/supcal/calendar-71': typeof AuthenticatedSupcalCalendar71Route
+  '/_authenticated/supcal/calendar-72': typeof AuthenticatedSupcalCalendar72Route
+  '/_authenticated/supcal/calendar-73': typeof AuthenticatedSupcalCalendar73Route
+  '/_authenticated/supcal/calendar-74': typeof AuthenticatedSupcalCalendar74Route
+  '/_authenticated/supcal/calendar-75': typeof AuthenticatedSupcalCalendar75Route
+  '/_authenticated/supcal/calendar-76': typeof AuthenticatedSupcalCalendar76Route
+  '/_authenticated/supcal/calendar-77': typeof AuthenticatedSupcalCalendar77Route
+  '/_authenticated/supcal/calendar-78': typeof AuthenticatedSupcalCalendar78Route
+  '/_authenticated/supcal/calendar-79': typeof AuthenticatedSupcalCalendar79Route
   '/_authenticated/supcal/calendar-8': typeof AuthenticatedSupcalCalendar8Route
+  '/_authenticated/supcal/calendar-80': typeof AuthenticatedSupcalCalendar80Route
+  '/_authenticated/supcal/calendar-81': typeof AuthenticatedSupcalCalendar81Route
+  '/_authenticated/supcal/calendar-82': typeof AuthenticatedSupcalCalendar82Route
+  '/_authenticated/supcal/calendar-83': typeof AuthenticatedSupcalCalendar83Route
+  '/_authenticated/supcal/calendar-84': typeof AuthenticatedSupcalCalendar84Route
+  '/_authenticated/supcal/calendar-85': typeof AuthenticatedSupcalCalendar85Route
+  '/_authenticated/supcal/calendar-86': typeof AuthenticatedSupcalCalendar86Route
+  '/_authenticated/supcal/calendar-87': typeof AuthenticatedSupcalCalendar87Route
+  '/_authenticated/supcal/calendar-88': typeof AuthenticatedSupcalCalendar88Route
+  '/_authenticated/supcal/calendar-89': typeof AuthenticatedSupcalCalendar89Route
   '/_authenticated/supcal/calendar-9': typeof AuthenticatedSupcalCalendar9Route
+  '/_authenticated/supcal/calendar-90': typeof AuthenticatedSupcalCalendar90Route
+  '/_authenticated/supcal/calendar-91': typeof AuthenticatedSupcalCalendar91Route
+  '/_authenticated/supcal/calendar-92': typeof AuthenticatedSupcalCalendar92Route
+  '/_authenticated/supcal/calendar-93': typeof AuthenticatedSupcalCalendar93Route
+  '/_authenticated/supcal/calendar-94': typeof AuthenticatedSupcalCalendar94Route
+  '/_authenticated/supcal/calendar-95': typeof AuthenticatedSupcalCalendar95Route
+  '/_authenticated/supcal/calendar-96': typeof AuthenticatedSupcalCalendar96Route
+  '/_authenticated/supcal/calendar-97': typeof AuthenticatedSupcalCalendar97Route
+  '/_authenticated/supcal/calendar-98': typeof AuthenticatedSupcalCalendar98Route
+  '/_authenticated/supcal/calendar-99': typeof AuthenticatedSupcalCalendar99Route
   '/_authenticated/supcal/create': typeof AuthenticatedSupcalCreateRoute
   '/_authenticated/supcal/profile': typeof AuthenticatedSupcalProfileRoute
   '/_authenticated/supcal/records': typeof AuthenticatedSupcalRecordsRoute
@@ -521,19 +1721,139 @@ export interface FileRouteTypes {
     | '/supcal/calendar'
     | '/supcal/calendar-1'
     | '/supcal/calendar-10'
+    | '/supcal/calendar-100'
+    | '/supcal/calendar-101'
+    | '/supcal/calendar-102'
+    | '/supcal/calendar-103'
+    | '/supcal/calendar-104'
+    | '/supcal/calendar-105'
+    | '/supcal/calendar-106'
+    | '/supcal/calendar-107'
+    | '/supcal/calendar-108'
+    | '/supcal/calendar-109'
     | '/supcal/calendar-11'
+    | '/supcal/calendar-110'
+    | '/supcal/calendar-111'
+    | '/supcal/calendar-112'
+    | '/supcal/calendar-113'
+    | '/supcal/calendar-114'
+    | '/supcal/calendar-115'
+    | '/supcal/calendar-116'
+    | '/supcal/calendar-117'
+    | '/supcal/calendar-118'
+    | '/supcal/calendar-119'
     | '/supcal/calendar-12'
+    | '/supcal/calendar-120'
+    | '/supcal/calendar-121'
+    | '/supcal/calendar-122'
+    | '/supcal/calendar-123'
+    | '/supcal/calendar-124'
+    | '/supcal/calendar-125'
+    | '/supcal/calendar-126'
+    | '/supcal/calendar-127'
+    | '/supcal/calendar-128'
+    | '/supcal/calendar-129'
     | '/supcal/calendar-13'
+    | '/supcal/calendar-130'
+    | '/supcal/calendar-131'
+    | '/supcal/calendar-132'
+    | '/supcal/calendar-133'
+    | '/supcal/calendar-134'
+    | '/supcal/calendar-135'
     | '/supcal/calendar-14'
     | '/supcal/calendar-15'
+    | '/supcal/calendar-16'
+    | '/supcal/calendar-17'
+    | '/supcal/calendar-18'
+    | '/supcal/calendar-19'
     | '/supcal/calendar-2'
+    | '/supcal/calendar-20'
+    | '/supcal/calendar-21'
+    | '/supcal/calendar-22'
+    | '/supcal/calendar-23'
+    | '/supcal/calendar-24'
+    | '/supcal/calendar-25'
+    | '/supcal/calendar-26'
+    | '/supcal/calendar-27'
+    | '/supcal/calendar-28'
+    | '/supcal/calendar-29'
     | '/supcal/calendar-3'
+    | '/supcal/calendar-30'
+    | '/supcal/calendar-31'
+    | '/supcal/calendar-32'
+    | '/supcal/calendar-33'
+    | '/supcal/calendar-34'
+    | '/supcal/calendar-35'
+    | '/supcal/calendar-36'
+    | '/supcal/calendar-37'
+    | '/supcal/calendar-38'
+    | '/supcal/calendar-39'
     | '/supcal/calendar-4'
+    | '/supcal/calendar-40'
+    | '/supcal/calendar-41'
+    | '/supcal/calendar-42'
+    | '/supcal/calendar-43'
+    | '/supcal/calendar-44'
+    | '/supcal/calendar-45'
+    | '/supcal/calendar-46'
+    | '/supcal/calendar-47'
+    | '/supcal/calendar-48'
+    | '/supcal/calendar-49'
     | '/supcal/calendar-5'
+    | '/supcal/calendar-50'
+    | '/supcal/calendar-51'
+    | '/supcal/calendar-52'
+    | '/supcal/calendar-53'
+    | '/supcal/calendar-54'
+    | '/supcal/calendar-55'
+    | '/supcal/calendar-56'
+    | '/supcal/calendar-57'
+    | '/supcal/calendar-58'
+    | '/supcal/calendar-59'
     | '/supcal/calendar-6'
+    | '/supcal/calendar-60'
+    | '/supcal/calendar-61'
+    | '/supcal/calendar-62'
+    | '/supcal/calendar-63'
+    | '/supcal/calendar-64'
+    | '/supcal/calendar-65'
+    | '/supcal/calendar-66'
+    | '/supcal/calendar-67'
+    | '/supcal/calendar-68'
+    | '/supcal/calendar-69'
     | '/supcal/calendar-7'
+    | '/supcal/calendar-70'
+    | '/supcal/calendar-71'
+    | '/supcal/calendar-72'
+    | '/supcal/calendar-73'
+    | '/supcal/calendar-74'
+    | '/supcal/calendar-75'
+    | '/supcal/calendar-76'
+    | '/supcal/calendar-77'
+    | '/supcal/calendar-78'
+    | '/supcal/calendar-79'
     | '/supcal/calendar-8'
+    | '/supcal/calendar-80'
+    | '/supcal/calendar-81'
+    | '/supcal/calendar-82'
+    | '/supcal/calendar-83'
+    | '/supcal/calendar-84'
+    | '/supcal/calendar-85'
+    | '/supcal/calendar-86'
+    | '/supcal/calendar-87'
+    | '/supcal/calendar-88'
+    | '/supcal/calendar-89'
     | '/supcal/calendar-9'
+    | '/supcal/calendar-90'
+    | '/supcal/calendar-91'
+    | '/supcal/calendar-92'
+    | '/supcal/calendar-93'
+    | '/supcal/calendar-94'
+    | '/supcal/calendar-95'
+    | '/supcal/calendar-96'
+    | '/supcal/calendar-97'
+    | '/supcal/calendar-98'
+    | '/supcal/calendar-99'
     | '/supcal/create'
     | '/supcal/profile'
     | '/supcal/records'
@@ -570,19 +1890,139 @@ export interface FileRouteTypes {
     | '/supcal/calendar'
     | '/supcal/calendar-1'
     | '/supcal/calendar-10'
+    | '/supcal/calendar-100'
+    | '/supcal/calendar-101'
+    | '/supcal/calendar-102'
+    | '/supcal/calendar-103'
+    | '/supcal/calendar-104'
+    | '/supcal/calendar-105'
+    | '/supcal/calendar-106'
+    | '/supcal/calendar-107'
+    | '/supcal/calendar-108'
+    | '/supcal/calendar-109'
     | '/supcal/calendar-11'
+    | '/supcal/calendar-110'
+    | '/supcal/calendar-111'
+    | '/supcal/calendar-112'
+    | '/supcal/calendar-113'
+    | '/supcal/calendar-114'
+    | '/supcal/calendar-115'
+    | '/supcal/calendar-116'
+    | '/supcal/calendar-117'
+    | '/supcal/calendar-118'
+    | '/supcal/calendar-119'
     | '/supcal/calendar-12'
+    | '/supcal/calendar-120'
+    | '/supcal/calendar-121'
+    | '/supcal/calendar-122'
+    | '/supcal/calendar-123'
+    | '/supcal/calendar-124'
+    | '/supcal/calendar-125'
+    | '/supcal/calendar-126'
+    | '/supcal/calendar-127'
+    | '/supcal/calendar-128'
+    | '/supcal/calendar-129'
     | '/supcal/calendar-13'
+    | '/supcal/calendar-130'
+    | '/supcal/calendar-131'
+    | '/supcal/calendar-132'
+    | '/supcal/calendar-133'
+    | '/supcal/calendar-134'
+    | '/supcal/calendar-135'
     | '/supcal/calendar-14'
     | '/supcal/calendar-15'
+    | '/supcal/calendar-16'
+    | '/supcal/calendar-17'
+    | '/supcal/calendar-18'
+    | '/supcal/calendar-19'
     | '/supcal/calendar-2'
+    | '/supcal/calendar-20'
+    | '/supcal/calendar-21'
+    | '/supcal/calendar-22'
+    | '/supcal/calendar-23'
+    | '/supcal/calendar-24'
+    | '/supcal/calendar-25'
+    | '/supcal/calendar-26'
+    | '/supcal/calendar-27'
+    | '/supcal/calendar-28'
+    | '/supcal/calendar-29'
     | '/supcal/calendar-3'
+    | '/supcal/calendar-30'
+    | '/supcal/calendar-31'
+    | '/supcal/calendar-32'
+    | '/supcal/calendar-33'
+    | '/supcal/calendar-34'
+    | '/supcal/calendar-35'
+    | '/supcal/calendar-36'
+    | '/supcal/calendar-37'
+    | '/supcal/calendar-38'
+    | '/supcal/calendar-39'
     | '/supcal/calendar-4'
+    | '/supcal/calendar-40'
+    | '/supcal/calendar-41'
+    | '/supcal/calendar-42'
+    | '/supcal/calendar-43'
+    | '/supcal/calendar-44'
+    | '/supcal/calendar-45'
+    | '/supcal/calendar-46'
+    | '/supcal/calendar-47'
+    | '/supcal/calendar-48'
+    | '/supcal/calendar-49'
     | '/supcal/calendar-5'
+    | '/supcal/calendar-50'
+    | '/supcal/calendar-51'
+    | '/supcal/calendar-52'
+    | '/supcal/calendar-53'
+    | '/supcal/calendar-54'
+    | '/supcal/calendar-55'
+    | '/supcal/calendar-56'
+    | '/supcal/calendar-57'
+    | '/supcal/calendar-58'
+    | '/supcal/calendar-59'
     | '/supcal/calendar-6'
+    | '/supcal/calendar-60'
+    | '/supcal/calendar-61'
+    | '/supcal/calendar-62'
+    | '/supcal/calendar-63'
+    | '/supcal/calendar-64'
+    | '/supcal/calendar-65'
+    | '/supcal/calendar-66'
+    | '/supcal/calendar-67'
+    | '/supcal/calendar-68'
+    | '/supcal/calendar-69'
     | '/supcal/calendar-7'
+    | '/supcal/calendar-70'
+    | '/supcal/calendar-71'
+    | '/supcal/calendar-72'
+    | '/supcal/calendar-73'
+    | '/supcal/calendar-74'
+    | '/supcal/calendar-75'
+    | '/supcal/calendar-76'
+    | '/supcal/calendar-77'
+    | '/supcal/calendar-78'
+    | '/supcal/calendar-79'
     | '/supcal/calendar-8'
+    | '/supcal/calendar-80'
+    | '/supcal/calendar-81'
+    | '/supcal/calendar-82'
+    | '/supcal/calendar-83'
+    | '/supcal/calendar-84'
+    | '/supcal/calendar-85'
+    | '/supcal/calendar-86'
+    | '/supcal/calendar-87'
+    | '/supcal/calendar-88'
+    | '/supcal/calendar-89'
     | '/supcal/calendar-9'
+    | '/supcal/calendar-90'
+    | '/supcal/calendar-91'
+    | '/supcal/calendar-92'
+    | '/supcal/calendar-93'
+    | '/supcal/calendar-94'
+    | '/supcal/calendar-95'
+    | '/supcal/calendar-96'
+    | '/supcal/calendar-97'
+    | '/supcal/calendar-98'
+    | '/supcal/calendar-99'
     | '/supcal/create'
     | '/supcal/profile'
     | '/supcal/records'
@@ -623,19 +2063,139 @@ export interface FileRouteTypes {
     | '/_authenticated/supcal/calendar'
     | '/_authenticated/supcal/calendar-1'
     | '/_authenticated/supcal/calendar-10'
+    | '/_authenticated/supcal/calendar-100'
+    | '/_authenticated/supcal/calendar-101'
+    | '/_authenticated/supcal/calendar-102'
+    | '/_authenticated/supcal/calendar-103'
+    | '/_authenticated/supcal/calendar-104'
+    | '/_authenticated/supcal/calendar-105'
+    | '/_authenticated/supcal/calendar-106'
+    | '/_authenticated/supcal/calendar-107'
+    | '/_authenticated/supcal/calendar-108'
+    | '/_authenticated/supcal/calendar-109'
     | '/_authenticated/supcal/calendar-11'
+    | '/_authenticated/supcal/calendar-110'
+    | '/_authenticated/supcal/calendar-111'
+    | '/_authenticated/supcal/calendar-112'
+    | '/_authenticated/supcal/calendar-113'
+    | '/_authenticated/supcal/calendar-114'
+    | '/_authenticated/supcal/calendar-115'
+    | '/_authenticated/supcal/calendar-116'
+    | '/_authenticated/supcal/calendar-117'
+    | '/_authenticated/supcal/calendar-118'
+    | '/_authenticated/supcal/calendar-119'
     | '/_authenticated/supcal/calendar-12'
+    | '/_authenticated/supcal/calendar-120'
+    | '/_authenticated/supcal/calendar-121'
+    | '/_authenticated/supcal/calendar-122'
+    | '/_authenticated/supcal/calendar-123'
+    | '/_authenticated/supcal/calendar-124'
+    | '/_authenticated/supcal/calendar-125'
+    | '/_authenticated/supcal/calendar-126'
+    | '/_authenticated/supcal/calendar-127'
+    | '/_authenticated/supcal/calendar-128'
+    | '/_authenticated/supcal/calendar-129'
     | '/_authenticated/supcal/calendar-13'
+    | '/_authenticated/supcal/calendar-130'
+    | '/_authenticated/supcal/calendar-131'
+    | '/_authenticated/supcal/calendar-132'
+    | '/_authenticated/supcal/calendar-133'
+    | '/_authenticated/supcal/calendar-134'
+    | '/_authenticated/supcal/calendar-135'
     | '/_authenticated/supcal/calendar-14'
     | '/_authenticated/supcal/calendar-15'
+    | '/_authenticated/supcal/calendar-16'
+    | '/_authenticated/supcal/calendar-17'
+    | '/_authenticated/supcal/calendar-18'
+    | '/_authenticated/supcal/calendar-19'
     | '/_authenticated/supcal/calendar-2'
+    | '/_authenticated/supcal/calendar-20'
+    | '/_authenticated/supcal/calendar-21'
+    | '/_authenticated/supcal/calendar-22'
+    | '/_authenticated/supcal/calendar-23'
+    | '/_authenticated/supcal/calendar-24'
+    | '/_authenticated/supcal/calendar-25'
+    | '/_authenticated/supcal/calendar-26'
+    | '/_authenticated/supcal/calendar-27'
+    | '/_authenticated/supcal/calendar-28'
+    | '/_authenticated/supcal/calendar-29'
     | '/_authenticated/supcal/calendar-3'
+    | '/_authenticated/supcal/calendar-30'
+    | '/_authenticated/supcal/calendar-31'
+    | '/_authenticated/supcal/calendar-32'
+    | '/_authenticated/supcal/calendar-33'
+    | '/_authenticated/supcal/calendar-34'
+    | '/_authenticated/supcal/calendar-35'
+    | '/_authenticated/supcal/calendar-36'
+    | '/_authenticated/supcal/calendar-37'
+    | '/_authenticated/supcal/calendar-38'
+    | '/_authenticated/supcal/calendar-39'
     | '/_authenticated/supcal/calendar-4'
+    | '/_authenticated/supcal/calendar-40'
+    | '/_authenticated/supcal/calendar-41'
+    | '/_authenticated/supcal/calendar-42'
+    | '/_authenticated/supcal/calendar-43'
+    | '/_authenticated/supcal/calendar-44'
+    | '/_authenticated/supcal/calendar-45'
+    | '/_authenticated/supcal/calendar-46'
+    | '/_authenticated/supcal/calendar-47'
+    | '/_authenticated/supcal/calendar-48'
+    | '/_authenticated/supcal/calendar-49'
     | '/_authenticated/supcal/calendar-5'
+    | '/_authenticated/supcal/calendar-50'
+    | '/_authenticated/supcal/calendar-51'
+    | '/_authenticated/supcal/calendar-52'
+    | '/_authenticated/supcal/calendar-53'
+    | '/_authenticated/supcal/calendar-54'
+    | '/_authenticated/supcal/calendar-55'
+    | '/_authenticated/supcal/calendar-56'
+    | '/_authenticated/supcal/calendar-57'
+    | '/_authenticated/supcal/calendar-58'
+    | '/_authenticated/supcal/calendar-59'
     | '/_authenticated/supcal/calendar-6'
+    | '/_authenticated/supcal/calendar-60'
+    | '/_authenticated/supcal/calendar-61'
+    | '/_authenticated/supcal/calendar-62'
+    | '/_authenticated/supcal/calendar-63'
+    | '/_authenticated/supcal/calendar-64'
+    | '/_authenticated/supcal/calendar-65'
+    | '/_authenticated/supcal/calendar-66'
+    | '/_authenticated/supcal/calendar-67'
+    | '/_authenticated/supcal/calendar-68'
+    | '/_authenticated/supcal/calendar-69'
     | '/_authenticated/supcal/calendar-7'
+    | '/_authenticated/supcal/calendar-70'
+    | '/_authenticated/supcal/calendar-71'
+    | '/_authenticated/supcal/calendar-72'
+    | '/_authenticated/supcal/calendar-73'
+    | '/_authenticated/supcal/calendar-74'
+    | '/_authenticated/supcal/calendar-75'
+    | '/_authenticated/supcal/calendar-76'
+    | '/_authenticated/supcal/calendar-77'
+    | '/_authenticated/supcal/calendar-78'
+    | '/_authenticated/supcal/calendar-79'
     | '/_authenticated/supcal/calendar-8'
+    | '/_authenticated/supcal/calendar-80'
+    | '/_authenticated/supcal/calendar-81'
+    | '/_authenticated/supcal/calendar-82'
+    | '/_authenticated/supcal/calendar-83'
+    | '/_authenticated/supcal/calendar-84'
+    | '/_authenticated/supcal/calendar-85'
+    | '/_authenticated/supcal/calendar-86'
+    | '/_authenticated/supcal/calendar-87'
+    | '/_authenticated/supcal/calendar-88'
+    | '/_authenticated/supcal/calendar-89'
     | '/_authenticated/supcal/calendar-9'
+    | '/_authenticated/supcal/calendar-90'
+    | '/_authenticated/supcal/calendar-91'
+    | '/_authenticated/supcal/calendar-92'
+    | '/_authenticated/supcal/calendar-93'
+    | '/_authenticated/supcal/calendar-94'
+    | '/_authenticated/supcal/calendar-95'
+    | '/_authenticated/supcal/calendar-96'
+    | '/_authenticated/supcal/calendar-97'
+    | '/_authenticated/supcal/calendar-98'
+    | '/_authenticated/supcal/calendar-99'
     | '/_authenticated/supcal/create'
     | '/_authenticated/supcal/profile'
     | '/_authenticated/supcal/records'
@@ -872,11 +2432,151 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCreateRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-99': {
+      id: '/_authenticated/supcal/calendar-99'
+      path: '/supcal/calendar-99'
+      fullPath: '/supcal/calendar-99'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar99RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-98': {
+      id: '/_authenticated/supcal/calendar-98'
+      path: '/supcal/calendar-98'
+      fullPath: '/supcal/calendar-98'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar98RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-97': {
+      id: '/_authenticated/supcal/calendar-97'
+      path: '/supcal/calendar-97'
+      fullPath: '/supcal/calendar-97'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar97RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-96': {
+      id: '/_authenticated/supcal/calendar-96'
+      path: '/supcal/calendar-96'
+      fullPath: '/supcal/calendar-96'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar96RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-95': {
+      id: '/_authenticated/supcal/calendar-95'
+      path: '/supcal/calendar-95'
+      fullPath: '/supcal/calendar-95'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar95RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-94': {
+      id: '/_authenticated/supcal/calendar-94'
+      path: '/supcal/calendar-94'
+      fullPath: '/supcal/calendar-94'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar94RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-93': {
+      id: '/_authenticated/supcal/calendar-93'
+      path: '/supcal/calendar-93'
+      fullPath: '/supcal/calendar-93'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar93RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-92': {
+      id: '/_authenticated/supcal/calendar-92'
+      path: '/supcal/calendar-92'
+      fullPath: '/supcal/calendar-92'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar92RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-91': {
+      id: '/_authenticated/supcal/calendar-91'
+      path: '/supcal/calendar-91'
+      fullPath: '/supcal/calendar-91'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar91RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-90': {
+      id: '/_authenticated/supcal/calendar-90'
+      path: '/supcal/calendar-90'
+      fullPath: '/supcal/calendar-90'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar90RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar-9': {
       id: '/_authenticated/supcal/calendar-9'
       path: '/supcal/calendar-9'
       fullPath: '/supcal/calendar-9'
       preLoaderRoute: typeof AuthenticatedSupcalCalendar9RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-89': {
+      id: '/_authenticated/supcal/calendar-89'
+      path: '/supcal/calendar-89'
+      fullPath: '/supcal/calendar-89'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar89RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-88': {
+      id: '/_authenticated/supcal/calendar-88'
+      path: '/supcal/calendar-88'
+      fullPath: '/supcal/calendar-88'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar88RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-87': {
+      id: '/_authenticated/supcal/calendar-87'
+      path: '/supcal/calendar-87'
+      fullPath: '/supcal/calendar-87'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar87RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-86': {
+      id: '/_authenticated/supcal/calendar-86'
+      path: '/supcal/calendar-86'
+      fullPath: '/supcal/calendar-86'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar86RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-85': {
+      id: '/_authenticated/supcal/calendar-85'
+      path: '/supcal/calendar-85'
+      fullPath: '/supcal/calendar-85'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar85RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-84': {
+      id: '/_authenticated/supcal/calendar-84'
+      path: '/supcal/calendar-84'
+      fullPath: '/supcal/calendar-84'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar84RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-83': {
+      id: '/_authenticated/supcal/calendar-83'
+      path: '/supcal/calendar-83'
+      fullPath: '/supcal/calendar-83'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar83RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-82': {
+      id: '/_authenticated/supcal/calendar-82'
+      path: '/supcal/calendar-82'
+      fullPath: '/supcal/calendar-82'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar82RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-81': {
+      id: '/_authenticated/supcal/calendar-81'
+      path: '/supcal/calendar-81'
+      fullPath: '/supcal/calendar-81'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar81RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-80': {
+      id: '/_authenticated/supcal/calendar-80'
+      path: '/supcal/calendar-80'
+      fullPath: '/supcal/calendar-80'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar80RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/supcal/calendar-8': {
@@ -886,11 +2586,151 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCalendar8RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-79': {
+      id: '/_authenticated/supcal/calendar-79'
+      path: '/supcal/calendar-79'
+      fullPath: '/supcal/calendar-79'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar79RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-78': {
+      id: '/_authenticated/supcal/calendar-78'
+      path: '/supcal/calendar-78'
+      fullPath: '/supcal/calendar-78'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar78RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-77': {
+      id: '/_authenticated/supcal/calendar-77'
+      path: '/supcal/calendar-77'
+      fullPath: '/supcal/calendar-77'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar77RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-76': {
+      id: '/_authenticated/supcal/calendar-76'
+      path: '/supcal/calendar-76'
+      fullPath: '/supcal/calendar-76'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar76RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-75': {
+      id: '/_authenticated/supcal/calendar-75'
+      path: '/supcal/calendar-75'
+      fullPath: '/supcal/calendar-75'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar75RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-74': {
+      id: '/_authenticated/supcal/calendar-74'
+      path: '/supcal/calendar-74'
+      fullPath: '/supcal/calendar-74'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar74RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-73': {
+      id: '/_authenticated/supcal/calendar-73'
+      path: '/supcal/calendar-73'
+      fullPath: '/supcal/calendar-73'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar73RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-72': {
+      id: '/_authenticated/supcal/calendar-72'
+      path: '/supcal/calendar-72'
+      fullPath: '/supcal/calendar-72'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar72RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-71': {
+      id: '/_authenticated/supcal/calendar-71'
+      path: '/supcal/calendar-71'
+      fullPath: '/supcal/calendar-71'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar71RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-70': {
+      id: '/_authenticated/supcal/calendar-70'
+      path: '/supcal/calendar-70'
+      fullPath: '/supcal/calendar-70'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar70RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar-7': {
       id: '/_authenticated/supcal/calendar-7'
       path: '/supcal/calendar-7'
       fullPath: '/supcal/calendar-7'
       preLoaderRoute: typeof AuthenticatedSupcalCalendar7RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-69': {
+      id: '/_authenticated/supcal/calendar-69'
+      path: '/supcal/calendar-69'
+      fullPath: '/supcal/calendar-69'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar69RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-68': {
+      id: '/_authenticated/supcal/calendar-68'
+      path: '/supcal/calendar-68'
+      fullPath: '/supcal/calendar-68'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar68RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-67': {
+      id: '/_authenticated/supcal/calendar-67'
+      path: '/supcal/calendar-67'
+      fullPath: '/supcal/calendar-67'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar67RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-66': {
+      id: '/_authenticated/supcal/calendar-66'
+      path: '/supcal/calendar-66'
+      fullPath: '/supcal/calendar-66'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar66RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-65': {
+      id: '/_authenticated/supcal/calendar-65'
+      path: '/supcal/calendar-65'
+      fullPath: '/supcal/calendar-65'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar65RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-64': {
+      id: '/_authenticated/supcal/calendar-64'
+      path: '/supcal/calendar-64'
+      fullPath: '/supcal/calendar-64'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar64RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-63': {
+      id: '/_authenticated/supcal/calendar-63'
+      path: '/supcal/calendar-63'
+      fullPath: '/supcal/calendar-63'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar63RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-62': {
+      id: '/_authenticated/supcal/calendar-62'
+      path: '/supcal/calendar-62'
+      fullPath: '/supcal/calendar-62'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar62RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-61': {
+      id: '/_authenticated/supcal/calendar-61'
+      path: '/supcal/calendar-61'
+      fullPath: '/supcal/calendar-61'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar61RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-60': {
+      id: '/_authenticated/supcal/calendar-60'
+      path: '/supcal/calendar-60'
+      fullPath: '/supcal/calendar-60'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar60RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/supcal/calendar-6': {
@@ -900,11 +2740,151 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCalendar6RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-59': {
+      id: '/_authenticated/supcal/calendar-59'
+      path: '/supcal/calendar-59'
+      fullPath: '/supcal/calendar-59'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar59RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-58': {
+      id: '/_authenticated/supcal/calendar-58'
+      path: '/supcal/calendar-58'
+      fullPath: '/supcal/calendar-58'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar58RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-57': {
+      id: '/_authenticated/supcal/calendar-57'
+      path: '/supcal/calendar-57'
+      fullPath: '/supcal/calendar-57'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar57RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-56': {
+      id: '/_authenticated/supcal/calendar-56'
+      path: '/supcal/calendar-56'
+      fullPath: '/supcal/calendar-56'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar56RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-55': {
+      id: '/_authenticated/supcal/calendar-55'
+      path: '/supcal/calendar-55'
+      fullPath: '/supcal/calendar-55'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar55RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-54': {
+      id: '/_authenticated/supcal/calendar-54'
+      path: '/supcal/calendar-54'
+      fullPath: '/supcal/calendar-54'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar54RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-53': {
+      id: '/_authenticated/supcal/calendar-53'
+      path: '/supcal/calendar-53'
+      fullPath: '/supcal/calendar-53'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar53RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-52': {
+      id: '/_authenticated/supcal/calendar-52'
+      path: '/supcal/calendar-52'
+      fullPath: '/supcal/calendar-52'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar52RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-51': {
+      id: '/_authenticated/supcal/calendar-51'
+      path: '/supcal/calendar-51'
+      fullPath: '/supcal/calendar-51'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar51RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-50': {
+      id: '/_authenticated/supcal/calendar-50'
+      path: '/supcal/calendar-50'
+      fullPath: '/supcal/calendar-50'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar50RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar-5': {
       id: '/_authenticated/supcal/calendar-5'
       path: '/supcal/calendar-5'
       fullPath: '/supcal/calendar-5'
       preLoaderRoute: typeof AuthenticatedSupcalCalendar5RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-49': {
+      id: '/_authenticated/supcal/calendar-49'
+      path: '/supcal/calendar-49'
+      fullPath: '/supcal/calendar-49'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar49RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-48': {
+      id: '/_authenticated/supcal/calendar-48'
+      path: '/supcal/calendar-48'
+      fullPath: '/supcal/calendar-48'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar48RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-47': {
+      id: '/_authenticated/supcal/calendar-47'
+      path: '/supcal/calendar-47'
+      fullPath: '/supcal/calendar-47'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar47RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-46': {
+      id: '/_authenticated/supcal/calendar-46'
+      path: '/supcal/calendar-46'
+      fullPath: '/supcal/calendar-46'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar46RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-45': {
+      id: '/_authenticated/supcal/calendar-45'
+      path: '/supcal/calendar-45'
+      fullPath: '/supcal/calendar-45'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar45RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-44': {
+      id: '/_authenticated/supcal/calendar-44'
+      path: '/supcal/calendar-44'
+      fullPath: '/supcal/calendar-44'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar44RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-43': {
+      id: '/_authenticated/supcal/calendar-43'
+      path: '/supcal/calendar-43'
+      fullPath: '/supcal/calendar-43'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar43RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-42': {
+      id: '/_authenticated/supcal/calendar-42'
+      path: '/supcal/calendar-42'
+      fullPath: '/supcal/calendar-42'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar42RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-41': {
+      id: '/_authenticated/supcal/calendar-41'
+      path: '/supcal/calendar-41'
+      fullPath: '/supcal/calendar-41'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar41RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-40': {
+      id: '/_authenticated/supcal/calendar-40'
+      path: '/supcal/calendar-40'
+      fullPath: '/supcal/calendar-40'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar40RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/supcal/calendar-4': {
@@ -914,6 +2894,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCalendar4RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-39': {
+      id: '/_authenticated/supcal/calendar-39'
+      path: '/supcal/calendar-39'
+      fullPath: '/supcal/calendar-39'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar39RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-38': {
+      id: '/_authenticated/supcal/calendar-38'
+      path: '/supcal/calendar-38'
+      fullPath: '/supcal/calendar-38'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar38RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-37': {
+      id: '/_authenticated/supcal/calendar-37'
+      path: '/supcal/calendar-37'
+      fullPath: '/supcal/calendar-37'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar37RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-36': {
+      id: '/_authenticated/supcal/calendar-36'
+      path: '/supcal/calendar-36'
+      fullPath: '/supcal/calendar-36'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar36RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-35': {
+      id: '/_authenticated/supcal/calendar-35'
+      path: '/supcal/calendar-35'
+      fullPath: '/supcal/calendar-35'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar35RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-34': {
+      id: '/_authenticated/supcal/calendar-34'
+      path: '/supcal/calendar-34'
+      fullPath: '/supcal/calendar-34'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar34RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-33': {
+      id: '/_authenticated/supcal/calendar-33'
+      path: '/supcal/calendar-33'
+      fullPath: '/supcal/calendar-33'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar33RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-32': {
+      id: '/_authenticated/supcal/calendar-32'
+      path: '/supcal/calendar-32'
+      fullPath: '/supcal/calendar-32'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar32RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-31': {
+      id: '/_authenticated/supcal/calendar-31'
+      path: '/supcal/calendar-31'
+      fullPath: '/supcal/calendar-31'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar31RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-30': {
+      id: '/_authenticated/supcal/calendar-30'
+      path: '/supcal/calendar-30'
+      fullPath: '/supcal/calendar-30'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar30RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar-3': {
       id: '/_authenticated/supcal/calendar-3'
       path: '/supcal/calendar-3'
@@ -921,11 +2971,109 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCalendar3RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-29': {
+      id: '/_authenticated/supcal/calendar-29'
+      path: '/supcal/calendar-29'
+      fullPath: '/supcal/calendar-29'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar29RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-28': {
+      id: '/_authenticated/supcal/calendar-28'
+      path: '/supcal/calendar-28'
+      fullPath: '/supcal/calendar-28'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar28RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-27': {
+      id: '/_authenticated/supcal/calendar-27'
+      path: '/supcal/calendar-27'
+      fullPath: '/supcal/calendar-27'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar27RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-26': {
+      id: '/_authenticated/supcal/calendar-26'
+      path: '/supcal/calendar-26'
+      fullPath: '/supcal/calendar-26'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar26RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-25': {
+      id: '/_authenticated/supcal/calendar-25'
+      path: '/supcal/calendar-25'
+      fullPath: '/supcal/calendar-25'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar25RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-24': {
+      id: '/_authenticated/supcal/calendar-24'
+      path: '/supcal/calendar-24'
+      fullPath: '/supcal/calendar-24'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar24RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-23': {
+      id: '/_authenticated/supcal/calendar-23'
+      path: '/supcal/calendar-23'
+      fullPath: '/supcal/calendar-23'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar23RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-22': {
+      id: '/_authenticated/supcal/calendar-22'
+      path: '/supcal/calendar-22'
+      fullPath: '/supcal/calendar-22'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar22RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-21': {
+      id: '/_authenticated/supcal/calendar-21'
+      path: '/supcal/calendar-21'
+      fullPath: '/supcal/calendar-21'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar21RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-20': {
+      id: '/_authenticated/supcal/calendar-20'
+      path: '/supcal/calendar-20'
+      fullPath: '/supcal/calendar-20'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar20RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar-2': {
       id: '/_authenticated/supcal/calendar-2'
       path: '/supcal/calendar-2'
       fullPath: '/supcal/calendar-2'
       preLoaderRoute: typeof AuthenticatedSupcalCalendar2RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-19': {
+      id: '/_authenticated/supcal/calendar-19'
+      path: '/supcal/calendar-19'
+      fullPath: '/supcal/calendar-19'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar19RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-18': {
+      id: '/_authenticated/supcal/calendar-18'
+      path: '/supcal/calendar-18'
+      fullPath: '/supcal/calendar-18'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar18RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-17': {
+      id: '/_authenticated/supcal/calendar-17'
+      path: '/supcal/calendar-17'
+      fullPath: '/supcal/calendar-17'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar17RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-16': {
+      id: '/_authenticated/supcal/calendar-16'
+      path: '/supcal/calendar-16'
+      fullPath: '/supcal/calendar-16'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar16RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/supcal/calendar-15': {
@@ -942,11 +3090,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCalendar14RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-135': {
+      id: '/_authenticated/supcal/calendar-135'
+      path: '/supcal/calendar-135'
+      fullPath: '/supcal/calendar-135'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar135RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-134': {
+      id: '/_authenticated/supcal/calendar-134'
+      path: '/supcal/calendar-134'
+      fullPath: '/supcal/calendar-134'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar134RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-133': {
+      id: '/_authenticated/supcal/calendar-133'
+      path: '/supcal/calendar-133'
+      fullPath: '/supcal/calendar-133'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar133RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-132': {
+      id: '/_authenticated/supcal/calendar-132'
+      path: '/supcal/calendar-132'
+      fullPath: '/supcal/calendar-132'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar132RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-131': {
+      id: '/_authenticated/supcal/calendar-131'
+      path: '/supcal/calendar-131'
+      fullPath: '/supcal/calendar-131'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar131RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-130': {
+      id: '/_authenticated/supcal/calendar-130'
+      path: '/supcal/calendar-130'
+      fullPath: '/supcal/calendar-130'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar130RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar-13': {
       id: '/_authenticated/supcal/calendar-13'
       path: '/supcal/calendar-13'
       fullPath: '/supcal/calendar-13'
       preLoaderRoute: typeof AuthenticatedSupcalCalendar13RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-129': {
+      id: '/_authenticated/supcal/calendar-129'
+      path: '/supcal/calendar-129'
+      fullPath: '/supcal/calendar-129'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar129RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-128': {
+      id: '/_authenticated/supcal/calendar-128'
+      path: '/supcal/calendar-128'
+      fullPath: '/supcal/calendar-128'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar128RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-127': {
+      id: '/_authenticated/supcal/calendar-127'
+      path: '/supcal/calendar-127'
+      fullPath: '/supcal/calendar-127'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar127RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-126': {
+      id: '/_authenticated/supcal/calendar-126'
+      path: '/supcal/calendar-126'
+      fullPath: '/supcal/calendar-126'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar126RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-125': {
+      id: '/_authenticated/supcal/calendar-125'
+      path: '/supcal/calendar-125'
+      fullPath: '/supcal/calendar-125'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar125RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-124': {
+      id: '/_authenticated/supcal/calendar-124'
+      path: '/supcal/calendar-124'
+      fullPath: '/supcal/calendar-124'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar124RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-123': {
+      id: '/_authenticated/supcal/calendar-123'
+      path: '/supcal/calendar-123'
+      fullPath: '/supcal/calendar-123'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar123RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-122': {
+      id: '/_authenticated/supcal/calendar-122'
+      path: '/supcal/calendar-122'
+      fullPath: '/supcal/calendar-122'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar122RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-121': {
+      id: '/_authenticated/supcal/calendar-121'
+      path: '/supcal/calendar-121'
+      fullPath: '/supcal/calendar-121'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar121RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-120': {
+      id: '/_authenticated/supcal/calendar-120'
+      path: '/supcal/calendar-120'
+      fullPath: '/supcal/calendar-120'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar120RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/supcal/calendar-12': {
@@ -956,11 +3216,151 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupcalCalendar12RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/supcal/calendar-119': {
+      id: '/_authenticated/supcal/calendar-119'
+      path: '/supcal/calendar-119'
+      fullPath: '/supcal/calendar-119'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar119RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-118': {
+      id: '/_authenticated/supcal/calendar-118'
+      path: '/supcal/calendar-118'
+      fullPath: '/supcal/calendar-118'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar118RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-117': {
+      id: '/_authenticated/supcal/calendar-117'
+      path: '/supcal/calendar-117'
+      fullPath: '/supcal/calendar-117'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar117RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-116': {
+      id: '/_authenticated/supcal/calendar-116'
+      path: '/supcal/calendar-116'
+      fullPath: '/supcal/calendar-116'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar116RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-115': {
+      id: '/_authenticated/supcal/calendar-115'
+      path: '/supcal/calendar-115'
+      fullPath: '/supcal/calendar-115'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar115RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-114': {
+      id: '/_authenticated/supcal/calendar-114'
+      path: '/supcal/calendar-114'
+      fullPath: '/supcal/calendar-114'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar114RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-113': {
+      id: '/_authenticated/supcal/calendar-113'
+      path: '/supcal/calendar-113'
+      fullPath: '/supcal/calendar-113'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar113RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-112': {
+      id: '/_authenticated/supcal/calendar-112'
+      path: '/supcal/calendar-112'
+      fullPath: '/supcal/calendar-112'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar112RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-111': {
+      id: '/_authenticated/supcal/calendar-111'
+      path: '/supcal/calendar-111'
+      fullPath: '/supcal/calendar-111'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar111RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-110': {
+      id: '/_authenticated/supcal/calendar-110'
+      path: '/supcal/calendar-110'
+      fullPath: '/supcal/calendar-110'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar110RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/supcal/calendar-11': {
       id: '/_authenticated/supcal/calendar-11'
       path: '/supcal/calendar-11'
       fullPath: '/supcal/calendar-11'
       preLoaderRoute: typeof AuthenticatedSupcalCalendar11RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-109': {
+      id: '/_authenticated/supcal/calendar-109'
+      path: '/supcal/calendar-109'
+      fullPath: '/supcal/calendar-109'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar109RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-108': {
+      id: '/_authenticated/supcal/calendar-108'
+      path: '/supcal/calendar-108'
+      fullPath: '/supcal/calendar-108'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar108RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-107': {
+      id: '/_authenticated/supcal/calendar-107'
+      path: '/supcal/calendar-107'
+      fullPath: '/supcal/calendar-107'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar107RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-106': {
+      id: '/_authenticated/supcal/calendar-106'
+      path: '/supcal/calendar-106'
+      fullPath: '/supcal/calendar-106'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar106RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-105': {
+      id: '/_authenticated/supcal/calendar-105'
+      path: '/supcal/calendar-105'
+      fullPath: '/supcal/calendar-105'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar105RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-104': {
+      id: '/_authenticated/supcal/calendar-104'
+      path: '/supcal/calendar-104'
+      fullPath: '/supcal/calendar-104'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar104RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-103': {
+      id: '/_authenticated/supcal/calendar-103'
+      path: '/supcal/calendar-103'
+      fullPath: '/supcal/calendar-103'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar103RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-102': {
+      id: '/_authenticated/supcal/calendar-102'
+      path: '/supcal/calendar-102'
+      fullPath: '/supcal/calendar-102'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar102RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-101': {
+      id: '/_authenticated/supcal/calendar-101'
+      path: '/supcal/calendar-101'
+      fullPath: '/supcal/calendar-101'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar101RouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/supcal/calendar-100': {
+      id: '/_authenticated/supcal/calendar-100'
+      path: '/supcal/calendar-100'
+      fullPath: '/supcal/calendar-100'
+      preLoaderRoute: typeof AuthenticatedSupcalCalendar100RouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/supcal/calendar-10': {
@@ -1059,19 +3459,139 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSupcalCalendarRoute: typeof AuthenticatedSupcalCalendarRoute
   AuthenticatedSupcalCalendar1Route: typeof AuthenticatedSupcalCalendar1Route
   AuthenticatedSupcalCalendar10Route: typeof AuthenticatedSupcalCalendar10Route
+  AuthenticatedSupcalCalendar100Route: typeof AuthenticatedSupcalCalendar100Route
+  AuthenticatedSupcalCalendar101Route: typeof AuthenticatedSupcalCalendar101Route
+  AuthenticatedSupcalCalendar102Route: typeof AuthenticatedSupcalCalendar102Route
+  AuthenticatedSupcalCalendar103Route: typeof AuthenticatedSupcalCalendar103Route
+  AuthenticatedSupcalCalendar104Route: typeof AuthenticatedSupcalCalendar104Route
+  AuthenticatedSupcalCalendar105Route: typeof AuthenticatedSupcalCalendar105Route
+  AuthenticatedSupcalCalendar106Route: typeof AuthenticatedSupcalCalendar106Route
+  AuthenticatedSupcalCalendar107Route: typeof AuthenticatedSupcalCalendar107Route
+  AuthenticatedSupcalCalendar108Route: typeof AuthenticatedSupcalCalendar108Route
+  AuthenticatedSupcalCalendar109Route: typeof AuthenticatedSupcalCalendar109Route
   AuthenticatedSupcalCalendar11Route: typeof AuthenticatedSupcalCalendar11Route
+  AuthenticatedSupcalCalendar110Route: typeof AuthenticatedSupcalCalendar110Route
+  AuthenticatedSupcalCalendar111Route: typeof AuthenticatedSupcalCalendar111Route
+  AuthenticatedSupcalCalendar112Route: typeof AuthenticatedSupcalCalendar112Route
+  AuthenticatedSupcalCalendar113Route: typeof AuthenticatedSupcalCalendar113Route
+  AuthenticatedSupcalCalendar114Route: typeof AuthenticatedSupcalCalendar114Route
+  AuthenticatedSupcalCalendar115Route: typeof AuthenticatedSupcalCalendar115Route
+  AuthenticatedSupcalCalendar116Route: typeof AuthenticatedSupcalCalendar116Route
+  AuthenticatedSupcalCalendar117Route: typeof AuthenticatedSupcalCalendar117Route
+  AuthenticatedSupcalCalendar118Route: typeof AuthenticatedSupcalCalendar118Route
+  AuthenticatedSupcalCalendar119Route: typeof AuthenticatedSupcalCalendar119Route
   AuthenticatedSupcalCalendar12Route: typeof AuthenticatedSupcalCalendar12Route
+  AuthenticatedSupcalCalendar120Route: typeof AuthenticatedSupcalCalendar120Route
+  AuthenticatedSupcalCalendar121Route: typeof AuthenticatedSupcalCalendar121Route
+  AuthenticatedSupcalCalendar122Route: typeof AuthenticatedSupcalCalendar122Route
+  AuthenticatedSupcalCalendar123Route: typeof AuthenticatedSupcalCalendar123Route
+  AuthenticatedSupcalCalendar124Route: typeof AuthenticatedSupcalCalendar124Route
+  AuthenticatedSupcalCalendar125Route: typeof AuthenticatedSupcalCalendar125Route
+  AuthenticatedSupcalCalendar126Route: typeof AuthenticatedSupcalCalendar126Route
+  AuthenticatedSupcalCalendar127Route: typeof AuthenticatedSupcalCalendar127Route
+  AuthenticatedSupcalCalendar128Route: typeof AuthenticatedSupcalCalendar128Route
+  AuthenticatedSupcalCalendar129Route: typeof AuthenticatedSupcalCalendar129Route
   AuthenticatedSupcalCalendar13Route: typeof AuthenticatedSupcalCalendar13Route
+  AuthenticatedSupcalCalendar130Route: typeof AuthenticatedSupcalCalendar130Route
+  AuthenticatedSupcalCalendar131Route: typeof AuthenticatedSupcalCalendar131Route
+  AuthenticatedSupcalCalendar132Route: typeof AuthenticatedSupcalCalendar132Route
+  AuthenticatedSupcalCalendar133Route: typeof AuthenticatedSupcalCalendar133Route
+  AuthenticatedSupcalCalendar134Route: typeof AuthenticatedSupcalCalendar134Route
+  AuthenticatedSupcalCalendar135Route: typeof AuthenticatedSupcalCalendar135Route
   AuthenticatedSupcalCalendar14Route: typeof AuthenticatedSupcalCalendar14Route
   AuthenticatedSupcalCalendar15Route: typeof AuthenticatedSupcalCalendar15Route
+  AuthenticatedSupcalCalendar16Route: typeof AuthenticatedSupcalCalendar16Route
+  AuthenticatedSupcalCalendar17Route: typeof AuthenticatedSupcalCalendar17Route
+  AuthenticatedSupcalCalendar18Route: typeof AuthenticatedSupcalCalendar18Route
+  AuthenticatedSupcalCalendar19Route: typeof AuthenticatedSupcalCalendar19Route
   AuthenticatedSupcalCalendar2Route: typeof AuthenticatedSupcalCalendar2Route
+  AuthenticatedSupcalCalendar20Route: typeof AuthenticatedSupcalCalendar20Route
+  AuthenticatedSupcalCalendar21Route: typeof AuthenticatedSupcalCalendar21Route
+  AuthenticatedSupcalCalendar22Route: typeof AuthenticatedSupcalCalendar22Route
+  AuthenticatedSupcalCalendar23Route: typeof AuthenticatedSupcalCalendar23Route
+  AuthenticatedSupcalCalendar24Route: typeof AuthenticatedSupcalCalendar24Route
+  AuthenticatedSupcalCalendar25Route: typeof AuthenticatedSupcalCalendar25Route
+  AuthenticatedSupcalCalendar26Route: typeof AuthenticatedSupcalCalendar26Route
+  AuthenticatedSupcalCalendar27Route: typeof AuthenticatedSupcalCalendar27Route
+  AuthenticatedSupcalCalendar28Route: typeof AuthenticatedSupcalCalendar28Route
+  AuthenticatedSupcalCalendar29Route: typeof AuthenticatedSupcalCalendar29Route
   AuthenticatedSupcalCalendar3Route: typeof AuthenticatedSupcalCalendar3Route
+  AuthenticatedSupcalCalendar30Route: typeof AuthenticatedSupcalCalendar30Route
+  AuthenticatedSupcalCalendar31Route: typeof AuthenticatedSupcalCalendar31Route
+  AuthenticatedSupcalCalendar32Route: typeof AuthenticatedSupcalCalendar32Route
+  AuthenticatedSupcalCalendar33Route: typeof AuthenticatedSupcalCalendar33Route
+  AuthenticatedSupcalCalendar34Route: typeof AuthenticatedSupcalCalendar34Route
+  AuthenticatedSupcalCalendar35Route: typeof AuthenticatedSupcalCalendar35Route
+  AuthenticatedSupcalCalendar36Route: typeof AuthenticatedSupcalCalendar36Route
+  AuthenticatedSupcalCalendar37Route: typeof AuthenticatedSupcalCalendar37Route
+  AuthenticatedSupcalCalendar38Route: typeof AuthenticatedSupcalCalendar38Route
+  AuthenticatedSupcalCalendar39Route: typeof AuthenticatedSupcalCalendar39Route
   AuthenticatedSupcalCalendar4Route: typeof AuthenticatedSupcalCalendar4Route
+  AuthenticatedSupcalCalendar40Route: typeof AuthenticatedSupcalCalendar40Route
+  AuthenticatedSupcalCalendar41Route: typeof AuthenticatedSupcalCalendar41Route
+  AuthenticatedSupcalCalendar42Route: typeof AuthenticatedSupcalCalendar42Route
+  AuthenticatedSupcalCalendar43Route: typeof AuthenticatedSupcalCalendar43Route
+  AuthenticatedSupcalCalendar44Route: typeof AuthenticatedSupcalCalendar44Route
+  AuthenticatedSupcalCalendar45Route: typeof AuthenticatedSupcalCalendar45Route
+  AuthenticatedSupcalCalendar46Route: typeof AuthenticatedSupcalCalendar46Route
+  AuthenticatedSupcalCalendar47Route: typeof AuthenticatedSupcalCalendar47Route
+  AuthenticatedSupcalCalendar48Route: typeof AuthenticatedSupcalCalendar48Route
+  AuthenticatedSupcalCalendar49Route: typeof AuthenticatedSupcalCalendar49Route
   AuthenticatedSupcalCalendar5Route: typeof AuthenticatedSupcalCalendar5Route
+  AuthenticatedSupcalCalendar50Route: typeof AuthenticatedSupcalCalendar50Route
+  AuthenticatedSupcalCalendar51Route: typeof AuthenticatedSupcalCalendar51Route
+  AuthenticatedSupcalCalendar52Route: typeof AuthenticatedSupcalCalendar52Route
+  AuthenticatedSupcalCalendar53Route: typeof AuthenticatedSupcalCalendar53Route
+  AuthenticatedSupcalCalendar54Route: typeof AuthenticatedSupcalCalendar54Route
+  AuthenticatedSupcalCalendar55Route: typeof AuthenticatedSupcalCalendar55Route
+  AuthenticatedSupcalCalendar56Route: typeof AuthenticatedSupcalCalendar56Route
+  AuthenticatedSupcalCalendar57Route: typeof AuthenticatedSupcalCalendar57Route
+  AuthenticatedSupcalCalendar58Route: typeof AuthenticatedSupcalCalendar58Route
+  AuthenticatedSupcalCalendar59Route: typeof AuthenticatedSupcalCalendar59Route
   AuthenticatedSupcalCalendar6Route: typeof AuthenticatedSupcalCalendar6Route
+  AuthenticatedSupcalCalendar60Route: typeof AuthenticatedSupcalCalendar60Route
+  AuthenticatedSupcalCalendar61Route: typeof AuthenticatedSupcalCalendar61Route
+  AuthenticatedSupcalCalendar62Route: typeof AuthenticatedSupcalCalendar62Route
+  AuthenticatedSupcalCalendar63Route: typeof AuthenticatedSupcalCalendar63Route
+  AuthenticatedSupcalCalendar64Route: typeof AuthenticatedSupcalCalendar64Route
+  AuthenticatedSupcalCalendar65Route: typeof AuthenticatedSupcalCalendar65Route
+  AuthenticatedSupcalCalendar66Route: typeof AuthenticatedSupcalCalendar66Route
+  AuthenticatedSupcalCalendar67Route: typeof AuthenticatedSupcalCalendar67Route
+  AuthenticatedSupcalCalendar68Route: typeof AuthenticatedSupcalCalendar68Route
+  AuthenticatedSupcalCalendar69Route: typeof AuthenticatedSupcalCalendar69Route
   AuthenticatedSupcalCalendar7Route: typeof AuthenticatedSupcalCalendar7Route
+  AuthenticatedSupcalCalendar70Route: typeof AuthenticatedSupcalCalendar70Route
+  AuthenticatedSupcalCalendar71Route: typeof AuthenticatedSupcalCalendar71Route
+  AuthenticatedSupcalCalendar72Route: typeof AuthenticatedSupcalCalendar72Route
+  AuthenticatedSupcalCalendar73Route: typeof AuthenticatedSupcalCalendar73Route
+  AuthenticatedSupcalCalendar74Route: typeof AuthenticatedSupcalCalendar74Route
+  AuthenticatedSupcalCalendar75Route: typeof AuthenticatedSupcalCalendar75Route
+  AuthenticatedSupcalCalendar76Route: typeof AuthenticatedSupcalCalendar76Route
+  AuthenticatedSupcalCalendar77Route: typeof AuthenticatedSupcalCalendar77Route
+  AuthenticatedSupcalCalendar78Route: typeof AuthenticatedSupcalCalendar78Route
+  AuthenticatedSupcalCalendar79Route: typeof AuthenticatedSupcalCalendar79Route
   AuthenticatedSupcalCalendar8Route: typeof AuthenticatedSupcalCalendar8Route
+  AuthenticatedSupcalCalendar80Route: typeof AuthenticatedSupcalCalendar80Route
+  AuthenticatedSupcalCalendar81Route: typeof AuthenticatedSupcalCalendar81Route
+  AuthenticatedSupcalCalendar82Route: typeof AuthenticatedSupcalCalendar82Route
+  AuthenticatedSupcalCalendar83Route: typeof AuthenticatedSupcalCalendar83Route
+  AuthenticatedSupcalCalendar84Route: typeof AuthenticatedSupcalCalendar84Route
+  AuthenticatedSupcalCalendar85Route: typeof AuthenticatedSupcalCalendar85Route
+  AuthenticatedSupcalCalendar86Route: typeof AuthenticatedSupcalCalendar86Route
+  AuthenticatedSupcalCalendar87Route: typeof AuthenticatedSupcalCalendar87Route
+  AuthenticatedSupcalCalendar88Route: typeof AuthenticatedSupcalCalendar88Route
+  AuthenticatedSupcalCalendar89Route: typeof AuthenticatedSupcalCalendar89Route
   AuthenticatedSupcalCalendar9Route: typeof AuthenticatedSupcalCalendar9Route
+  AuthenticatedSupcalCalendar90Route: typeof AuthenticatedSupcalCalendar90Route
+  AuthenticatedSupcalCalendar91Route: typeof AuthenticatedSupcalCalendar91Route
+  AuthenticatedSupcalCalendar92Route: typeof AuthenticatedSupcalCalendar92Route
+  AuthenticatedSupcalCalendar93Route: typeof AuthenticatedSupcalCalendar93Route
+  AuthenticatedSupcalCalendar94Route: typeof AuthenticatedSupcalCalendar94Route
+  AuthenticatedSupcalCalendar95Route: typeof AuthenticatedSupcalCalendar95Route
+  AuthenticatedSupcalCalendar96Route: typeof AuthenticatedSupcalCalendar96Route
+  AuthenticatedSupcalCalendar97Route: typeof AuthenticatedSupcalCalendar97Route
+  AuthenticatedSupcalCalendar98Route: typeof AuthenticatedSupcalCalendar98Route
+  AuthenticatedSupcalCalendar99Route: typeof AuthenticatedSupcalCalendar99Route
   AuthenticatedSupcalCreateRoute: typeof AuthenticatedSupcalCreateRoute
   AuthenticatedSupcalProfileRoute: typeof AuthenticatedSupcalProfileRoute
   AuthenticatedSupcalRecordsRoute: typeof AuthenticatedSupcalRecordsRoute
@@ -1091,19 +3611,139 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSupcalCalendarRoute: AuthenticatedSupcalCalendarRoute,
   AuthenticatedSupcalCalendar1Route: AuthenticatedSupcalCalendar1Route,
   AuthenticatedSupcalCalendar10Route: AuthenticatedSupcalCalendar10Route,
+  AuthenticatedSupcalCalendar100Route: AuthenticatedSupcalCalendar100Route,
+  AuthenticatedSupcalCalendar101Route: AuthenticatedSupcalCalendar101Route,
+  AuthenticatedSupcalCalendar102Route: AuthenticatedSupcalCalendar102Route,
+  AuthenticatedSupcalCalendar103Route: AuthenticatedSupcalCalendar103Route,
+  AuthenticatedSupcalCalendar104Route: AuthenticatedSupcalCalendar104Route,
+  AuthenticatedSupcalCalendar105Route: AuthenticatedSupcalCalendar105Route,
+  AuthenticatedSupcalCalendar106Route: AuthenticatedSupcalCalendar106Route,
+  AuthenticatedSupcalCalendar107Route: AuthenticatedSupcalCalendar107Route,
+  AuthenticatedSupcalCalendar108Route: AuthenticatedSupcalCalendar108Route,
+  AuthenticatedSupcalCalendar109Route: AuthenticatedSupcalCalendar109Route,
   AuthenticatedSupcalCalendar11Route: AuthenticatedSupcalCalendar11Route,
+  AuthenticatedSupcalCalendar110Route: AuthenticatedSupcalCalendar110Route,
+  AuthenticatedSupcalCalendar111Route: AuthenticatedSupcalCalendar111Route,
+  AuthenticatedSupcalCalendar112Route: AuthenticatedSupcalCalendar112Route,
+  AuthenticatedSupcalCalendar113Route: AuthenticatedSupcalCalendar113Route,
+  AuthenticatedSupcalCalendar114Route: AuthenticatedSupcalCalendar114Route,
+  AuthenticatedSupcalCalendar115Route: AuthenticatedSupcalCalendar115Route,
+  AuthenticatedSupcalCalendar116Route: AuthenticatedSupcalCalendar116Route,
+  AuthenticatedSupcalCalendar117Route: AuthenticatedSupcalCalendar117Route,
+  AuthenticatedSupcalCalendar118Route: AuthenticatedSupcalCalendar118Route,
+  AuthenticatedSupcalCalendar119Route: AuthenticatedSupcalCalendar119Route,
   AuthenticatedSupcalCalendar12Route: AuthenticatedSupcalCalendar12Route,
+  AuthenticatedSupcalCalendar120Route: AuthenticatedSupcalCalendar120Route,
+  AuthenticatedSupcalCalendar121Route: AuthenticatedSupcalCalendar121Route,
+  AuthenticatedSupcalCalendar122Route: AuthenticatedSupcalCalendar122Route,
+  AuthenticatedSupcalCalendar123Route: AuthenticatedSupcalCalendar123Route,
+  AuthenticatedSupcalCalendar124Route: AuthenticatedSupcalCalendar124Route,
+  AuthenticatedSupcalCalendar125Route: AuthenticatedSupcalCalendar125Route,
+  AuthenticatedSupcalCalendar126Route: AuthenticatedSupcalCalendar126Route,
+  AuthenticatedSupcalCalendar127Route: AuthenticatedSupcalCalendar127Route,
+  AuthenticatedSupcalCalendar128Route: AuthenticatedSupcalCalendar128Route,
+  AuthenticatedSupcalCalendar129Route: AuthenticatedSupcalCalendar129Route,
   AuthenticatedSupcalCalendar13Route: AuthenticatedSupcalCalendar13Route,
+  AuthenticatedSupcalCalendar130Route: AuthenticatedSupcalCalendar130Route,
+  AuthenticatedSupcalCalendar131Route: AuthenticatedSupcalCalendar131Route,
+  AuthenticatedSupcalCalendar132Route: AuthenticatedSupcalCalendar132Route,
+  AuthenticatedSupcalCalendar133Route: AuthenticatedSupcalCalendar133Route,
+  AuthenticatedSupcalCalendar134Route: AuthenticatedSupcalCalendar134Route,
+  AuthenticatedSupcalCalendar135Route: AuthenticatedSupcalCalendar135Route,
   AuthenticatedSupcalCalendar14Route: AuthenticatedSupcalCalendar14Route,
   AuthenticatedSupcalCalendar15Route: AuthenticatedSupcalCalendar15Route,
+  AuthenticatedSupcalCalendar16Route: AuthenticatedSupcalCalendar16Route,
+  AuthenticatedSupcalCalendar17Route: AuthenticatedSupcalCalendar17Route,
+  AuthenticatedSupcalCalendar18Route: AuthenticatedSupcalCalendar18Route,
+  AuthenticatedSupcalCalendar19Route: AuthenticatedSupcalCalendar19Route,
   AuthenticatedSupcalCalendar2Route: AuthenticatedSupcalCalendar2Route,
+  AuthenticatedSupcalCalendar20Route: AuthenticatedSupcalCalendar20Route,
+  AuthenticatedSupcalCalendar21Route: AuthenticatedSupcalCalendar21Route,
+  AuthenticatedSupcalCalendar22Route: AuthenticatedSupcalCalendar22Route,
+  AuthenticatedSupcalCalendar23Route: AuthenticatedSupcalCalendar23Route,
+  AuthenticatedSupcalCalendar24Route: AuthenticatedSupcalCalendar24Route,
+  AuthenticatedSupcalCalendar25Route: AuthenticatedSupcalCalendar25Route,
+  AuthenticatedSupcalCalendar26Route: AuthenticatedSupcalCalendar26Route,
+  AuthenticatedSupcalCalendar27Route: AuthenticatedSupcalCalendar27Route,
+  AuthenticatedSupcalCalendar28Route: AuthenticatedSupcalCalendar28Route,
+  AuthenticatedSupcalCalendar29Route: AuthenticatedSupcalCalendar29Route,
   AuthenticatedSupcalCalendar3Route: AuthenticatedSupcalCalendar3Route,
+  AuthenticatedSupcalCalendar30Route: AuthenticatedSupcalCalendar30Route,
+  AuthenticatedSupcalCalendar31Route: AuthenticatedSupcalCalendar31Route,
+  AuthenticatedSupcalCalendar32Route: AuthenticatedSupcalCalendar32Route,
+  AuthenticatedSupcalCalendar33Route: AuthenticatedSupcalCalendar33Route,
+  AuthenticatedSupcalCalendar34Route: AuthenticatedSupcalCalendar34Route,
+  AuthenticatedSupcalCalendar35Route: AuthenticatedSupcalCalendar35Route,
+  AuthenticatedSupcalCalendar36Route: AuthenticatedSupcalCalendar36Route,
+  AuthenticatedSupcalCalendar37Route: AuthenticatedSupcalCalendar37Route,
+  AuthenticatedSupcalCalendar38Route: AuthenticatedSupcalCalendar38Route,
+  AuthenticatedSupcalCalendar39Route: AuthenticatedSupcalCalendar39Route,
   AuthenticatedSupcalCalendar4Route: AuthenticatedSupcalCalendar4Route,
+  AuthenticatedSupcalCalendar40Route: AuthenticatedSupcalCalendar40Route,
+  AuthenticatedSupcalCalendar41Route: AuthenticatedSupcalCalendar41Route,
+  AuthenticatedSupcalCalendar42Route: AuthenticatedSupcalCalendar42Route,
+  AuthenticatedSupcalCalendar43Route: AuthenticatedSupcalCalendar43Route,
+  AuthenticatedSupcalCalendar44Route: AuthenticatedSupcalCalendar44Route,
+  AuthenticatedSupcalCalendar45Route: AuthenticatedSupcalCalendar45Route,
+  AuthenticatedSupcalCalendar46Route: AuthenticatedSupcalCalendar46Route,
+  AuthenticatedSupcalCalendar47Route: AuthenticatedSupcalCalendar47Route,
+  AuthenticatedSupcalCalendar48Route: AuthenticatedSupcalCalendar48Route,
+  AuthenticatedSupcalCalendar49Route: AuthenticatedSupcalCalendar49Route,
   AuthenticatedSupcalCalendar5Route: AuthenticatedSupcalCalendar5Route,
+  AuthenticatedSupcalCalendar50Route: AuthenticatedSupcalCalendar50Route,
+  AuthenticatedSupcalCalendar51Route: AuthenticatedSupcalCalendar51Route,
+  AuthenticatedSupcalCalendar52Route: AuthenticatedSupcalCalendar52Route,
+  AuthenticatedSupcalCalendar53Route: AuthenticatedSupcalCalendar53Route,
+  AuthenticatedSupcalCalendar54Route: AuthenticatedSupcalCalendar54Route,
+  AuthenticatedSupcalCalendar55Route: AuthenticatedSupcalCalendar55Route,
+  AuthenticatedSupcalCalendar56Route: AuthenticatedSupcalCalendar56Route,
+  AuthenticatedSupcalCalendar57Route: AuthenticatedSupcalCalendar57Route,
+  AuthenticatedSupcalCalendar58Route: AuthenticatedSupcalCalendar58Route,
+  AuthenticatedSupcalCalendar59Route: AuthenticatedSupcalCalendar59Route,
   AuthenticatedSupcalCalendar6Route: AuthenticatedSupcalCalendar6Route,
+  AuthenticatedSupcalCalendar60Route: AuthenticatedSupcalCalendar60Route,
+  AuthenticatedSupcalCalendar61Route: AuthenticatedSupcalCalendar61Route,
+  AuthenticatedSupcalCalendar62Route: AuthenticatedSupcalCalendar62Route,
+  AuthenticatedSupcalCalendar63Route: AuthenticatedSupcalCalendar63Route,
+  AuthenticatedSupcalCalendar64Route: AuthenticatedSupcalCalendar64Route,
+  AuthenticatedSupcalCalendar65Route: AuthenticatedSupcalCalendar65Route,
+  AuthenticatedSupcalCalendar66Route: AuthenticatedSupcalCalendar66Route,
+  AuthenticatedSupcalCalendar67Route: AuthenticatedSupcalCalendar67Route,
+  AuthenticatedSupcalCalendar68Route: AuthenticatedSupcalCalendar68Route,
+  AuthenticatedSupcalCalendar69Route: AuthenticatedSupcalCalendar69Route,
   AuthenticatedSupcalCalendar7Route: AuthenticatedSupcalCalendar7Route,
+  AuthenticatedSupcalCalendar70Route: AuthenticatedSupcalCalendar70Route,
+  AuthenticatedSupcalCalendar71Route: AuthenticatedSupcalCalendar71Route,
+  AuthenticatedSupcalCalendar72Route: AuthenticatedSupcalCalendar72Route,
+  AuthenticatedSupcalCalendar73Route: AuthenticatedSupcalCalendar73Route,
+  AuthenticatedSupcalCalendar74Route: AuthenticatedSupcalCalendar74Route,
+  AuthenticatedSupcalCalendar75Route: AuthenticatedSupcalCalendar75Route,
+  AuthenticatedSupcalCalendar76Route: AuthenticatedSupcalCalendar76Route,
+  AuthenticatedSupcalCalendar77Route: AuthenticatedSupcalCalendar77Route,
+  AuthenticatedSupcalCalendar78Route: AuthenticatedSupcalCalendar78Route,
+  AuthenticatedSupcalCalendar79Route: AuthenticatedSupcalCalendar79Route,
   AuthenticatedSupcalCalendar8Route: AuthenticatedSupcalCalendar8Route,
+  AuthenticatedSupcalCalendar80Route: AuthenticatedSupcalCalendar80Route,
+  AuthenticatedSupcalCalendar81Route: AuthenticatedSupcalCalendar81Route,
+  AuthenticatedSupcalCalendar82Route: AuthenticatedSupcalCalendar82Route,
+  AuthenticatedSupcalCalendar83Route: AuthenticatedSupcalCalendar83Route,
+  AuthenticatedSupcalCalendar84Route: AuthenticatedSupcalCalendar84Route,
+  AuthenticatedSupcalCalendar85Route: AuthenticatedSupcalCalendar85Route,
+  AuthenticatedSupcalCalendar86Route: AuthenticatedSupcalCalendar86Route,
+  AuthenticatedSupcalCalendar87Route: AuthenticatedSupcalCalendar87Route,
+  AuthenticatedSupcalCalendar88Route: AuthenticatedSupcalCalendar88Route,
+  AuthenticatedSupcalCalendar89Route: AuthenticatedSupcalCalendar89Route,
   AuthenticatedSupcalCalendar9Route: AuthenticatedSupcalCalendar9Route,
+  AuthenticatedSupcalCalendar90Route: AuthenticatedSupcalCalendar90Route,
+  AuthenticatedSupcalCalendar91Route: AuthenticatedSupcalCalendar91Route,
+  AuthenticatedSupcalCalendar92Route: AuthenticatedSupcalCalendar92Route,
+  AuthenticatedSupcalCalendar93Route: AuthenticatedSupcalCalendar93Route,
+  AuthenticatedSupcalCalendar94Route: AuthenticatedSupcalCalendar94Route,
+  AuthenticatedSupcalCalendar95Route: AuthenticatedSupcalCalendar95Route,
+  AuthenticatedSupcalCalendar96Route: AuthenticatedSupcalCalendar96Route,
+  AuthenticatedSupcalCalendar97Route: AuthenticatedSupcalCalendar97Route,
+  AuthenticatedSupcalCalendar98Route: AuthenticatedSupcalCalendar98Route,
+  AuthenticatedSupcalCalendar99Route: AuthenticatedSupcalCalendar99Route,
   AuthenticatedSupcalCreateRoute: AuthenticatedSupcalCreateRoute,
   AuthenticatedSupcalProfileRoute: AuthenticatedSupcalProfileRoute,
   AuthenticatedSupcalRecordsRoute: AuthenticatedSupcalRecordsRoute,
